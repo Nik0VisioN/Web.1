@@ -5,19 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="script.js"></script>
-    <style>
+    <style> 
             a:link    {color:rgb(139, 14, 223); text-decoration:none}
             a:visited {color:rgb(40, 9, 219); text-decoration:none}
             a:hover   {color:rgb(9, 233, 166); text-decoration:underline}
             a:active  {color:rgb(228, 16, 9); text-decoration:underline}
-        </style>
+        </style> <!-- colors that are displayed when hovering over and clicking text -->
 </head>
 <body>
-    <img src="Logo Channel.png" style="float:left; margin-right:10px;" alt="Мое лого канала">
-    <p> Мой сайт</p>
-  <p><a href="https://www.youtube.com/@Niko_Vision" target="_blank">YouTube</a></p>
 
- <p><a href="https://t.me/NikoVisioN" target="_blank">
+    <p>
+    <form method="post" style="float:right;" autocomplete="off" action="https://t.me/NikoVisioN">
+    <input type="text" required id="login" autofocus id="login" name="login" placeholder="Nickname"/>
+    <input type="password" min="8" max="16"required id="password" id="password" name="password" placeholder="Password" autocomplete="off" />
+    <input type="submit" value="Continue" /></form>
+    </p> <!-- Entrance to the e-site -->
+
+
+    <!--
+    <form method="get"> 
+    <p>
+        <label for="comment">Your comment:</label><br/>
+        <textarea name="comment" id="comment" placeholder="No more than 300 characters" maxlength="300"></textarea>
+    </p> --> <!-- Write a comment -->
+
+
+    <!-- <p> 
+        <input type="file" style="float:right;" value="Send" multiple placeholder="download file"/> 
+    </p> 
+    <p> 
+    <input type="submit" style="float:right;" value="Send"/> 
+    </p> --> <!-- Download file, transition through click on text -->
+
+
+    <img src="Logo Channel.png" style="float:left; margin-right:10px;" alt="My channel logo">
+    <p> 
+        My site
+    </p>
+
+
+    <p> 
+    <a href="https://www.youtube.com/@Niko_Vision" target="_blank">YouTube</a>
+    </p> <!-- YouTube channel, transition through click on text -->
+
+
+    <p>
+    <a href="https://t.me/NikoVisioN" target="_blank">
     <img src="telega 48x48.png" alt="Telegram"></a>
-</body>
+      <!-- Telegram channel. Transition through link in image -->
+    </p>
+
+ </body>
 </html>
