@@ -4,21 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
     <script src="script.js"></script>
     <style> 
-            a:link    {color:rgb(139, 14, 223); text-decoration:none}
-            a:visited {color:rgb(40, 9, 219); text-decoration:none}
-            a:hover   {color:rgb(9, 233, 166); text-decoration:underline}
-            a:active  {color:rgb(228, 16, 9); text-decoration:underline}
-        </style> <!-- colors that are displayed when hovering over and clicking text -->
+        a:link    {color:rgb(139, 14, 223); text-decoration:none}
+        a:visited {color:rgb(40, 9, 219); text-decoration:none}
+        a:hover   {color:rgb(9, 233, 166); text-decoration:underline}
+        a:active  {color:rgb(228, 16, 9); text-decoration:underline}
+
+        div
+        {
+            margin: 10px;
+            border: 1px solid #222;
+        }
+        #header
+        {
+                height: 80px;
+                width: 99%;
+                background-color: #ccc;
+        }
+        #content
+        {
+                height: 180px;
+                width: 99%;
+                background-color: #eee;
+        }
+        #footer
+        {
+                height: 80px;
+                width: 99%;
+                background-color: #ccc;
+        }
+    </style> <!-- colors that are displayed when hovering over and clicking text -->
 </head>
+
+<body>
+    <div id="header">Site Header</div>
+    <div id="content">Main Content</div>
+    <div id="footer">Site Footer</div>
+</body>
+
 <body>
 
     <p>
-    <form method="post" style="float:right;" autocomplete="off" action="https://t.me/NikoVisioN">
-    <input type="text" required id="login" autofocus id="login" name="login" placeholder="Nickname"/>
-    <input type="password" min="8" max="16"required id="password" id="password" name="password" placeholder="Password" autocomplete="off" />
-    <input type="submit" value="Continue" /></form>
+        <form method="post" style="float:right;" autocomplete="off" action="https://t.me/NikoVisioN">
+        <input type="text" required id="login" autofocus id="login" name="login" placeholder="Nickname"/>
+        <input type="password" min="8" max="16"required id="password" id="password" name="password" placeholder="Password" autocomplete="off" />
+        <input type="submit" value="Continue" /></form>
     </p> <!-- Entrance to the e-site -->
 
 
@@ -38,20 +70,29 @@
     </p> --> <!-- Download file, transition through click on text -->
 
 
-    <img src="Logo Channel.png" style="float:left; margin-right:10px;" alt="My channel logo">
+    <img src="Logo/Logo Channel.png" style="float:left; margin-right:10px; width: 3%; height: auto;" alt="My channel logo">
     <p> 
-        My site
-    </p>
+        <!-- For future updates -->
+    </p> <!-- Logo of the channel, transition through click on image -->
 
+    <main>
+        <h1>My site</h1>
+            <p>That's my 1st site </p>
+    <article>
+        <h2>In development</h2>
+            <div2>
+                Your text can be here ^_^
+            </div2>
+    </article> <!-- Main content of the site -->
 
     <p> 
-    <a href="https://www.youtube.com/@Niko_Vision" target="_blank">YouTube</a>
+    <a href="https://www.youtube.com/@Niko_Vision" style="float:right;" target="_blank">YouTube</a>
     </p> <!-- YouTube channel, transition through click on text -->
 
 
     <p>
-    <a href="https://t.me/NikoVisioN" target="_blank">
-    <img src="telega 48x48.png" alt="Telegram"></a>
+    <a href="https://t.me/NikoVisioN" style="float:right;"target="_blank">
+    <img src="Logo/telega 48x48.png" alt="Telegram"></a>
       <!-- Telegram channel. Transition through link in image -->
     </p>
 
