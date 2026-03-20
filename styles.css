@@ -1,21 +1,48 @@
-h1
+/* ── Light mode (default) ── */
+body 
 {
-    color:rgb(7, 0, 0);
-    background-color: rgb(255, 255, 255);
-}h2
-{
-    color:rgb(7, 0, 0);
-    background-color: rgb(255, 255, 255);
+  background-color: #ffffff;
+  color: #000000;
 }
-div
+
+button 
 {
-    width: 100px; 
-    height: 100px; 
-    background-color: rgb(255, 255, 255);
+  background-color: #eeeeee;
+  color: #000000;
+  border: 1px solid #cccccc;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 6px;
 }
-p
+
+h1 { color: rgb(7, 0, 0); }
+h2 { color: rgb(7, 0, 0); }
+
+div { width: 100px; height: 100px; }
+
+p 
 {
-    color:rgb(0, 0, 0);
-    font-size: 20px;
-    background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+}
+
+/* ── Dark mode ── */
+body.dark 
+{
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark button 
+{
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444444;
+}
+
+body.dark h1,
+body.dark h2,
+body.dark p 
+{
+  color: #e0e0e0;
 }
