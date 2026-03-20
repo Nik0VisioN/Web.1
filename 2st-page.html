@@ -3,15 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>default</title>
+    <script>
+        if (localStorage.getItem('theme') === 'dark') 
+        {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     <link rel="stylesheet" type="text/css" href="styles.css"/>
     <style> 
-        a:link    {color:rgb(139, 14, 223); text-decoration:none}
-        a:visited {color:rgb(40, 9, 219); text-decoration:none}
-        a:hover   {color:rgb(9, 233, 166); text-decoration:underline}
-        a:active  {color:rgb(228, 16, 9); text-decoration:underline}
+        a:link    {color:#0071e3; text-decoration:none}
+        a:visited {color:#0071e3; text-decoration:none}
+        a:hover   {color:#0077ed; text-decoration:underline; text-underline-offset: 3px}
+        a:active  {color:#005bb5; text-decoration:none}
 
-    div
+        div
         {
             margin: 10px;
             border: 1px solid #222;
@@ -34,6 +40,7 @@
             width: 99%;
             background-color: #ccc;
         }
+    
     </style> <!-- colors that are displayed when hovering over and clicking text -->
 </head>
 
@@ -42,9 +49,11 @@
 <body>
     <button id="theme-btn">🌙 Dark Mode</button>
 
-    <div id="header">1</div>
-    <div id="content">2</div>
-    <div id="footer">3</div>
+
+    <div class="next-page">
+        <a href="index.html">Next Page</a>
+    </div>
+
 
     <script src="script.js"></script>
 </body>
