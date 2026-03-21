@@ -26,4 +26,3 @@ btn.addEventListener('click', function()
         localStorage.setItem('theme', 'light');
         }
 });
-// added class, if it doesn't exist, and removes it if it does.
