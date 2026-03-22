@@ -11,48 +11,72 @@
         }
     </script>
     <link rel="stylesheet" type="text/css" href="styles.css"/>
-    <style> 
-        a:link    {color:#0071e3; text-decoration:none}
-        a:visited {color:#0071e3; text-decoration:none}
-        a:hover   {color:#0077ed; text-decoration:underline; text-underline-offset: 3px}
-        a:active  {color:#005bb5; text-decoration:none}
-
-        div
-        {
-            margin: 10px;
-            border: 1px solid #222;
-        }
-        #header
-        {
-            height: 80px;
-            width: 99%;
-            background-color: #ccc;
-        }
-        #content
-        {
-            height: 180px;
-            width: 99%;
-            background-color: #eee;
-        }
-        #footer
-        {
-            height: 80px;
-            width: 99%;
-            background-color: #ccc;
-        }
     
-    </style> <!-- colors that are displayed when hovering over and clicking text -->
+<div class="auth-overlay" id="auth-overlay" onclick="closeAuth(event)">
+    <div class="auth-modal">
+        <button class="auth-close" onclick="closeAuth()">✕</button>
+        <h2>Sign In</h2>
+        <p>Welcome back</p>
+        <input type="text" placeholder="Nickname" />
+        <input type="password" placeholder="Password" />
+        <button class="auth-submit">Continue</button>
+    </div>
+</div>
+
+
+
 </head>
 
 
 
 <body>
-    <button id="theme-btn">🌙 Dark Mode</button>
-
-
-    <div class="next-page">
-        <a href="index.html">Next Page</a>
+    <nav class="navbar">
+    <div class="navbar-left">
+        <button id="theme-btn">🌙 Dark Mode</button>
     </div>
+
+    <div class="navbar-center">
+        
+    </div>
+    
+    <div class="navbar-right">
+        <button class="sign-in-btn" onclick="openAuth()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+            </svg>
+            Sign In
+        </button>
+    </div>
+</nav>
+
+
+
+<div class="next-page">
+    <a href="index.html">Next Page</a>
+</div>
+
+
+
+<div class="sidebar-badges">
+    <a class="sidebar-badges_activity" href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank">
+        <img src="https://jigsaw.w3.org/css-validator/images/vcss" alt="Valid CSS">
+    </a>
+    <a class="sidebar-badges_activity" href="https://jigsaw.w3.org/css-validator/check/referer" target="_blank">
+        <img src="https://jigsaw.w3.org/css-validator/images/vcss-blue" alt="Valid CSS Blue">
+    </a>
+</div>
+
+
+
+<div class="auth-overlay" id="logout-overlay" onclick="closeLogout(event)">
+    <div class="auth-modal">
+    <button class="auth-close" onclick="closeLogout()">✕</button>
+    <h2>Sign Out</h2>
+    <p>Are you sure you want to sign out?</p>
+    <button class="auth-submit" id="logout-confirm">Sign Out</button>
+    <button class="auth-cancel" onclick="closeLogout()">Cancel</button>
+</div>
+
 
 
     <script src="script.js"></script>

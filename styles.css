@@ -1,25 +1,117 @@
-
-/* ── Global Styles ── */
-* 
-{
+/* ── Global Styles ( reset styles in browsers ) ── */
+/* -------------------------------------------------------------------------------------------------------------- */
+*{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+/* -------------------------------------------------------------------------------------------------------------- */
+
+
+
+/* Box sizing rules */
+/* -------------------------------------------------------------------------------------------------------------- */
+*,
+*::before,
+*::after 
+{
+  box-sizing: border-box;
 }
 
+/* Prevent font size inflation */
+html 
+{
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd 
+{
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] 
+{
+  list-style: none;
+}
+
+/* Set core body defaults */
 body 
 {
-    font-family: "Segoe UI", Arial, sans-serif;;
-    background-color: #ffffff;
-    color: #1d1d1f;
-    line-height: 1.6;
+  min-height: 100vh;
+  line-height: 1.5;
 }
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label 
+{
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 
+{
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) 
+{
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture 
+{
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select 
+{
+  font: inherit;
+}
+
+/* Make sure textarea without a rows attribute are not tiny */
+textarea:not([rows]) 
+{
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target 
+{
+  scroll-margin-block: 5ex;
+}
+
+/* -------------------------------------------------------------------------------------------------------------- */
+
+
 
 /* ── Links ── */
 a:link    { color: #0071e3; text-decoration: none; }
 a:visited { color: #0071e3; text-decoration: none; }
 a:hover   { color: #0077ed; text-decoration: underline; text-underline-offset: 3px; }
 a:active  { color: #005bb5; text-decoration: none; }
+
+
+body 
+{
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #ffffff;
+    color: #1d1d1f;
+    line-height: 1.6;
+}
 
 /* ── Hero (шапка) ── */
 .hero 
@@ -74,10 +166,6 @@ a:active  { color: #005bb5; text-decoration: none; }
 }
 html.dark .hero::before { opacity: 0.45; }
 html.dark .hero::after  { opacity: 0.45; }
-
-
-
-
 
 
 .hero-name 
@@ -165,12 +253,12 @@ html.dark .section p
 {
     color: #a1a1a6;
 }
-
+/* -------------------------------------------------------------------------------------------------------------- */
 
 
 
 /* ── BUTTONS ── */
-
+/* -------------------------------------------------------------------------------------------------------------- */
 button 
 {
     background-color: #eeeeee;
@@ -180,6 +268,31 @@ button
     cursor: pointer;
     border-radius: 6px;
     margin: 20px;
+}
+
+
+#theme-btn 
+{
+    border-radius: 980px;        /* pill-form like the sign-in button */
+    transition: background 0.2s, border 0.2s;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+#theme-btn:hover 
+{
+    background-color: #dedede;
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+html.dark #theme-btn 
+{
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+html.dark #theme-btn:hover 
+{
+    background-color: #3a3a3a;
+    border-color: rgba(255, 255, 255, 0.4);
 }
 
 
@@ -193,7 +306,7 @@ button
 .next-page a 
 {
     display: inline-block;
-    padding: 12px 32px;
+    padding: 8px 22px;  /* size of the button ( pill-form - NEXT PAGE ) */
     border: 1px solid #0071e3;
     border-radius: 980px;        /* pill-form */
     color: #0071e3;
@@ -210,14 +323,250 @@ button
 }
 
 /* Dark mode for next page button */
-body.dark .next-page a 
+html.dark .next-page a 
 {
     border-color: #2997ff;
     color: #2997ff;
 }
 
-body.dark .next-page a:hover 
+html.dark .next-page a:hover 
 {
     background-color: #2997ff;
     color: #000000;
 }
+/* -------------------------------------------------------------------------------------------------------------- */
+
+
+
+/* ── Sidebar Badges ── */
+/* -------------------------------------------------------------------------------------------------------------- */
+.sidebar-badges 
+{
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;  /* space between badges */
+    z-index: 100;
+}
+
+.sidebar-badges_activity 
+{
+    opacity: 0.4;   /* not active */
+    transition: opacity 0.3s;
+    display: block;
+}
+.sidebar-badges_activity:hover 
+{
+    opacity: 0.8;               /* active */
+}
+
+.sidebar-badges_activity img 
+{
+    height: 20px;              
+    width: auto;
+    border-radius: 4px;
+    filter: grayscale(100%);  /* black and white */
+    transition: filter 0.3s;
+    display: block;     
+}
+
+.sidebar-badges_activity:hover img 
+{
+    filter: grayscale(0%);      /* colors */
+}
+/* -------------------------------------------------------------------------------------------------------------- */
+
+
+
+/* ── User Profile Card ── */
+/* -------------------------------------------------------------------------------------------------------------- */
+/* ── Navbar (navigation bar) ── */
+.navbar 
+{
+    position: fixed;
+    top: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.navbar-left,
+.navbar-center,
+.navbar-right 
+{
+    pointer-events: all;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* -------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+/* ── Sign In button ── */
+.sign-in-btn 
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(46, 45, 45, 0.1);
+    color: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 980px;
+    cursor: pointer;
+    font-size: 14px;
+    backdrop-filter: blur(10px);
+    transition: background 0.2s, border 0.2s;
+}
+
+.sign-in-btn:hover 
+{
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+html.dark .sign-in-btn 
+{
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Auth overlay ── */
+.auth-overlay 
+{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-overlay.active 
+{
+    display: flex;
+}
+
+/* ── Authorization window ── */
+.auth-modal 
+{
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+}
+
+.auth-modal h2 
+{
+    font-size: 28px;
+    font-weight: 700;
+    color: #f5f5f7;
+    margin: 0;
+}
+
+.auth-modal p 
+{
+    color: #a1a1a6;
+    font-size: 15px;
+    margin: 0;
+}
+
+.auth-modal input 
+{
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.07);
+    color: #f5f5f7;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.auth-modal input:focus 
+{
+    border-color: #2997ff;
+}
+
+.auth-submit 
+{
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: #2997ff;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin: 0;
+}
+
+.auth-submit:hover 
+{
+    background: #0071e3;
+}
+
+.auth-close 
+{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #a1a1a6;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.auth-close:hover 
+{
+    background: rgba(255, 255, 255, 0.2);
+    color: #f5f5f7;
+}
+
+.auth-cancel 
+{
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
+    color: #a1a1a6;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin: 0;
+}
+
+.auth-cancel:hover 
+{
+    background: rgba(255, 255, 255, 0.08);
+    color: #f5f5f7;
+}
+/* -------------------------------------------------------------------------------------------------------------- */
