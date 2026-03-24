@@ -1,0 +1,247 @@
+/* ── BUTTONS ── */
+/* -------------------------------------------------------------------------------------------------------------- */
+button 
+{
+    background-color: #eeeeee;
+    color: #000000;
+    border: 1px solid #cccccc;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 980px;  /* pill-form like the sign-in button */
+    margin: 20px;
+    font-size: 13px;
+    transition: background 0.2s, border 0.2s;
+}
+
+
+#theme-btn 
+{
+    border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+#theme-btn:hover 
+{
+    background-color: #dedede;
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+html.dark #theme-btn 
+{
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+html.dark #theme-btn:hover 
+{
+    background-color: #3a3a3a;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+
+/* ── Next page button ── */
+.next-page 
+{
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.next-page a 
+{
+    display: inline-block;
+    padding: 8px 22px;  /* size of the button ( pill-form - NEXT PAGE ) */
+    border: 1px solid #0071e3;
+    border-radius: 980px;        /* pill-form */
+    color: #0071e3;
+    font-size: 17px;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.next-page a:hover 
+{
+    background-color: #0071e3;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* Dark mode for next page button */
+html.dark .next-page a 
+{
+    border-color: #2997ff;
+    color: #2997ff;
+}
+
+html.dark .next-page a:hover 
+{
+    background-color: #2997ff;
+    color: #000000;
+}
+/* -------------------------------------------------------------------------------------------------------------- */
+
+
+
+/* -------------------------------------------------------------------------------------------------------------- */
+/* ── Sign In button ── */
+.sign-in-button 
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #eeeeee;                  /* like button */
+    color: #000000;
+    border: 1px solid rgba(0, 0, 0, 0.15);      /* like #theme-btn */
+    border-radius: 980px;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+}
+
+.sign-in-button:hover 
+{
+    background-color: #dedede;                  /* like #theme-btn:hover */
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+html.dark.sign-in-button 
+{
+    background-color: #2a2a2a;                  /* like html.dark button */
+    color: #e0e0e0;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+html.dark.sign-in-button:hover 
+{
+    background-color: #3a3a3a;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Auth overlay ── */
+.authorization-overlay 
+{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+}
+
+.authorization-overlay.active 
+{
+    display: flex;
+}
+
+/* ── Authorization window ── */
+.authorization-overlay-window
+{
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 48px 40px;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+}
+
+.authorization-overlay h2
+{
+    font-size: 28px;
+    font-weight: 700;
+    color: #f5f5f7;
+    margin: 0;
+}
+
+.authorization-overlay p 
+{
+    color: #a1a1a6;
+    font-size: 15px;
+    margin: 0;
+}
+
+.authorization-overlay input 
+{
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.07);
+    color: #f5f5f7;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.authorization-overlay input:focus 
+{
+    border-color: #2997ff;
+}
+
+.authorization-submit 
+{
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: #2997ff;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin: 0;
+}
+
+.authorization-submit:hover 
+{
+    background: #0071e3;
+}
+
+.authorization-close 
+{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #a1a1a6;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+.authorization-close:hover 
+{
+    background: rgba(255, 255, 255, 0.2);
+    color: #f5f5f7;
+}
+
+.auth-cancel 
+{
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
+    color: #a1a1a6;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin: 0;
+}
+
+.auth-cancel:hover 
+{
+    background: rgba(255, 255, 255, 0.08);
+    color: #f5f5f7;
+}
+/* -------------------------------------------------------------------------------------------------------------- */

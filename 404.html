@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>default</title>
+
+        <link rel="stylesheet" type="text/css" href="styles.css"/>
+        <link rel="stylesheet" type="text/css" href="buttons.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark') 
+        {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+
+   
+
+    <style>
+        body
+        {
+            margin: 0;
+            min-height: 100vh;
+            background: #f5f5f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            transition: background 0.8s ease, color 0.8s ease;
+        }
+
+        html.dark body
+        {
+            background: #000;
+            color: #f5f5f7;
+        }
+
+        /* ── Lamp shines on "404" ── */
+        .lamp-main
+        {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .lamp-cable
+        {
+            width: 2px;
+            height: 80px;
+            background: #888;
+            transition: background 0.8s;
+        }
+        html.dark .lamp-cable { background: #555; }
+
+        .lamp-body
+        {
+            width: 60px;
+            height: 80px;
+            background: linear-gradient(160deg, #c8c8c0, #a0a098);
+            clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+            border-radius: 0 0 8px 8px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: background 0.8s;
+        }
+        html.dark .lamp-body {background: linear-gradient(160deg, #555, #333);}
+
+        /* Color under lamp */
+        .lamp-color
+        {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,220,100,0.6) 0%, rgba(255,180,50,0.2) 50%, transparent 70%);
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+            filter: blur(8px);
+        }
+        .lamp-glow.on { opacity: 1; }
+
+        .lamp-overlay /* ??? */
+        {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,210,80,0.18) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .lamp-overlay.on { opacity: 1; }
+
+        /* "404" text */
+        .main-404
+        {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .error-text
+        {
+            font-size: 140px;
+            font-weight: 700;
+            letter-spacing: -4px;
+            line-height: 1;
+            color: #1d1d1f;
+            transition: color 0.8s, text-shadow 0.8s;
+            position: relative;
+        }
+        html.dark .error-text
+        {
+            color: #f5f5f7;
+            text-shadow: 0 0 8px rgba(255,220,100,0.6), 0 0 16px rgba(255,180,50,0.2);
+        }
+
+        
+        /* Warm color behind text */
+        .error-text.warm
+        {
+            text-shadow: 0 0 40px rgba(255, 200, 80, 0.5), 0 0 80px rgba(255,180,50,0.2);
+        }
+
+        .error-title
+        {
+            font-size: 24px;
+            font-weight: 600;
+            color: #555;
+            margin-top: 12px;
+            transition: color 0.8s;
+        }
+
+        html.dark .error-title { color: #f5f5f7; }
+
+        .error-subtext
+        {
+            font-size: 16px;
+            color: #6e6e73;
+            margin-top: 8px;
+            transition: color 0.8s;
+        }
+
+        html.dark .error-subtext { color: #a1a1a6; }
+
+        /* Home button */
+        .home-button
+        {
+            display: inline-block;
+            margin-top: 36px;
+            padding: 12px 32px;   /*8px 22px*/
+            border: 1px solid #0071e3;
+            border-radius: 980px;
+            color: #0071e3;
+            font-size: 15px; /*16*/
+            text-decoration: none;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .home-button:hover
+        {
+            background: #0071e3;
+            color: #f5f5f7;
+            text-decoration: none; /* Remove underline on "Back to Home" */
+        }
+
+        html.dark .home-button { border-color: #2997ff; color: #2997ff; }
+        html.dark .home-button:hover { background-color: #2997ff; color: #000; }
+
+        /* Countdown */
+        .countdown
+        {
+            font-size: 13px;
+            color: #777;
+            margin-top: 14px;
+            transition: color 0.8s;
+        }
+        html.dark .countdown { color: #a1a1a6; }
+
+        /* On & off states of lamp */
+        @keyframes swing 
+        {
+            0%   { transform: rotate(0deg); }
+            20%  { transform: rotate(6deg); }
+            40%  { transform: rotate(-5deg); }
+            60%  { transform: rotate(3deg); }
+            80%  { transform: rotate(-2deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .lamp-main.swinging
+        {
+            transform-origin: top center;
+            animation: swing 1.2s ease-in-out;
+        }
+
+        @keyframes flicker 
+        {
+            0%   { opacity: 1; }
+            20%  { opacity: 0.3; }
+            40%  { opacity: 1; }
+            60%  { opacity: 0.5; }
+            80%  { opacity: 1; }
+            100% { opacity: 1; }
+        }
+
+        .lamp-color.flicker{animation: flicker 0.4s ease;}
+    </style>
+</head>
+    
+
+
+<body>
+    <div class="light-overlay" id="lightOverlay"></div>
+
+    <div class="content">
+ 
+        <div class="lamp-main" id="lampMain">
+            <div class="lamp-cable"></div>
+            <div class="lamp-body"></div>
+            <div class="lamp-color" id="lampColor"></div>
+        </div>
+ 
+        <div class="error-text" id="errorCode">404</div>
+        <div class="error-title">Page not found</div>
+        <p class="error-subtext">Looks like this page doesn't exist.</p>
+        <a href="index.html" class="home-button">Back to Home</a>
+        <p class="countdown">Redirecting in <span id="timer">10</span>s...</p>
+ 
+    </div>
+
+
+
+    <script src="script.js"></script>
+
+
+
+    <script>
+        const color    = document.getElementById('lampColor');
+        const overlay  = document.getElementById('lightOverlay');
+        const text     = document.getElementById('errorCode');
+        const lampMain = document.getElementById('lampMain');
+        const timerEl  = document.getElementById('timer');
+ 
+        let isOn = false;
+ 
+        function toggleLamp() 
+        {   /* Reset animation */
+            lampMain.classList.remove('swinging');
+            void lampMain.offsetWidth; /* restart */
+            lampMain.classList.add('swinging');
+ 
+            isOn = !isOn;
+ 
+            if (isOn) 
+            {
+                color.classList.add('flicker');
+                setTimeout(() => color.classList.remove('flicker'), 400); /* time of light animation */
+                color.classList.add('on');
+                overlay.classList.add('on');
+                text.classList.add('lit');
+            } 
+            else 
+            {
+                color.classList.remove('on');
+                overlay.classList.remove('on');
+                text.classList.remove('lit');
+            }
+        }
+ 
+        /* Timeline: turn on - 2, off - 4.5, on - 6, off - 8.5, return - 10 */
+        setTimeout(() => toggleLamp(), 2000);
+        setTimeout(() => toggleLamp(), 4500);
+        setTimeout(() => toggleLamp(), 6000);
+        setTimeout(() => toggleLamp(), 8500);
+ 
+        /* Timer countdown */
+        let seconds = 10;
+        const interval = setInterval(() => 
+        {
+            seconds--;
+            timerEl.textContent = seconds;
+            if (seconds <= 0) 
+            {
+                clearInterval(interval);
+                window.location.href = 'index.html';
+            }
+        }, 1000);
+    </script>
+    
+</body>
+
+</html>

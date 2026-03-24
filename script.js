@@ -7,10 +7,10 @@ const profileIcon =
 </svg>`;
 
 
-// Theme Toggle with Persistence
+// Change theme with button and save preference in localStorage
 //-------------------------------------------------------------------------------------------
 const btn = document.getElementById('theme-btn');
-// On load — apply the saved theme
+// Save theme preference on page load
 if (localStorage.getItem('theme') === 'dark') 
 {
     document.documentElement.classList.add('dark');
@@ -21,7 +21,7 @@ btn.addEventListener('click', function()
 {
     
   document.documentElement.classList.toggle('dark');
-  // Change button text based on the current theme
+  // Change button text (if dark mode is active, show light mode option, and return if we use light mode) and save preference
     if (document.documentElement.classList.contains('dark')) 
         {
         btn.textContent = '☀️ Light Mode';
@@ -37,40 +37,44 @@ btn.addEventListener('click', function()
 
 
 
-// Authentication Modal
+// Authentication Window
 //-------------------------------------------------------------------------------------------
 function openAuth() 
 {
-    document.getElementById('auth-overlay').classList.add('active');
+    document.getElementById('authorization-overlay').classList.add('active');
 }
 
 function closeAuth(e) 
 {
-    if (!e || e.target === document.getElementById('auth-overlay')) 
+    if (!e || e.target === document.getElementById('authorization-overlay')) 
         {
-        document.getElementById('auth-overlay').classList.remove('active');
+        document.getElementById('authorization-overlay').classList.remove('active');
         }
 }
 
 
-document.querySelector('.auth-submit').addEventListener('click', function() 
+document.querySelector('.authorization-submit').addEventListener('click', function() 
 {
-    const login = document.querySelector('.auth-modal input[type="text"]').value;
-    const password = document.querySelector('.auth-modal input[type="password"]').value;
+    const login = document.querySelector('.authorization-overlay-window input[type="text"]').value;
+    const password = document.querySelector('.authorization-overlay-window input[type="password"]').value;
 
     if (login === 'admin' && password === 'admin') 
         {
         closeAuth();
-        // Change Sign In button to Admin with icon
-        document.querySelector('.sign-in-btn').innerHTML = `${profileIcon} Admin`;
-        document.querySelector('.sign-in-btn').onclick = openLogout;
-    } else {
+        // Change text - "Sign In" in button to text "Admin" with new icon
+        localStorage.setItem('auth', 'admin');
+        document.querySelector('.sign-in-button').innerHTML = `${profileIcon} Admin`;
+        document.querySelector('.sign-in-button').onclick = openLogout;
+        }
+    else
+        {
         // Shake animation on failed login
-        document.querySelector('.auth-modal').style.animation = 'shake 0.3s ease';
-        setTimeout(() => {
-            document.querySelector('.auth-modal').style.animation = '';
-        }, 300);
-    }
+        document.querySelector('.authorization-overlay-window').style.animation = 'shake 0.3s ease';
+        setTimeout(() => 
+            {
+            document.querySelector('.authorization-overlay-window').style.animation = '';
+            }, 300);
+        }
 });
 
 function openLogout() 
@@ -80,22 +84,23 @@ function openLogout()
 
 function closeLogout(e) 
 {
-    if (!e || e.target === document.getElementById('logout-overlay')) {
+    if (!e || e.target === document.getElementById('logout-overlay')) 
+        {
         document.getElementById('logout-overlay').classList.remove('active');
-    }
+        }   
 }
 
 // Confirm logout
 document.getElementById('logout-confirm').addEventListener('click', function() 
 {
     closeLogout();
-
-    // Return Key Sign In
-    document.querySelector('.sign-in-btn').innerHTML = `${profileIcon} Sign In`;
-    document.querySelector('.sign-in-btn').onclick = openAuth;
+    // Return to Sign In button and remove auth from localStorage
+    localStorage.removeItem('auth');
+    document.querySelector('.sign-in-button').innerHTML = `${profileIcon} Sign In`;
+    document.querySelector('.sign-in-button').onclick = openAuth;
 });
 
-// Close modals on Escape key
+// Close window auth on Escape key
 document.addEventListener('keydown', function(e) 
 {
     if (e.key === 'Escape') 
@@ -104,4 +109,9 @@ document.addEventListener('keydown', function(e)
         closeLogout();
     }
 });
+if (localStorage.getItem('auth') === 'admin') 
+{
+    document.querySelector('.sign-in-button').innerHTML = `${profileIcon} Admin`;
+    document.querySelector('.sign-in-button').onclick = openLogout;
+};
 //-------------------------------------------------------------------------------------

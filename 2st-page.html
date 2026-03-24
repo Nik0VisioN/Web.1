@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>default</title>
+
+        <link rel="stylesheet" type="text/css" href="styles.css"/>
+        <link rel="stylesheet" type="text/css" href="buttons.css"/>
+
     <script>
         if (localStorage.getItem('theme') === 'dark') 
         {
             document.documentElement.classList.add('dark');
         }
     </script>
-    <link rel="stylesheet" type="text/css" href="styles.css"/>
+ </head>
     
-<div class="auth-overlay" id="auth-overlay" onclick="closeAuth(event)">
-    <div class="auth-modal">
-        <button class="auth-close" onclick="closeAuth()">✕</button>
+<div class="authorization-overlay" id="authorization-overlay" onclick="closeAuth(event)">
+    <div class="authorization-overlay-window">
+        <button class="authorization-close" onclick="closeAuth()">✕</button>
         <h2>Sign In</h2>
         <p>Welcome back</p>
         <input type="text" placeholder="Nickname" />
         <input type="password" placeholder="Password" />
-        <button class="auth-submit">Continue</button>
+        <button class="authorization-submit">Continue</button>
     </div>
 </div>
 
@@ -40,7 +44,7 @@
     </div>
     
     <div class="navbar-right">
-        <button class="sign-in-btn" onclick="openAuth()">
+        <button class="sign-in-button" onclick="openAuth()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
             </svg>
@@ -52,7 +56,7 @@
 
 
 <div class="next-page">
-    <a href="index.html">Next Page</a>
+    <a href="404.html">404 Page</a>
 </div>
 
 
@@ -68,12 +72,12 @@
 
 
 
-<div class="auth-overlay" id="logout-overlay" onclick="closeLogout(event)">
-    <div class="auth-modal">
-    <button class="auth-close" onclick="closeLogout()">✕</button>
+<div class="authorization-overlay" id="logout-overlay" onclick="closeLogout(event)">
+    <div class="authorization-overlay-window">
+    <button class="authorization-close" onclick="closeLogout()">✕</button>
     <h2>Sign Out</h2>
     <p>Are you sure you want to sign out?</p>
-    <button class="auth-submit" id="logout-confirm">Sign Out</button>
+    <button class="authorization-submit" id="logout-confirm">Sign Out</button>
     <button class="auth-cancel" onclick="closeLogout()">Cancel</button>
 </div>
 
