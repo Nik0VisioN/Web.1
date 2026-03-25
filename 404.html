@@ -262,33 +262,33 @@
         function toggleLamp() 
         {   /* Reset animation */
             lampMain.classList.remove('swinging');
-            void lampMain.offsetWidth; /* restart */
-            lampMain.classList.add('swinging');
- 
-            isOn = !isOn;
- 
-            if (isOn) 
+            
+            setTimeout(() => 
             {
-                color.classList.add('flicker');
-                setTimeout(() => color.classList.remove('flicker'), 400); /* time of light animation */
-                color.classList.add('on');
-                overlay.classList.add('on');
-                text.classList.add('lit');
-            } 
-            else 
-            {
-                color.classList.remove('on');
-                overlay.classList.remove('on');
-                text.classList.remove('lit');
-            }
+                lampMain.classList.add('swinging');
+                    /* Turn on lamp light when lamp swinging */
+                    color.classList.add('flicker');
+                    setTimeout(() => color.classList.remove('flicker'), 400); /* time of light animation */
+                    color.classList.add('on');
+                    overlay.classList.add('on');
+                    text.classList.add('lit');
+               
+                /* turn off lamp when lampMain finishes swinging */    
+                setTimeout(() =>
+                {  
+                    color.classList.remove('on');
+                    overlay.classList.remove('on');
+                    text.classList.remove('lit');
+                }, 1000);  /* time of lamp swinging animation */
+            }, 20);
         }
  
-        /* Timeline: turn on - 2, off - 4.5, on - 6, off - 8.5, return - 10 */
+        /* Timeline: on og off lamp */
         setTimeout(() => toggleLamp(), 2000);
-        setTimeout(() => toggleLamp(), 4500);
-        setTimeout(() => toggleLamp(), 6000);
-        setTimeout(() => toggleLamp(), 8500);
- 
+        setTimeout(() => toggleLamp(), 5000);
+        setTimeout(() => toggleLamp(), 8000);
+        
+        
         /* Timer countdown */
         let seconds = 10;
         const interval = setInterval(() => 
