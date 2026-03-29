@@ -8,6 +8,9 @@
 
         <link rel="stylesheet" type="text/css" href="styles.css"/>
         <link rel="stylesheet" type="text/css" href="buttons.css"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
     <script>
         if (localStorage.getItem('theme') === 'dark') 
@@ -41,7 +44,6 @@
     </div>
 
     <div class="navbar-center">
-        
     </div>
     
     <div class="navbar-right">
@@ -51,6 +53,16 @@
             </svg>
             Sign In
         </button>
+    
+        <div class="menu-container-main">
+        <button class="menu-hidden-button" onclick="menu_main.hidden^=1">☰</button>
+            <ul id="menu_main" hidden>
+                <li><a href="#about">In DV</a></li>
+                <li><a href="#skills">In DV</a></li>
+                <li><a href="404.html">404</a></li>
+            </ul>
+        </div>
+
     </div>
 </nav>
 

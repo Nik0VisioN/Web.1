@@ -89,7 +89,7 @@
             pointer-events: none;
             filter: blur(8px);
         }
-        .lamp-glow.on { opacity: 1; }
+        .lamp-color.on { opacity: 1; }
 
         .lamp-overlay /* ??? */
         {
@@ -279,14 +279,13 @@
                     color.classList.remove('on');
                     overlay.classList.remove('on');
                     text.classList.remove('lit');
-                }, 1000);  /* time of lamp swinging animation */
+                    toggleLamp();
+                }, 2000);  /* time of lamp swinging animation */
+
             }, 20);
         }
- 
-        /* Timeline: on og off lamp */
-        setTimeout(() => toggleLamp(), 2000);
-        setTimeout(() => toggleLamp(), 5000);
-        setTimeout(() => toggleLamp(), 8000);
+
+        toggleLamp();
         
         
         /* Timer countdown */

@@ -8,6 +8,9 @@
 
 
 
+
+
+
 /* Box sizing rules */
 /* -------------------------------------------------------------------------------------------------------------- */
 *,
@@ -96,7 +99,11 @@ textarea:not([rows])
 
 
 
+
+
+
 /* ── Links ── */
+/* -------------------------------------------------------------------------------------------------------------- */
 a:link    { color: #0071e3; text-decoration: none; }
 a:visited { color: #0071e3; text-decoration: none; }
 a:hover   { color: #0077ed; text-decoration: underline; text-underline-offset: 3px; }
@@ -105,13 +112,12 @@ a:active  { color: #005bb5; text-decoration: none; }
 
 body 
 {
-    font-family: "Segoe UI", Arial, sans-serif;
     background-color: #ffffff;
     color: #1d1d1f;
     line-height: 1.6;
 }
 
-/* ── Hero (шапка) ── */
+/* ── Hero (header) ── */
 .hero 
 {
     text-align: center;
@@ -120,10 +126,15 @@ body
     position: relative;
     overflow: hidden;
 }
+/* -------------------------------------------------------------------------------------------------------------- */
+
+
+
 
 
 
 /* Blue and lilac glow */
+/* -------------------------------------------------------------------------------------------------------------- */
 .hero::before,
 .hero::after 
 {
@@ -288,42 +299,12 @@ html.dark .section p
     width: auto;
     border-radius: 4px;
     filter: grayscale(100%);  /* black and white */
-    transition: filter 0.3s;
+    transition: filter 0.3s ease-in-out, opacity 0.3s ease-in-out;
     display: block;     
 }
 
 .sidebar-badges_activity:hover img 
 {
     filter: grayscale(0%);      /* colors */
-}
-/* -------------------------------------------------------------------------------------------------------------- */
-
-
-
-/* ── User Profile Card ── */
-/* -------------------------------------------------------------------------------------------------------------- */
-/* ── Navbar (navigation bar) ── */
-.navbar 
-{
-    position: fixed;
-    top: 20px;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    z-index: 1000;
-    pointer-events: none;
-}
-
-.navbar-left,
-.navbar-center,
-.navbar-right 
-{
-    pointer-events: all;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 /* -------------------------------------------------------------------------------------------------------------- */
