@@ -11,13 +11,12 @@ const profileIcon =
 
 //-------------------------------------------------------------------------------------------
 
-    const originalTitle = document.title;
-
-    document.addEventListener("visibilitychange", () => 
-    {
-        document.title =  document.hidden ?
-        'We miss you!' : originalTitle
-    });
+const originalTitle = document.title;
+document.addEventListener("visibilitychange", () => 
+{
+    document.title =  document.hidden ?
+    'We miss you!' : originalTitle
+});
 
 //-----------------------------------------------------------------------------------
 
