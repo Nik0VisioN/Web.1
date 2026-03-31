@@ -294,62 +294,11 @@ html.dark  .sign-in-button:hover
 
 
 /* -------------------------------------------------------------------------------------------------------------- */
-.search-button
-{
-    width: 100px;
-    height: 40px;
-    padding: 8px 16px;
-    border: 1px solid #cccccc;;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 980px;
-    transition: width 0.5s ease-in-out;
-    outline: none;
-    text-align: center;
-    margin: auto;
-}
-
-.search-button:hover
-{
-    background-color: #f5f5f7;
-    border-color: rgba(0, 0, 0, 0.3);
-    width: 200px;
-    cursor: text;
-}
-
-html.dark .search-button 
-{
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-html.dark .search-button:hover 
-{
-    background-color: #3a3a3a;
-    border-color: rgba(255, 255, 255, 0.4);
-}
-/* -------------------------------------------------------------------------------------------------------------- */
-.search-icon 
-{
-    stroke: #1d1d1f;
-    stroke-width: 1.2;
-}
-
-html.dark .search-icon 
-{
-    stroke: #f5f5f7;
-}
-/* -------------------------------------------------------------------------------------------------------------- */
-
-
-
-
-/* -------------------------------------------------------------------------------------------------------------- */
 /* ── Sign In button ── */
 .menu-hidden-button
 {
     display: flex;
     border: 1px solid rgba(0, 0, 0, 0.15);
-    
 }
 
 .menu-hidden-button:hover 
@@ -373,7 +322,7 @@ html.dark .menu-hidden-button:hover
 
 
 
-/* Main menu ( left side of the page ) */
+/* Main menu ( right side of the page ) */
 /* -------------------------------------------------------------------------------------------------------------- */
 .menu-container-main
 {
@@ -384,29 +333,24 @@ html.dark .menu-hidden-button:hover
 {
     width: max-content;
     height: max-content;
+    backdrop-filter: blur(20px);
     position: absolute;
     right: 1%;
     display: grid;
-    grid-template-rows: repeat(3, 1fr);
     gap: 8px;
-    list-style: none;
     margin: 10px;
     padding: 20px;
     min-width: 1px;
     background: rgba(37, 33, 33, 0.02);
     background-color: rgba(255, 255, 255, 0.15);
     border-radius: 12px;
-    border: 1px solid #2997ff;
+    color: #f5f5f7;
 
 }
 
-#menu_main [hidden]
+#menu_main a
 {
-    display: none;
-}
-
-#menu_main q
-{
+    
     display: block;
     padding: 10px 20px;
     color: #f5f5f7;
@@ -414,11 +358,55 @@ html.dark .menu-hidden-button:hover
     border-radius: 8px;
     font-size: 14px;
     transition: background 0.2s, color 0.2s;
-
 }
 
-#menu_main q:hover
+#menu_main a:hover
 {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #a1a1a6;
+    color: #ffffff;
+}
+
+/* -------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+/* -------------------------------------------------------------------------------------------------------------- */
+.search-button
+{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100px;
+    height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: width 0.5s ease-in-out;
+    outline: none;
+    overflow: hidden;
+    text-align: center;
+}
+
+.search-button:hover
+{
+    background-color: #f5f5f7;
+    border-color: rgba(0, 0, 0, 0.3);
+    width: 200px;
+    cursor: text;
+}
+
+html.dark .search-button 
+{
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+html.dark .search-button:hover 
+{
+    background-color: #3a3a3a;
+    border-color: rgba(255, 255, 255, 0.4);
 }
 /* -------------------------------------------------------------------------------------------------------------- */
+
+
+
+

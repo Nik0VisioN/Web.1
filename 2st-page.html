@@ -39,29 +39,33 @@
 <body>
     <nav class="navbar">
     <div class="navbar-left">
+
         <button id="theme-btn">🌙 Dark Mode</button>
+
     </div>
 
     <div class="navbar-center">
-        
-        <button class="search-button">
+        <div class="search-wrap">
+        <button class="search-button" id="searchBtn" onclick="toggleSearch()">
             <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="14" r="5"/>
             <line x1="14.5" y1="18.5" x2="20" y2="24.5"/>
             </svg>
-            Search
+            <span class="search-label">Search</span>
             <input type="text" class="search-input" placeholder="Find something...">
         </button>
-
+        </div>
     </div>
     
     <div class="navbar-right">
+
         <button class="sign-in-button" onclick="openAuth()">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
             </svg>
             Sign In
         </button>
+
     </div>
 </nav>
 

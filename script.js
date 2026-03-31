@@ -9,6 +9,7 @@ const profileIcon =
 
 
 
+// Change title when user leaves the page and return it when they come back
 //-------------------------------------------------------------------------------------------
 
 const originalTitle = document.title;
@@ -17,6 +18,12 @@ document.addEventListener("visibilitychange", () =>
     document.title =  document.hidden ?
     'We miss you!' : originalTitle
 });
+//-----------------------------------------------------------------------------------
+
+
+
+// Search input animation
+//-----------------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------------
 
