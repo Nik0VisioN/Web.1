@@ -1,0 +1,82 @@
+.social-buttons 
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap; /* Allow buttons to wrap to the next line if necessary */
+}
+
+.social-button
+{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    border-radius: 50px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    
+}
+
+.social-button:hover
+{
+    width: 180px;
+    background: #ffffff;
+    transform: translateY(-5px);
+}
+
+.social-icon
+{
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    color: rgba(255, 255, 255, 0.4);
+    transition: all 0.5s ease;
+}
+
+.social-icon-github
+{
+    width: 75px;
+    height: 75px;
+    min-width: 75px;
+    color: rgba(255, 255, 255, 0.4);
+    transition: all 0.5s ease;
+}
+
+.social-label
+{
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 15px;
+    font-weight: 600;
+    color: #000000;
+    margin-left: 0;
+    transition: opacity 0.3s ease 0.1s, width 0.3s ease, margin-left 0.3s ease;
+
+}
+
+.social-button:hover .social-label 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    width: 90px;
+    margin-left: 10px;
+}
+
+
+html.dark .social-button:hover 
+{
+    background: rgba(255, 255, 255, 0.7);
+}
