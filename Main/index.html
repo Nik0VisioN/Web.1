@@ -14,15 +14,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
-    <script>
-        if (localStorage.getItem('theme') === 'dark') 
-        {
-            document.documentElement.classList.add('dark');
-        }
-    </script>
-
-    
-
 </head>
 
 
@@ -63,7 +54,7 @@
             <ul id="menu_main" hidden>
                 <li><a href="404.html">404</a></li>
                 <li><a href="404.html">404</a></li>
-                <li><a href="404.html">404</a></li>
+                <li><a href="norsk.html">Norsk</a></li>
             </ul>
         </div>
 
@@ -142,6 +133,15 @@
     <button class="authorization-submit" id="logout-confirm">Sign Out</button>
     <button class="auth-cancel" onclick="closeLogout()">Cancel</button>
 </div>
+
+
+
+<script>
+    if (localStorage.getItem('theme') === 'dark') 
+    {
+        document.documentElement.classList.add('dark');
+    }
+</script>
 
 
 
