@@ -17,6 +17,9 @@ body {
   background: #0f172a;
   color: #e2e8f0;
   padding: 20px;
+  max-width: 960px;
+  margin: 0 auto;  
+  box-sizing: border-box;
 }
 
 h2 {
@@ -25,10 +28,18 @@ h2 {
   padding-left: 10px;
 }
 
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
 table {
   width: 100%;
+  min-width: 400px; 
   border-collapse: collapse;
-  margin-top: 15px;
   background: #1e293b;
   border-radius: 10px;
   overflow: hidden;
@@ -58,6 +69,7 @@ tr:hover {
 <h1>Norske verb (komplett liste)</h1>
 
 <h2>Modale verb</h2>
+<div class="table-wrapper">
 <table>
 <tr><th>Infinitiv</th><th>Presens</th><th>Preterium</th><th>Perfektum</th><th>Oversette</th></tr>
 <tr><td>å kunne</td><td>kan</td><td>kunne</td><td>har kunnet</td><td class="oversette">мочь</td></tr>
@@ -65,9 +77,11 @@ tr:hover {
 <tr><td>å skulle</td><td>skal</td><td>skulle</td><td>har skullet</td><td class="oversette">должен (план)</td></tr>
 <tr><td>å ville</td><td>vil</td><td>ville</td><td>har villet</td><td class="oversette">хотеть</td></tr>
 <tr><td>å burde</td><td>bør</td><td>burde</td><td>har burdet</td><td class="oversette">следует</td></tr>
+</div>
 </table>
 
 <h2>Uregelmessige verb</h2>
+<div class="table-wrapper">
 <table>
 <tr><th>Infinitiv</th><th>Presens</th><th>Preterium</th><th>Perfektum</th><th>Oversette</th></tr>
 <tr><td>å være</td><td>er</td><td class="ir">var</td><td>har vært</td><td class="oversette">быть</td></tr>
@@ -105,9 +119,11 @@ tr:hover {
 <tr><td>å foretrekke</td><td>foretrekker</td><td class="ir">foretrakk</td><td>har foretrukket</td><td class="oversette">предпочитать</td></tr>
 <tr><td>å gjelde</td><td>gjelder</td><td class="ir">gjaldt</td><td>har gjeldt</td><td class="oversette">касаться</td></tr>
 <tr><td>å drive med</td><td>driver</td><td class="ir">drev</td><td>har drevet</td><td class="oversette">заниматься</td></tr>
+</div>
 </table>
 
 <h2>Svake verb (-te / -et / -de)</h2>
+<div class="table-wrapper">
 <table>
 <tr><th>Infinitiv</th><th>Presens</th><th>Preterium</th><th>Perfektum</th><th>Oversette</th></tr>
 <tr><td>å arbeide</td><td>arbeider</td><td class="et">arbeidet</td><td>har arbeidet</td><td class="oversette">работать</td></tr>
@@ -144,10 +160,12 @@ tr:hover {
 <tr><td>å trives</td><td>trives</td><td class="te">trivdes</td><td>har trivdes</td><td class="oversette">чувствовать себя хорошо</td></tr>
 <tr><td>å våkne</td><td>våkner</td><td class="et">våknet</td><td>har våknet</td><td class="oversette">просыпаться</td></tr>
 <tr><td>å øve</td><td>øver</td><td class="de">øvde</td><td>har øvd</td><td class="oversette">тренироваться</td></tr>
+</div>
 </table>
 
 
 <h2>Utvidelse – viktige verb</h2>
+<div class="table-wrapper">
 <table>
 <tr><th>Infinitiv</th><th>Presens</th><th>Preterium</th><th>Perfektum</th><th>Oversette</th></tr>
 
@@ -182,7 +200,7 @@ tr:hover {
 <tr><td>å søke</td><td>søker</td><td class="te">søkte</td><td>har søkt</td><td class="oversette">подавать заявку</td></tr>
 
 </table>
-
+</div>
 
 <div class="next-page">
     <a href="index.html">Main Page</a>
