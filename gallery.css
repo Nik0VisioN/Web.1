@@ -1,0 +1,89 @@
+.gallery-track {
+    display: flex;
+    gap: 16px;
+    padding: 0 var(--gutter) 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.gallery-track::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-card {
+    flex: 0 0 360px;
+    aspect-ratio: 3/4;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: transform 0.5s var(--ease-spring);
+}
+
+.gallery-card:hover {
+    transform: translateY(-8px);
+}
+
+.gallery-card-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.gallery-card-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.12), transparent 60%);
+}
+
+.gallery-card[data-tone="1"] .gallery-card-bg {
+    background: linear-gradient(135deg, var(--tone-1), color-mix(in srgb, var(--tone-1) 50%, #000));
+}
+
+.gallery-card[data-tone="2"] .gallery-card-bg {
+    background: linear-gradient(135deg, var(--tone-2), color-mix(in srgb, var(--tone-2) 50%, #000));
+}
+
+.gallery-card[data-tone="3"] .gallery-card-bg {
+    background: linear-gradient(135deg, var(--tone-3), color-mix(in srgb, var(--tone-3) 50%, #000));
+}
+
+.gallery-card[data-tone="4"] .gallery-card-bg {
+    background: linear-gradient(135deg, var(--tone-4), color-mix(in srgb, var(--tone-4) 50%, #000));
+}
+
+.gallery-card[data-tone="5"] .gallery-card-bg {
+    background: linear-gradient(135deg, var(--tone-5), color-mix(in srgb, var(--tone-5) 50%, #000));
+}
+
+.gallery-card[data-tone="6"] .gallery-card-bg {
+    background: linear-gradient(135deg, var(--tone-6), color-mix(in srgb, var(--tone-6) 50%, #000));
+}
+
+.gallery-card-date {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+    z-index: 1;
+}
+
+.gallery-card-caption {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.02em;
+    z-index: 1;
+}

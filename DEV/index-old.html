@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Main &nbsp;·&nbsp; NikoVisioN portfolio</title>
+
+        <link rel="stylesheet" type="text/css" href="styles.css"/>
+        <link rel="stylesheet" type="text/css" href="buttons.css"/>
+        <link rel="stylesheet" type="text/css" href="anim-buttons-sm.css"/>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+</head>
+
+
+
+<div class="authorization-overlay" id="authorization-overlay" onclick="closeAuth(event)">
+    <div class="authorization-overlay-window">
+        <button class="authorization-close" onclick="closeAuth()">✕</button>
+        <h2>Sign In</h2>
+        <p>Welcome back</p>
+        <input type="text" placeholder="Nickname" />
+        <input type="password" placeholder="Password" />
+        <button class="authorization-submit">Continue</button>
+    </div>
+</div>
+
+
+
+<body>
+    
+<nav class="navbar">
+    <div class="navbar-left">
+        <button id="theme-btn">🌙 Dark Mode</button>
+    </div>
+
+    <div class="navbar-center">
+    </div>
+    
+    <div class="navbar-right">
+        <button class="sign-in-button" onclick="openAuth()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+            </svg>
+            Sign In
+        </button>
+    
+        <div class="menu-container-main">
+        <button class="menu-hidden-button" onclick="menu_main.hidden^=1">☰</button>
+            <ul id="menu_main" hidden>
+                <li><a href="404.html">404</a></li>
+                <li><a href="404.html">404</a></li>
+                <li><a href="norsk.html">Norsk</a></li>
+                <li><a href="https://together-ecru.vercel.app/profile">Social Network</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+
+
+<header class="hero">
+    <h1 class="hero-name">NikoVisioN</h1>
+    <p class="hero-sub">Frontend Developer, C++ Developer</p>
+</header>
+
+<section class="section" id="about">    
+    <h2>About</h2>
+    <p>I like to create.</p>
+</section>
+
+<section class="section" id="skills">
+    <h2>Skills</h2>
+    <p>HTML &nbsp;·&nbsp; CSS &nbsp;·&nbsp; JavaScript &nbsp;·&nbsp; C++ </p>
+</section>
+
+<section class="section" id="contacts">
+    <h2>Contacts</h2>
+
+<div class="social-buttons">
+    <a class="social-button" href="https://t.me/NikoVisioN" target="_blank">
+        <img class="social-icon" src="Logo/telega 48x48.png" alt="Telegram">
+        <span class="social-label">Telegram</span>
+    </a>
+
+    <a class="social-button" href="https://youtube.com/@Niko_Vision" target="_blank">
+        <img class="social-icon" src="Logo/youtube-clear-bg.png" alt="YouTube">
+        <span class="social-label">YouTube</span>
+    </a>
+
+    <a class="social-button" href="https://github.com/Nik0VisioN" target="_blank">
+        <img class="social-icon-github" src="Logo/gh.png" alt="GitHub">
+        <span class="social-label">GitHub</span>
+    </a>
+
+
+    <a class="social-button" href="https://www.linkedin.com/in/nikovision" target="_blank">
+        <img class="social-icon" src="Logo/linkdn_wth_bg.png" alt="LinkedIn">
+        <span class="social-label">LinkedIn</span>
+    </a>
+</div>
+
+</section>
+
+
+
+<div class="next-page">
+    <a href="404.html">Next Page</a>
+</div>
+
+
+
+<div class="sidebar-badges">
+    <a class="sidebar-badges_activity" href="https://jigsaw.w3.org/css-validator/validator?lang=en&profile=css3svg&uri=https%3A%2F%2Fnik0vision.github.io%2FWeb.1%2Findex.html&usermedium=all&vextwarning=&warning=1" target="_blank">
+        <img src="Logo/vcss.png" alt="Valid CSS">
+    </a>
+    <a class="sidebar-badges_activity" href="https://jigsaw.w3.org/css-validator/validator?lang=en&profile=css3svg&uri=https%3A%2F%2Fnik0vision.github.io%2FWeb.1%2Findex.html&usermedium=all&vextwarning=&warning=1" target="_blank">
+        <img src="Logo/vcss-blue.png" alt="Valid CSS Blue">
+    </a>
+</div>
+
+
+
+<div class="authorization-overlay" id="logout-overlay" onclick="closeLogout(event)">
+    <div class="authorization-overlay-window">
+    <button class="authorization-close" onclick="closeLogout()">✕</button>
+    <h2>Sign Out</h2>
+    <p>Are you sure you want to sign out?</p>
+    <button class="authorization-submit" id="logout-confirm">Sign Out</button>
+    <button class="auth-cancel" onclick="closeLogout()">Cancel</button>
+</div>
+
+
+
+<script>
+    if (localStorage.getItem('theme') === 'dark') 
+    {
+        document.documentElement.classList.add('dark');
+    }
+</script>
+
+
+
+<script src="script.js"></script>
+
+ </body>
+</html>

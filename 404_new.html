@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Signal lost · NikoVisioN</title>
+  <link rel="icon" type="image/png" href="./Logo/Logo_Channel.png" />
+  <meta name="description" content="404 — Page not found on NikoVisioN portfolio." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="header.css" />
+
+  <style>
+    /* 404 */
+    body {
+      min-height: 100vh;
+      display: flex;
+    }
+
+    .err-page {
+      flex: 1;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 32px var(--gutter);
+      max-width: var(--container);
+      width: 100%;
+      margin: 0 auto;
+      gap: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .err-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .err-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 0;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .err-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: errFade 0.8s ease 0.2s forwards;
+    }
+
+    .err-code-wrap {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    .err-code {
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.85;
+      white-space: nowrap;
+      display: inline-block;
+      font-size: 200px;          /* fallback; JS sets real size */
+      color: var(--fg);
+      min-width: 0;
+      max-width: 100%;
+    }
+    .err-code .digit {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(60px);
+    }
+    .err-code .digit.in {
+      animation: digitIn 0.9s var(--ease-spring) forwards;
+    }
+    .err-code .accent {
+      color: var(--accent);
+      text-shadow:
+        0 0 18px var(--accent-glow),
+        0 0 50px var(--accent-glow);
+    }
+    /* Glitch for 0 */
+    .err-code .accent.glitch.in {
+      animation:
+        digitIn 0.9s var(--ease-spring) forwards,
+        glitch 6s steps(1) 2s infinite;
+    }
+
+    @keyframes digitIn { to { opacity: 1; transform: translateY(0); } }
+    @keyframes errFade { to { opacity: 1; } }
+
+    /* Subtle glitch */
+    @keyframes glitch {
+      0%, 92%, 100% { transform: translate(0, 0); filter: none; }
+      93% { transform: translate(-3px, 1px); filter: hue-rotate(90deg); }
+      94% { transform: translate(3px, -1px); filter: none; }
+      95% { transform: translate(-1px, -2px); filter: hue-rotate(-45deg); }
+      96% { transform: translate(2px, 1px); filter: none; }
+    }
+
+    .err-tagline {
+      margin-top: 36px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      opacity: 0;
+      animation: errFade 0.9s ease 1.4s forwards;
+    }
+    .err-tagline .sep { color: var(--accent); margin: 0 10px; }
+
+    .err-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: errFade 0.9s ease 1.6s forwards;
+    }
+
+    .err-arrow {
+      display: inline-block;
+      transition: transform 0.4s var(--ease-spring);
+    }
+    .err-bottom .chip:hover .err-arrow { transform: translate(4px, -4px); }
+
+    @media (max-width: 640px) {
+      .err-page { padding: 20px; }
+      .err-bottom { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="discharge-canvas" aria-hidden="true"></canvas>
+
+  <div class="err-page">
+    <!-- TOP: switch theme -->
+    <div class="err-top">
+      <a href="index.html" class="brand">
+        <div class="brand-mark"></div>
+        <span class="brand-text">NikoVisioN</span>
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- CENTER: 404 -->
+    <div class="err-center">
+      <span class="err-eyebrow">// SIGNAL_LOST</span>
+      <div class="err-code-wrap">
+        <h1 class="err-code" id="errCode" aria-label="404"><span class="digit">4</span><span class="digit accent glitch">0</span><span class="digit">4</span></h1>
+      </div>
+      <p class="err-tagline">Page<span class="sep">/</span>Not<span class="sep">/</span>Found</p>
+    </div>
+
+    <!-- BOTTOM: return -->
+    <div class="err-bottom">
+      <span class="chip" style="cursor: default;">
+        <span class="chip-dot"></span>
+        <span class="chip-label">Auto-redirect</span>
+        <span class="chip-value" id="countdown">10s</span>
+      </span>
+      <a href="index.html" class="chip">
+        <span class="chip-label">Take me</span>
+        <span class="chip-value">Back to Home</span>
+        <span class="err-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Shared script: theme toggle and canvas will automatically pick up their elements.
+       The absence of #heroName and #footerTagline on this page is safe — all checks `if (!el)` are already in place. -->
+  <script src="script.js"></script>
+
+  <!-- 404-specific logic in IIFE, to avoid conflicts with constants from script.js -->
+  <script>
+    (function () {
+      const root = document.documentElement;
+
+      // === FIT-TEXT для 404 ===
+      function fitText(el, opts = {}) {
+        if (!el) return;
+        const cssRoot = getComputedStyle(document.documentElement);
+        const gutter = parseFloat(cssRoot.getPropertyValue('--gutter')) || 48;
+        const containerMax = parseFloat(cssRoot.getPropertyValue('--container')) || 1440;
+        const innerWidth = Math.min(document.documentElement.clientWidth, containerMax) - gutter * 2;
+        if (innerWidth <= 0) return;
+
+        const ref = 200;
+        el.style.fontSize = ref + 'px';
+        const textWidth = el.scrollWidth;
+        if (textWidth === 0) return;
+
+        const { padding = 0.7, maxVh = 0.55 } = opts;
+        let size = (innerWidth * padding) / textWidth * ref;
+        size = Math.min(size, window.innerHeight * maxVh);
+        el.style.fontSize = size + 'px';
+      }
+
+      const errCode = document.getElementById('errCode');
+      function fitAll() { fitText(errCode, { padding: 0.7, maxVh: 0.55 }); }
+      fitAll();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(fitAll, 100);
+      });
+
+      // STAGGERED появление цифр
+      document.querySelectorAll('.err-code .digit').forEach((d, i) => {
+        d.style.animationDelay = `${i * 150}ms`;
+        requestAnimationFrame(() => d.classList.add('in'));
+      });
+
+      // Redirect countdown
+      let seconds = 10;
+      const countdownEl = document.getElementById('countdown');
+      const tick = setInterval(() => {
+        seconds--;
+        if (countdownEl) countdownEl.textContent = seconds + 's';
+        if (seconds <= 0) {
+          clearInterval(tick);
+          window.location.href = 'index.html';
+        }
+      }, 1000);
+    })();
+  </script>
+</body>
+</html>

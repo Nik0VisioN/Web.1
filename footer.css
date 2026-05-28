@@ -1,0 +1,120 @@
+.site-footer {
+    padding: 120px var(--gutter) 40px;
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+}
+
+.footer-tagline-wrap {
+    max-width: var(--container);
+    margin: 0 auto 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-tagline {
+    font-family: var(--font-display);
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 0.85;
+    white-space: nowrap;
+    /* same fit-text approach */
+    display: inline-block;
+    font-size: 100px;
+    /* fallback; JS sets real size */
+    text-align: center;
+}
+
+.footer-tagline .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: color 0.3s ease;
+}
+
+.footer-tagline .char.in {
+    animation: charIn 0.9s var(--ease-spring) forwards;
+}
+
+.footer-tagline .accent {
+    color: var(--accent);
+    text-shadow:
+        0 0 12px var(--accent-glow),
+        0 0 28px var(--accent-glow);
+}
+
+.footer-grid {
+    max-width: var(--container);
+    margin: 0 auto 60px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.footer-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-col-title {
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.footer-col a {
+    color: var(--fg);
+    transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+    color: var(--accent);
+}
+
+.footer-bottom {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.footer-badge {
+    display: inline-flex;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.footer-badge:hover {
+    opacity: 1;
+}
+
+.footer-badge img {
+    height: 22px;
+    width: auto;
+    display: block;
+}
+
+.footer-badges_activity img {
+    height: 20px;
+    width: auto;
+    border-radius: 4px;
+    filter: grayscale(100%);
+    /* black and white */
+    transition: filter 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    display: block;
+}
+
+.footer-badges_activity:hover img {
+    filter: grayscale(0%);
+    /* colors */
+}

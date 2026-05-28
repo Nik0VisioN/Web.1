@@ -1,0 +1,128 @@
+.hof-grid {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.hof-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: transform 0.5s var(--ease-spring);
+}
+
+.hof-card:hover {
+  transform: translateY(-6px);
+}
+
+.hof-card-img {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.6s var(--ease-smooth);
+}
+
+.hof-card-img.hover {
+  opacity: 0;
+}
+
+.hof-card:hover .base {
+  opacity: 0;
+}
+
+.hof-card:hover .hover {
+  opacity: 1;
+}
+
+.hof-card[data-tone="1"] .base {
+  background: linear-gradient(135deg, var(--tone-1), #000);
+}
+
+.hof-card[data-tone="1"] .hover {
+  background: linear-gradient(45deg, var(--accent), var(--tone-1));
+}
+
+.hof-card[data-tone="2"] .base {
+  background: linear-gradient(135deg, var(--tone-2), #000);
+}
+
+.hof-card[data-tone="2"] .hover {
+  background: linear-gradient(45deg, var(--accent), var(--tone-2));
+}
+
+.hof-card[data-tone="3"] .base {
+  background: linear-gradient(135deg, var(--tone-3), #000);
+}
+
+.hof-card[data-tone="3"] .hover {
+  background: linear-gradient(45deg, var(--accent), var(--tone-3));
+}
+
+.hof-card[data-tone="4"] .base {
+  background: linear-gradient(135deg, var(--tone-4), #000);
+}
+
+.hof-card[data-tone="4"] .hover {
+  background: linear-gradient(45deg, var(--accent), var(--tone-4));
+}
+
+.hof-card[data-tone="5"] .base {
+  background: linear-gradient(135deg, var(--tone-5), #000);
+}
+
+.hof-card[data-tone="5"] .hover {
+  background: linear-gradient(45deg, var(--accent), var(--tone-5));
+}
+
+.hof-card[data-tone="6"] .base {
+  background: linear-gradient(135deg, var(--tone-6), #000);
+}
+
+.hof-card[data-tone="6"] .hover {
+  background: linear-gradient(45deg, var(--accent), var(--tone-6));
+}
+
+.hof-card-meta {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  color: white;
+}
+
+.hof-card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.hof-card-year {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+
+@media (max-width: 1024px) {
+  :root {
+    --gutter: 32px;
+    --section-pad: 80px;
+  }
+
+  .hof-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
