@@ -153,7 +153,6 @@ html.dark .theme-toggle .icon-moon {
   gap: clamp(14px, 3.5vh, 28px);
   padding: 96px 24px 48px;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
   background: color-mix(in srgb, var(--bg) 92%, transparent);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
