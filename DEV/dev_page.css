@@ -211,6 +211,7 @@ body::before {
     border: 1px solid var(--border);
     background: var(--panel);
     padding: 24px;
+    animation: fadeIn 0.25s ease;
 }
 
 .tab-pane {
