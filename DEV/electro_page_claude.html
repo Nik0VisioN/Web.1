@@ -1,0 +1,2892 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kretsskolen — Elektriske skjema &amp; multimeter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a121c;
+            --bg2: #0d1826;
+            --panel: #111f30;
+            --panel-line: #1c3348;
+            --grid: rgba(105, 165, 200, 0.075);
+            --ink: #dfeef4;
+            --ink-dim: #9fb8c8;
+            --muted: #5f7f96;
+            --cyan: #5cd0dd;
+            --cyan-dim: #2c5b66;
+            --amber: #ffb238;
+            --green: #3dffa0;
+            --red: #ff6b6b;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-body: 'IBM Plex Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background:
+                linear-gradient(var(--grid) 1px, transparent 1px) 0 0/34px 34px,
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0/34px 34px,
+                var(--bg);
+            color: var(--ink);
+            font-family: var(--font-body);
+            line-height: 1.5;
+        }
+
+        a {
+            color: var(--cyan);
+        }
+
+        .wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* NAV */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(10, 18, 28, 0.88);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid var(--panel-line);
+        }
+
+        nav .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .brand {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .navlinks {
+            display: flex;
+            gap: 18px;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+
+        .navlinks a {
+            color: var(--ink-dim);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            padding-bottom: 2px;
+            transition: .15s;
+        }
+
+        .navlinks a:hover {
+            color: var(--cyan);
+            border-color: var(--cyan-dim);
+        }
+
+        .langbar {
+            display: flex;
+            gap: 4px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        .langbtn {
+            background: transparent;
+            border: 1px solid var(--panel-line);
+            color: var(--ink-dim);
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+
+        .langbtn.active {
+            background: var(--cyan);
+            color: #04141a;
+            border-color: var(--cyan);
+            font-weight: 700;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 74px 0 56px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero .wrap {
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow {
+            font-family: var(--font-mono);
+            color: var(--amber);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.08;
+            margin: 14px 0 18px;
+            font-weight: 700;
+        }
+
+        h1 span {
+            color: var(--cyan);
+        }
+
+        .hero p.lead {
+            max-width: 600px;
+            color: var(--ink-dim);
+            font-size: 16.5px;
+        }
+
+        .hero-schema {
+            margin-top: 38px;
+            border: 1px solid var(--panel-line);
+            background: var(--panel);
+            border-radius: 6px;
+            padding: 18px 22px;
+        }
+
+        .hero-schema svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 12px;
+            margin-top: 26px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--font-mono);
+            font-size: 13.5px;
+            letter-spacing: 0.4px;
+            padding: 11px 20px;
+            border-radius: 3px;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid var(--cyan-dim);
+            color: var(--cyan);
+            background: transparent;
+            transition: .15s;
+        }
+
+        .btn:hover {
+            background: rgba(92, 208, 221, 0.1);
+        }
+
+        .btn.solid {
+            background: var(--cyan);
+            color: #04141a;
+            font-weight: 700;
+            border-color: var(--cyan);
+        }
+
+        .btn.solid:hover {
+            background: #7adde8;
+        }
+
+        section {
+            padding: 64px 0;
+            border-top: 1px solid var(--panel-line);
+        }
+
+        .section-head {
+            margin-bottom: 34px;
+        }
+
+        .tag {
+            font-family: var(--font-mono);
+            color: var(--amber);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: clamp(24px, 3.4vw, 34px);
+            margin: 8px 0 10px;
+        }
+
+        .section-head p {
+            color: var(--ink-dim);
+            max-width: 640px;
+            font-size: 15px;
+        }
+
+        /* SYMBOL LIBRARY */
+        .symbol-toolbar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            background: var(--panel);
+            border: 1px solid var(--panel-line);
+            color: var(--ink);
+            padding: 10px 14px;
+            border-radius: 3px;
+            font-family: var(--font-mono);
+            font-size: 13.5px;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--cyan-dim);
+        }
+
+        .grid-symbols {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 14px;
+        }
+
+        .symcard {
+            background: var(--panel);
+            border: 1px solid var(--panel-line);
+            border-radius: 6px;
+            padding: 16px;
+            transition: .15s;
+            cursor: default;
+        }
+
+        .symcard:hover {
+            border-color: var(--cyan-dim);
+            transform: translateY(-2px);
+        }
+
+        .symcard svg {
+            width: 100%;
+            height: 64px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .symcard svg * {
+            stroke: var(--ink);
+        }
+
+        .symcard .sym-code {
+            font-family: var(--font-mono);
+            font-size: 10.5px;
+            color: var(--muted);
+            letter-spacing: 1px;
+        }
+
+        .symcard .sym-name {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 16px;
+            margin: 4px 0 6px;
+            color: var(--cyan);
+        }
+
+        .symcard .sym-desc {
+            font-size: 12.5px;
+            color: var(--ink-dim);
+        }
+
+        .trilang-row {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-family: var(--font-mono);
+            font-size: 11.5px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--panel-line);
+        }
+
+        .trilang-row span b {
+            color: var(--muted);
+            display: inline-block;
+            width: 26px;
+        }
+
+        /* TUTORIAL */
+        .tut-layout {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        @media(max-width:800px) {
+            .tut-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tut-schema {
+            background: var(--panel);
+            border: 1px solid var(--panel-line);
+            border-radius: 6px;
+            padding: 20px;
+            position: sticky;
+            top: 80px;
+        }
+
+        .tut-schema svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .tut-part {
+            outline: none;
+            cursor: pointer;
+        }
+
+        .tut-part:hover rect,
+        .tut-part:hover circle,
+        .tut-part:hover path,
+        .tut-part:hover polygon {
+            stroke: var(--amber) !important;
+        }
+
+        .tut-note {
+            background: var(--panel);
+            border: 1px solid var(--panel-line);
+            border-left: 3px solid var(--cyan);
+            border-radius: 4px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .tut-note .tn-head {
+            font-family: var(--font-mono);
+            color: var(--cyan);
+            font-size: 12px;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            counter-reset: step;
+        }
+
+        .steps li {
+            counter-increment: step;
+            padding: 10px 0 10px 40px;
+            position: relative;
+            font-size: 14.5px;
+            color: var(--ink-dim);
+            border-bottom: 1px solid var(--panel-line);
+        }
+
+        .steps li:last-child {
+            border-bottom: none;
+        }
+
+        .steps li::before {
+            content: counter(step);
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 26px;
+            height: 26px;
+            border: 1px solid var(--cyan-dim);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--cyan);
+        }
+
+        /* ADVANCED CIRCUIT */
+        .adv-layout {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        @media(max-width:860px) {
+            .adv-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .adv-diagrams {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .adv-panel {
+            background: var(--panel);
+            border: 1px solid var(--panel-line);
+            border-radius: 6px;
+            padding: 16px 18px;
+        }
+
+        .adv-panel-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .adv-panel svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .adv-part {
+            cursor: pointer;
+        }
+
+        .adv-part:hover .adv-hitbox {
+            stroke: var(--amber) !important;
+            stroke-width: 1.5;
+        }
+
+        .adv-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 14px;
+        }
+
+        .adv-btn {
+            font-family: var(--font-mono);
+            font-size: 12.5px;
+            padding: 10px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid var(--panel-line);
+            background: transparent;
+            color: var(--ink);
+        }
+
+        .adv-btn.start {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .adv-btn.start:hover {
+            background: rgba(61, 255, 160, 0.1);
+        }
+
+        .adv-btn.stop {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .adv-btn.stop:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .adv-btn.trip {
+            border-color: var(--amber);
+            color: var(--amber);
+        }
+
+        .adv-btn.trip:hover {
+            background: rgba(255, 178, 56, 0.1);
+        }
+
+        .adv-status {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        .status-pill {
+            border: 1px solid var(--panel-line);
+            border-radius: 20px;
+            padding: 5px 12px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-pill .dotstate {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--muted);
+        }
+
+        .status-pill.live {
+            color: var(--green);
+            border-color: var(--green);
+        }
+
+        .status-pill.live .dotstate {
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+        }
+
+        .status-pill.fault {
+            color: var(--red);
+            border-color: var(--red);
+        }
+
+        .status-pill.fault .dotstate {
+            background: var(--red);
+            box-shadow: 0 0 6px var(--red);
+        }
+
+        @keyframes motorspin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .motor-blade {
+            transform-origin: center;
+            transform-box: fill-box;
+        }
+
+        .motor-blade.spin {
+            animation: motorspin 0.9s linear infinite;
+        }
+
+        /* QUIZ */
+        .quizbox {
+            background: var(--panel);
+            border: 1px solid var(--panel-line);
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 560px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .quiz-score {
+            font-family: var(--font-mono);
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        .quiz-svg-holder {
+            background: var(--bg2);
+            border: 1px solid var(--panel-line);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-svg-holder svg {
+            width: 100%;
+            height: 100px;
+        }
+
+        .quiz-svg-holder svg * {
+            stroke: var(--ink);
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media(max-width:480px) {
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .qopt {
+            background: transparent;
+            border: 1px solid var(--panel-line);
+            color: var(--ink);
+            padding: 12px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 14px;
+            transition: .12s;
+        }
+
+        .qopt:hover {
+            border-color: var(--cyan-dim);
+        }
+
+        .qopt.correct {
+            background: rgba(61, 255, 160, 0.14);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .qopt.wrong {
+            background: rgba(255, 107, 107, 0.14);
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .qopt:disabled {
+            cursor: default;
+        }
+
+        .quiz-feedback {
+            margin-top: 16px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            min-height: 18px;
+            color: var(--ink-dim);
+        }
+
+        /* MULTIMETER */
+        .mm-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        @media(max-width:860px) {
+            .mm-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mm-circuit {
+            background: var(--panel);
+            border: 1px solid var(--panel-line);
+            border-radius: 6px;
+            padding: 20px;
+        }
+
+        .mm-circuit svg {
+            width: 100%;
+            height: auto;
+        }
+
+        .probe-point {
+            cursor: pointer;
+        }
+
+        .probe-point circle {
+            transition: .12s;
+        }
+
+        .probe-point:hover circle {
+            fill: var(--amber) !important;
+        }
+
+        .probe-point.sel-red circle {
+            fill: var(--red) !important;
+            stroke: var(--red) !important;
+        }
+
+        .probe-point.sel-black circle {
+            fill: #8fa;
+        }
+
+        .probe-point.sel-black circle {
+            fill: #dfeef4 !important;
+            stroke: var(--ink) !important;
+        }
+
+        .meter-device {
+            background: #0e1a12;
+            border: 2px solid #1c3324;
+            border-radius: 10px;
+            padding: 22px;
+            font-family: var(--font-mono);
+        }
+
+        .meter-screen {
+            background: #08150c;
+            border: 1px solid #1c3324;
+            border-radius: 4px;
+            padding: 18px;
+            text-align: right;
+            margin-bottom: 16px;
+        }
+
+        .meter-screen .unit {
+            font-size: 12px;
+            color: #4a7a5c;
+            letter-spacing: 2px;
+        }
+
+        .meter-screen .value {
+            font-size: 38px;
+            color: var(--green);
+            letter-spacing: 1px;
+            min-height: 44px;
+            text-shadow: 0 0 8px rgba(61, 255, 160, 0.5);
+        }
+
+        .mm-bar {
+            height: 6px;
+            background: #0c2013;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+
+        .mm-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+            transition: width .25s;
+        }
+
+        .mm-warning {
+            margin-top: 12px;
+            padding: 9px 11px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: var(--font-mono);
+            line-height: 1.4;
+        }
+
+        .mm-warning.amber {
+            background: rgba(255, 178, 56, 0.12);
+            border: 1px solid var(--amber);
+            color: var(--amber);
+        }
+
+        .mm-warning.danger {
+            background: rgba(255, 107, 107, 0.12);
+            border: 1px solid var(--red);
+            color: var(--red);
+        }
+
+        .mode-dial {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: 1px solid #294934;
+            color: #7fae8f;
+            padding: 9px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        .mode-btn.active {
+            background: #1c3324;
+            color: var(--green);
+            border-color: var(--green);
+        }
+
+        .mm-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .probe-legend {
+            display: flex;
+            gap: 16px;
+            font-size: 12.5px;
+            color: var(--ink-dim);
+            margin-top: 10px;
+        }
+
+        .probe-legend span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .mm-status {
+            font-size: 13px;
+            color: var(--ink-dim);
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--panel-line);
+        }
+
+        .switch-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid var(--panel-line);
+            padding: 8px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: 12.5px;
+            color: var(--ink-dim);
+        }
+
+        .switch-toggle .dotstate {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--muted);
+        }
+
+        .switch-toggle.on .dotstate {
+            background: var(--green);
+            box-shadow: 0 0 6px var(--green);
+        }
+
+        .mm-explain {
+            margin-top: 20px;
+        }
+
+        footer {
+            padding: 40px 0 60px;
+            text-align: center;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            font-size: 12px;
+        }
+
+        [data-i18n] {}
+
+        .hide {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="wrap">
+            <div class="brand">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M3 12h4l2-7 4 14 2-7h6" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span>Kretsskolen</span>
+            </div>
+            <div class="navlinks">
+                <a href="#symbols" data-i18n="nav_symbols">Symboler</a>
+                <a href="#tutorial" data-i18n="nav_tutorial">Lese skjema</a>
+                <a href="#advanced" data-i18n="nav_advanced">Avansert krets</a>
+                <a href="#railway" data-i18n="nav_rail">Jernbanesignal</a>
+                <a href="#panel" data-i18n="nav_panel">Hovedtavle butikk</a>
+                <a href="#quiz" data-i18n="nav_quiz">Quiz</a>
+                <a href="#multimeter" data-i18n="nav_multimeter">Multimeter</a>
+            </div>
+            <div class="langbar" id="langbar">
+                <button class="langbtn" data-lang="no">NO</button>
+                <button class="langbtn" data-lang="en">EN</button>
+                <button class="langbtn" data-lang="ua">UA</button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" style="border-top:none;padding-top:56px;">
+        <div class="wrap">
+            <div class="eyebrow" data-i18n="hero_eyebrow">Elektro · trespråklig treningsverktøy</div>
+            <h1 data-i18n="hero_title">Les skjema. Forstå <span>komponenter</span>. Bruk multimeter.</h1>
+            <p class="lead" data-i18n="hero_lead">Interaktiv side for å repetere og lære elektriske symboler, øve på å
+                lese koblingsskjema, og trene på multimeter — med betegnelser på norsk, engelsk og ukrainsk side om
+                side.</p>
+            <div class="hero-cta">
+                <a href="#symbols" class="btn solid" data-i18n="hero_cta1">Se symbolbibliotek</a>
+                <a href="#multimeter" class="btn" data-i18n="hero_cta2">Prøv multimeter</a>
+            </div>
+            <div class="hero-schema">
+                <svg viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                        <line x1="20" y1="60" x2="70" y2="60" />
+                        <!-- battery -->
+                        <line x1="70" y1="40" x2="70" y2="80" />
+                        <line x1="80" y1="48" x2="80" y2="72" />
+                        <line x1="90" y1="40" x2="90" y2="80" />
+                        <line x1="100" y1="48" x2="100" y2="72" />
+                        <line x1="100" y1="60" x2="150" y2="60" />
+                        <!-- switch -->
+                        <circle cx="150" cy="60" r="3" fill="var(--ink)" />
+                        <line x1="150" y1="58" x2="190" y2="42" />
+                        <circle cx="196" cy="60" r="3" fill="var(--ink)" />
+                        <line x1="196" y1="60" x2="250" y2="60" />
+                        <!-- resistor -->
+                        <rect x="250" y="47" width="60" height="26" rx="2" />
+                        <line x1="310" y1="60" x2="360" y2="60" />
+                        <!-- diode -->
+                        <polygon points="360,45 360,75 400,60" fill="var(--ink)" />
+                        <line x1="400" y1="45" x2="400" y2="75" />
+                        <line x1="400" y1="60" x2="450" y2="60" />
+                        <!-- lamp -->
+                        <circle cx="480" cy="60" r="28" />
+                        <line x1="461" y1="41" x2="499" y2="79" />
+                        <line x1="499" y1="41" x2="461" y2="79" />
+                        <line x1="508" y1="60" x2="560" y2="60" />
+                        <line x1="20" y1="60" x2="20" y2="60" />
+                        <line x1="70" y1="60" x2="70" y2="60" />
+                        <!-- return line to ground -->
+                        <line x1="560" y1="60" x2="600" y2="60" />
+                        <line x1="600" y1="60" x2="600" y2="100" />
+                        <line x1="20" y1="60" x2="20" y2="100" />
+                        <line x1="20" y1="100" x2="600" y2="100" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section id="symbols">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="tag" data-i18n="sym_tag">01 · Bibliotek</div>
+                <h2 data-i18n="sym_title">Symbolbibliotek</h2>
+                <p data-i18n="sym_lead">Vanlige elektriske symboler med navn på norsk, engelsk og ukrainsk. Søk eller
+                    bla gjennom.</p>
+            </div>
+            <div class="symbol-toolbar">
+                <input class="search-input" id="symSearch" placeholder="Søk: motstand, resistor, реле..."
+                    data-i18n-ph="sym_search_ph">
+            </div>
+            <div class="grid-symbols" id="symGrid"></div>
+        </div>
+    </section>
+
+    <section id="tutorial">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="tag" data-i18n="tut_tag">02 · Trening</div>
+                <h2 data-i18n="tut_title">Slik leser du et koblingsskjema</h2>
+                <p data-i18n="tut_lead">Klikk på en komponent i skjemaet for å se forklaring. Følg strømmen fra pluss
+                    til minus.</p>
+            </div>
+            <div class="tut-layout">
+                <div class="tut-schema">
+                    <svg viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg">
+                        <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                            <line x1="30" y1="40" x2="30" y2="180" />
+                            <line x1="30" y1="40" x2="80" y2="40" />
+                            <g class="tut-part" data-part="battery">
+                                <line x1="80" y1="20" x2="80" y2="60" />
+                                <line x1="90" y1="28" x2="90" y2="52" />
+                                <line x1="100" y1="20" x2="100" y2="60" />
+                                <line x1="110" y1="28" x2="110" y2="52" />
+                            </g>
+                            <line x1="110" y1="40" x2="180" y2="40" />
+                            <g class="tut-part" data-part="switch">
+                                <circle cx="180" cy="40" r="3" fill="var(--ink)" />
+                                <line x1="180" y1="38" x2="222" y2="20" />
+                                <circle cx="228" cy="40" r="3" fill="var(--ink)" />
+                            </g>
+                            <line x1="228" y1="40" x2="300" y2="40" />
+                            <g class="tut-part" data-part="fuse">
+                                <rect x="300" y="27" width="46" height="26" rx="2" />
+                                <line x1="300" y1="40" x2="346" y2="40" stroke-dasharray="4 4" />
+                            </g>
+                            <line x1="346" y1="40" x2="430" y2="40" />
+                            <line x1="430" y1="40" x2="430" y2="100" />
+                            <g class="tut-part" data-part="resistor">
+                                <line x1="430" y1="100" x2="430" y2="100" />
+                                <rect x="404" y="100" width="52" height="26" rx="2" transform="rotate(90 430 113)" />
+                            </g>
+                            <line x1="430" y1="126" x2="430" y2="150" />
+                            <g class="tut-part" data-part="lamp">
+                                <circle cx="430" cy="176" r="24" />
+                                <line x1="413" y1="159" x2="447" y2="193" />
+                                <line x1="447" y1="159" x2="413" y2="193" />
+                            </g>
+                            <line x1="430" y1="200" x2="430" y2="180" />
+                            <line x1="30" y1="180" x2="430" y2="180" />
+                            <g class="tut-part" data-part="ground">
+                                <line x1="30" y1="180" x2="30" y2="195" />
+                                <line x1="16" y1="195" x2="44" y2="195" />
+                                <line x1="21" y1="202" x2="39" y2="202" />
+                                <line x1="26" y1="209" x2="34" y2="209" />
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                <div id="tutNotes">
+                    <div class="tut-note" id="tut-default">
+                        <div class="tn-head" data-i18n="tut_hint_head">Tips</div>
+                        <div data-i18n="tut_hint_body">Klikk på batteri, bryter, sikring, motstand, lampe eller jord i
+                            skjemaet til venstre.</div>
+                    </div>
+                    <ol class="steps">
+                        <li data-i18n="tut_step1">Finn spenningskilden (batteri/nett) — dette er start- og sluttpunktet
+                            for strømkretsen.</li>
+                        <li data-i18n="tut_step2">Følg linjen (lederen) til neste komponent — en bryter avbryter eller
+                            slutter kretsen.</li>
+                        <li data-i18n="tut_step3">Se etter beskyttelseskomponenter som sikring eller vern — de er tegnet
+                            i serie med lasten.</li>
+                        <li data-i18n="tut_step4">Identifiser lasten (lampe, motor, motstand) — der energien omsettes
+                            til lys, bevegelse eller varme.</li>
+                        <li data-i18n="tut_step5">Følg kretsen tilbake til jord/minus — kretsen må alltid være sluttet
+                            (lukket) for at strøm skal flyte.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="advanced">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="tag" data-i18n="adv_tag">03 · Avansert</div>
+                <h2 data-i18n="adv_title">Motorstyring med selvhold og overlastvern</h2>
+                <p data-i18n="adv_lead">Et klassisk industrielt styrekretsskjema: Start/Stopp-knapper, en kontaktor (K1)
+                    med flere hjelpekontakter, og et termisk overlastvern. Klikk på delene for forklaring, og trykk
+                    Start/Stopp for å simulere kretsen live.</p>
+            </div>
+            <div class="adv-layout">
+                <div class="adv-diagrams">
+                    <div class="adv-panel">
+                        <div class="adv-panel-label" data-i18n="adv_power_label">Hovedstrøm (kraftkrets) — tykke linjer
+                        </div>
+                        <svg viewBox="0 0 520 130" xmlns="http://www.w3.org/2000/svg">
+                            <g font-family="JetBrains Mono, monospace" font-size="11" fill="var(--muted)">
+                                <text x="14" y="20">L1</text>
+                                <text x="470" y="20">N</text>
+                            </g>
+                            <g stroke="var(--amber)" stroke-width="3.5" fill="none" stroke-linecap="round">
+                                <line x1="30" y1="30" x2="70" y2="30" />
+                                <g class="adv-part" data-part="mainFuse">
+                                    <rect class="adv-hitbox" x="70" y="16" width="40" height="28" rx="2" />
+                                    <line x1="90" y1="16" x2="90" y2="44" stroke-dasharray="3 3" />
+                                </g>
+                                <line x1="110" y1="30" x2="160" y2="30" />
+                                <g class="adv-part" data-part="mainContact">
+                                    <line class="adv-hitbox" x1="180" y1="10" x2="180" y2="24" />
+                                    <line class="adv-hitbox" x1="180" y1="36" x2="180" y2="50" />
+                                    <line id="bridge-mainContact" x1="174" y1="38" x2="186" y2="12" />
+                                </g>
+                                <line x1="160" y1="30" x2="180" y2="30" stroke-dasharray="1 0"
+                                    style="visibility:hidden" />
+                                <line x1="110" y1="30" x2="180" y2="30" transform="translate(0,0)" stroke="var(--amber)"
+                                    stroke-width="0" />
+                                <line x1="180" y1="30" x2="230" y2="30" />
+                                <g class="adv-part" data-part="mainOverload">
+                                    <rect class="adv-hitbox" x="230" y="16" width="46" height="28" rx="4" />
+                                    <path d="M238 30 q6 -10 12 0 q6 10 12 0 q6 -10 12 0" fill="none" />
+                                </g>
+                                <line x1="276" y1="30" x2="330" y2="30" />
+                                <g class="adv-part" data-part="motor">
+                                    <circle class="adv-hitbox" cx="370" cy="30" r="26" />
+                                    <line class="motor-blade" id="motorBlade" x1="370" y1="10" x2="370" y2="50" />
+                                </g>
+                                <g font-family="JetBrains Mono, monospace" font-size="13" fill="var(--amber)"
+                                    stroke="none">
+                                    <text x="360" y="35">M</text>
+                                </g>
+                                <g font-family="JetBrains Mono, monospace" font-size="9" fill="var(--muted)"
+                                    stroke="none">
+                                    <text x="358" y="66">3~</text>
+                                </g>
+                                <line x1="396" y1="30" x2="470" y2="30" />
+                                <line x1="30" y1="30" x2="30" y2="30" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="adv-panel">
+                        <div class="adv-panel-label" data-i18n="adv_control_label">Styrestrøm (kontrollkrets) — tynne
+                            linjer</div>
+                        <svg viewBox="0 0 520 260" xmlns="http://www.w3.org/2000/svg">
+                            <g font-family="JetBrains Mono, monospace" font-size="11" fill="var(--muted)">
+                                <text x="14" y="16">L</text>
+                                <text x="470" y="16">N</text>
+                            </g>
+                            <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                                <line x1="40" y1="20" x2="40" y2="240" />
+                                <line x1="460" y1="20" x2="460" y2="240" />
+
+                                <!-- Rung 1: stop - overload aux - (start || k1aux) - coil -->
+                                <line x1="40" y1="55" x2="80" y2="55" />
+                                <g class="adv-part" data-part="stopBtn">
+                                    <line class="adv-hitbox" x1="100" y1="42" x2="100" y2="52" />
+                                    <line class="adv-hitbox" x1="100" y1="58" x2="100" y2="68" />
+                                    <line id="bridge-stopBtn" x1="94" y1="60" x2="106" y2="40" />
+                                </g>
+                                <line x1="80" y1="55" x2="100" y2="55" stroke="transparent" />
+                                <line x1="100" y1="55" x2="140" y2="55" />
+                                <g class="adv-part" data-part="overloadAux">
+                                    <line class="adv-hitbox" x1="160" y1="42" x2="160" y2="52" />
+                                    <line class="adv-hitbox" x1="160" y1="58" x2="160" y2="68" />
+                                    <line id="bridge-overloadAux" x1="154" y1="60" x2="166" y2="40" />
+                                </g>
+                                <line x1="160" y1="55" x2="200" y2="55" />
+                                <line x1="200" y1="30" x2="200" y2="80" />
+                                <line x1="200" y1="30" x2="240" y2="30" />
+                                <g class="adv-part" data-part="startBtn">
+                                    <line class="adv-hitbox" x1="260" y1="17" x2="260" y2="27" />
+                                    <line class="adv-hitbox" x1="260" y1="33" x2="260" y2="43" />
+                                    <line id="bridge-startBtn" x1="254" y1="35" x2="266" y2="15"
+                                        style="visibility:hidden" />
+                                </g>
+                                <line x1="260" y1="30" x2="300" y2="30" />
+                                <line x1="200" y1="80" x2="240" y2="80" />
+                                <g class="adv-part" data-part="k1AuxHold">
+                                    <line class="adv-hitbox" x1="260" y1="67" x2="260" y2="77" />
+                                    <line class="adv-hitbox" x1="260" y1="83" x2="260" y2="93" />
+                                    <line id="bridge-k1AuxHold" x1="254" y1="85" x2="266" y2="65"
+                                        style="visibility:hidden" />
+                                </g>
+                                <line x1="260" y1="80" x2="300" y2="80" />
+                                <line x1="300" y1="30" x2="300" y2="80" />
+                                <line x1="300" y1="55" x2="340" y2="55" />
+                                <g class="adv-part" data-part="k1Coil">
+                                    <rect class="adv-hitbox" x="340" y="42" width="40" height="26" rx="2" />
+                                </g>
+                                <text x="348" y="60" font-family="JetBrains Mono, monospace" font-size="12"
+                                    fill="var(--ink)" stroke="none">K1</text>
+                                <line x1="380" y1="55" x2="460" y2="55" />
+
+                                <!-- Rung 2: K1 aux NO -> lamp H1 (running) -->
+                                <line x1="40" y1="140" x2="120" y2="140" />
+                                <g class="adv-part" data-part="k1AuxH1">
+                                    <line class="adv-hitbox" x1="140" y1="127" x2="140" y2="137" />
+                                    <line class="adv-hitbox" x1="140" y1="143" x2="140" y2="153" />
+                                    <line id="bridge-k1AuxH1" x1="134" y1="145" x2="146" y2="125"
+                                        style="visibility:hidden" />
+                                </g>
+                                <line x1="140" y1="140" x2="180" y2="140" />
+                                <g class="adv-part" data-part="lampH1">
+                                    <circle class="adv-hitbox" id="lampH1circle" cx="210" cy="140" r="16" />
+                                    <line x1="199" y1="129" x2="221" y2="151" />
+                                    <line x1="221" y1="129" x2="199" y2="151" />
+                                </g>
+                                <text x="234" y="145" font-family="JetBrains Mono, monospace" font-size="11"
+                                    fill="var(--muted)" stroke="none" data-i18n="adv_h1_label">H1 · i drift</text>
+                                <line x1="226" y1="140" x2="460" y2="140" />
+
+                                <!-- Rung 3: K1 aux NC -> lamp H2 (idle) -->
+                                <line x1="40" y1="200" x2="120" y2="200" />
+                                <g class="adv-part" data-part="k1AuxH2">
+                                    <line class="adv-hitbox" x1="140" y1="187" x2="140" y2="197" />
+                                    <line class="adv-hitbox" x1="140" y1="203" x2="140" y2="213" />
+                                    <line id="bridge-k1AuxH2" x1="134" y1="205" x2="146" y2="185" />
+                                </g>
+                                <line x1="140" y1="200" x2="180" y2="200" />
+                                <g class="adv-part" data-part="lampH2">
+                                    <circle class="adv-hitbox" id="lampH2circle" cx="210" cy="200" r="16" />
+                                    <line x1="199" y1="189" x2="221" y2="211" />
+                                    <line x1="221" y1="189" x2="199" y2="211" />
+                                </g>
+                                <text x="234" y="205" font-family="JetBrains Mono, monospace" font-size="11"
+                                    fill="var(--muted)" stroke="none" data-i18n="adv_h2_label">H2 · i ro</text>
+                                <line x1="226" y1="200" x2="460" y2="200" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="adv-controls">
+                        <button class="adv-btn start" id="advStart" data-i18n="adv_btn_start">▶ Start</button>
+                        <button class="adv-btn stop" id="advStop" data-i18n="adv_btn_stop">■ Stopp</button>
+                        <button class="adv-btn trip" id="advTrip" data-i18n="adv_btn_trip">⚠ Simuler
+                            overbelastning</button>
+                        <button class="adv-btn" id="advReset" data-i18n="adv_btn_reset">↺ Tilbakestill vern</button>
+                    </div>
+                    <div class="adv-status">
+                        <div class="status-pill" id="pillK1"><span class="dotstate"></span><span
+                                data-i18n="adv_pill_k1">K1: av</span></div>
+                        <div class="status-pill" id="pillMotor"><span class="dotstate"></span><span
+                                data-i18n="adv_pill_motor">Motor: stoppet</span></div>
+                        <div class="status-pill" id="pillOverload"><span class="dotstate"></span><span
+                                data-i18n="adv_pill_overload">Vern: OK</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="tut-note" id="adv-default">
+                        <div class="tn-head" data-i18n="adv_hint_head">Tips</div>
+                        <div data-i18n="adv_hint_body">Klikk på Start-knapp, spole K1, hjelpekontakter, overlastvern
+                            eller motor i skjemaet for forklaring av hver del.</div>
+                    </div>
+                    <ol class="steps" id="advSteps">
+                        <li data-i18n="adv_step1">Du trykker Start (NO-knapp) — kontakten lukkes momentant og strøm går
+                            gjennom spolen K1.</li>
+                        <li data-i18n="adv_step2">K1 trekker til: hovedkontakten i kraftkretsen lukkes, og motoren
+                            starter.</li>
+                        <li data-i18n="adv_step3">Samtidig lukkes K1 sin hjelpekontakt (selvhold) parallelt med
+                            Start-knappen.</li>
+                        <li data-i18n="adv_step4">Du slipper Start — kretsen holder seg selv sluttet via
+                            hjelpekontakten. Dette kalles selvhold.</li>
+                        <li data-i18n="adv_step5">Trykker du Stopp (NC-knapp), brytes kretsen og K1 faller ut — motoren
+                            stopper og selvholdet forsvinner.</li>
+                        <li data-i18n="adv_step6">Ved overbelastning løser det termiske vernet ut og åpner sin
+                            NC-hjelpekontakt i styrekretsen — dette stopper motoren uansett hva Start/Stopp-knappene
+                            gjør, og må tilbakestilles manuelt.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="railway">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="tag" data-i18n="rail_tag">04 · Jernbane</div>
+                <h2 data-i18n="rail_title">Sporfelt og signalrelé — prinsippet om feilsikkerhet</h2>
+                <p data-i18n="rail_lead">Grunnmuren i alle jernbane-sikringsanlegg: et sporfelt registrerer om sporet er
+                    fritt eller opptatt, og styrer signalet via et relé som ALLTID faller til «stopp» ved enhver feil.
+                    Klikk på delene, og prøv å sette et tog på sporfeltet eller simulere en ledningsfeil.</p>
+            </div>
+            <div class="adv-layout">
+                <div class="adv-diagrams">
+                    <div class="adv-panel">
+                        <div class="adv-panel-label" data-i18n="rail_track_label">Sporfelt (skinnegang)</div>
+                        <svg viewBox="0 0 560 170" xmlns="http://www.w3.org/2000/svg">
+                            <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                                <!-- battery + feed resistor -->
+                                <g class="adv-part" data-part="railBattery">
+                                    <line class="adv-hitbox" x1="30" y1="50" x2="30" y2="90" />
+                                    <line x1="20" y1="58" x2="20" y2="82" />
+                                    <line x1="30" y1="50" x2="30" y2="90" />
+                                    <line x1="12" y1="66" x2="12" y2="74" />
+                                </g>
+                                <line x1="20" y1="70" x2="20" y2="70" />
+                                <line x1="30" y1="70" x2="60" y2="70" />
+                                <g class="adv-part" data-part="feedResistor">
+                                    <rect class="adv-hitbox" x="60" y="58" width="42" height="24" rx="2" />
+                                </g>
+                                <line x1="102" y1="70" x2="140" y2="70" />
+                                <line x1="20" y1="100" x2="20" y2="100" />
+                                <line x1="12" y1="70" x2="12" y2="100" />
+                                <line x1="12" y1="100" x2="140" y2="100" />
+
+                                <!-- rails -->
+                                <g class="adv-part" data-part="railTop">
+                                    <line class="adv-hitbox" id="railTopWire1" x1="140" y1="70" x2="290" y2="70" />
+                                    <line class="adv-hitbox" id="railTopWire2" x1="310" y1="70" x2="460" y2="70" />
+                                </g>
+                                <g class="adv-part" data-part="railBottom">
+                                    <line class="adv-hitbox" x1="140" y1="100" x2="460" y2="100" />
+                                </g>
+                                <!-- sleepers -->
+                                <g stroke="var(--panel-line)" stroke-width="2">
+                                    <line x1="160" y1="62" x2="160" y2="108" />
+                                    <line x1="200" y1="62" x2="200" y2="108" />
+                                    <line x1="240" y1="62" x2="240" y2="108" />
+                                    <line x1="280" y1="62" x2="280" y2="108" />
+                                    <line x1="320" y1="62" x2="320" y2="108" />
+                                    <line x1="360" y1="62" x2="360" y2="108" />
+                                    <line x1="400" y1="62" x2="400" y2="108" />
+                                    <line x1="440" y1="62" x2="440" y2="108" />
+                                </g>
+                                <!-- wire-break gap marker -->
+                                <g id="railCutMarker" style="visibility:hidden;">
+                                    <line x1="292" y1="62" x2="308" y2="78" stroke="var(--red)" stroke-width="3" />
+                                    <line x1="308" y1="62" x2="292" y2="78" stroke="var(--red)" stroke-width="3" />
+                                </g>
+
+                                <!-- track relay -->
+                                <g class="adv-part" data-part="trackRelay">
+                                    <rect class="adv-hitbox" x="460" y="60" width="30" height="50" rx="2" />
+                                </g>
+                                <text x="465" y="90" font-family="JetBrains Mono, monospace" font-size="11"
+                                    fill="var(--ink)" stroke="none">SR</text>
+                            </g>
+                            <!-- train wheelset (toggle) -->
+                            <g class="adv-part" id="trainIcon" data-part="trainWheelset" style="visibility:hidden;">
+                                <line x1="240" y1="70" x2="240" y2="100" stroke="var(--amber)" stroke-width="4" />
+                                <circle cx="240" cy="65" r="7" fill="var(--amber)" stroke="none" />
+                                <circle cx="240" cy="105" r="7" fill="var(--amber)" stroke="none" />
+                            </g>
+                            <g font-family="JetBrains Mono, monospace" font-size="10" fill="var(--muted)">
+                                <text x="10" y="128">BAT</text>
+                                <text x="150" y="128">← sporfelt (block) →</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="adv-panel">
+                        <div class="adv-panel-label" data-i18n="rail_signal_label">Signal</div>
+                        <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
+                            <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                                <line x1="30" y1="20" x2="30" y2="115" />
+                                <rect x="55" y="15" width="60" height="90" rx="8" />
+                            </g>
+                            <g class="adv-part" data-part="signalStop">
+                                <circle class="adv-hitbox" id="lampStopCircle" cx="85" cy="42" r="16" />
+                            </g>
+                            <g class="adv-part" data-part="signalGo">
+                                <circle class="adv-hitbox" id="lampGoCircle" cx="85" cy="80" r="16" />
+                            </g>
+                            <text x="130" y="46" font-family="JetBrains Mono, monospace" font-size="11"
+                                fill="var(--muted)" stroke="none">STOPP</text>
+                            <text x="130" y="84" font-family="JetBrains Mono, monospace" font-size="11"
+                                fill="var(--muted)" stroke="none">KJØR</text>
+                        </svg>
+                    </div>
+
+                    <div class="adv-controls">
+                        <button class="switch-toggle" id="railTrainToggle"><span class="dotstate"></span><span
+                                id="railTrainLabel" data-i18n="rail_btn_train_off">🚆 Sett tog på
+                                sporfeltet</span></button>
+                        <button class="switch-toggle" id="railCutToggle"><span class="dotstate"></span><span
+                                id="railCutLabel" data-i18n="rail_btn_cut_off">✂ Simuler ledningsbrudd</span></button>
+                    </div>
+                    <div class="adv-status">
+                        <div class="status-pill" id="pillTrack"><span class="dotstate"></span><span
+                                data-i18n="rail_pill_track_clear">Sporfelt: fritt</span></div>
+                        <div class="status-pill" id="pillRelay"><span class="dotstate"></span><span
+                                data-i18n="rail_pill_relay_up">Relé: tiltrukket</span></div>
+                        <div class="status-pill" id="pillSignal"><span class="dotstate"></span><span
+                                data-i18n="rail_pill_signal_go">Signal: KJØR</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="tut-note" id="rail-default">
+                        <div class="tn-head" data-i18n="rail_hint_head">Tips</div>
+                        <div data-i18n="rail_hint_body">Klikk på sporbatteri, skinner, sporrelé eller signallampene for
+                            forklaring. Prøv så knappene under for å se feilsikkerheten i praksis.</div>
+                    </div>
+                    <ol class="steps">
+                        <li data-i18n="rail_step1">Sporbatteriet sender en liten, ufarlig strøm gjennom skinnegangen når
+                            sporet er fritt for tog.</li>
+                        <li data-i18n="rail_step2">Strømmen når fram til sporrelé i den andre enden — spolen trekker til
+                            (energiseres).</li>
+                        <li data-i18n="rail_step3">Releet lukker sin frontkontakt, som mater «Kjør»-lampen — toget kan
+                            kjøre videre inn på strekningen.</li>
+                        <li data-i18n="rail_step4">Når et tog kjører inn på sporfeltet, kortslutter hjulakslingen
+                            skinnene — strømmen tar denne korteste veien i stedet for å gå via relespolen.</li>
+                        <li data-i18n="rail_step5">Sporrelé mister strømtilførselen og faller — det samme skjer ved
+                            brutt leder, dødt batteri eller en feil i selve relespolen.</li>
+                        <li data-i18n="rail_step6">Det falne releet går til sin hvilekontakt, som mater «Stopp»-lampen.
+                            Signalet viser alltid stopp med mindre ALT er i orden — dette kalles feilsikkert (fail-safe)
+                            design, selve grunnprinsippet i jernbanesignal.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="panel">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="tag" data-i18n="panel_tag">05 · Elinstallasjon</div>
+                <h2 data-i18n="panel_title">Hovedtavle i en butikk — fordeling til lys, kjøl/frys og klimaanlegg</h2>
+                <p data-i18n="panel_lead">Slik henger en typisk butikktavle sammen: strøm inn fra nettet, gjennom
+                    hovedbryter og hovedskinne, ut til hver enkelt kurs med egen automatsikring og (som oftest) egen
+                    jordfeilbryter. Klikk på delene for forklaring, og prøv knappene for å se hvordan feil isoleres til
+                    én kurs.</p>
+            </div>
+            <div class="adv-layout">
+                <div class="adv-diagrams">
+                    <div class="adv-panel">
+                        <div class="adv-panel-label" data-i18n="nav_panel">Hovedtavle butikk</div>
+                        <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+                            <g font-family="JetBrains Mono, monospace" font-size="10.5" fill="var(--muted)"
+                                stroke="none">
+                                <text x="4" y="20">3~ 400V TN</text>
+                            </g>
+                            <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                                <g class="adv-part" data-part="incomingGrid">
+                                    <line class="adv-hitbox" x1="8" y1="26" x2="72" y2="26" />
+                                </g>
+                                <g class="adv-part" data-part="kwhMeter">
+                                    <rect class="adv-hitbox" x="72" y="12" width="42" height="28" rx="2" />
+                                </g>
+                                <text x="80" y="30" font-family="JetBrains Mono, monospace" font-size="10"
+                                    fill="var(--ink)" stroke="none">kWh</text>
+                                <line x1="114" y1="26" x2="150" y2="26" />
+                                <g class="adv-part" data-part="mainBreaker">
+                                    <line class="adv-hitbox" x1="164" y1="13" x2="164" y2="23" />
+                                    <line class="adv-hitbox" x1="164" y1="29" x2="164" y2="39" />
+                                    <line id="bridge-mainBreaker" x1="158" y1="31" x2="170" y2="11" />
+                                </g>
+                                <line x1="164" y1="26" x2="200" y2="26" />
+                                <line x1="200" y1="26" x2="200" y2="370" />
+                                <g class="adv-part" data-part="mainBus">
+                                    <rect class="adv-hitbox" x="193" y="26" width="14" height="344"
+                                        fill="transparent" />
+                                </g>
+                            </g>
+                            <text x="206" y="22" font-family="JetBrains Mono, monospace" font-size="10"
+                                fill="var(--muted)" stroke="none" data-i18n="panel_group_bus">Hovedskinne</text>
+
+                            <!-- Row 1: Lighting -->
+                            <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                                <line x1="200" y1="70" x2="230" y2="70" />
+                                <g class="adv-part" data-part="lightProtection">
+                                    <rect class="adv-hitbox" x="230" y="57" width="36" height="26" rx="2" />
+                                    <rect class="adv-hitbox" x="286" y="57" width="40" height="26" rx="2"
+                                        stroke="var(--cyan)" id="rcdRect-light" />
+                                </g>
+                                <line x1="266" y1="70" x2="286" y2="70" />
+                                <line id="loadLine-light" x1="326" y1="70" x2="368" y2="70" />
+                                <g class="adv-part" data-part="lightLoad">
+                                    <circle class="adv-hitbox" id="loadIcon-light" cx="392" cy="70" r="18" />
+                                    <line id="loadIconX1-light" x1="379" y1="57" x2="405" y2="83" />
+                                    <line id="loadIconX2-light" x1="405" y1="57" x2="379" y2="83" />
+                                </g>
+                            </g>
+                            <text x="233" y="97" font-family="JetBrains Mono, monospace" font-size="9.5"
+                                fill="var(--muted)" stroke="none">10A</text>
+                            <text x="290" y="97" font-family="JetBrains Mono, monospace" font-size="9.5"
+                                fill="var(--muted)" stroke="none">30mA</text>
+                            <text x="420" y="75" font-family="JetBrains Mono, monospace" font-size="11"
+                                fill="var(--ink-dim)" stroke="none" data-i18n="panel_group_light">Belysning
+                                butikklokale</text>
+
+                            <!-- Row 2: Fridge/freezer -->
+                            <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                                <line x1="200" y1="140" x2="230" y2="140" />
+                                <g class="adv-part" data-part="fridgeProtection">
+                                    <rect class="adv-hitbox" x="230" y="127" width="36" height="26" rx="2" />
+                                    <rect class="adv-hitbox" x="286" y="127" width="40" height="26" rx="2"
+                                        stroke="var(--cyan)" />
+                                </g>
+                                <line x1="266" y1="140" x2="286" y2="140" />
+                                <line id="loadLine-fridge" x1="326" y1="140" x2="368" y2="140" />
+                                <g class="adv-part" data-part="fridgeLoad">
+                                    <rect class="adv-hitbox" id="loadIcon-fridge" x="372" y="118" width="40" height="44"
+                                        rx="3" />
+                                    <line x1="372" y1="136" x2="412" y2="136" />
+                                    <line x1="392" y1="122" x2="392" y2="132" />
+                                </g>
+                            </g>
+                            <text x="233" y="167" font-family="JetBrains Mono, monospace" font-size="9.5"
+                                fill="var(--muted)" stroke="none">16A</text>
+                            <text x="290" y="167" font-family="JetBrains Mono, monospace" font-size="9.5"
+                                fill="var(--muted)" stroke="none">30mA</text>
+                            <text x="420" y="145" font-family="JetBrains Mono, monospace" font-size="11"
+                                fill="var(--ink-dim)" stroke="none" data-i18n="panel_group_fridge">Kjøl- og
+                                fryseskap</text>
+
+                            <!-- Row 3: Air conditioning (compressor, contactor + thermal overload) -->
+                            <g stroke="var(--amber)" stroke-width="2" fill="none" stroke-linecap="round">
+                                <line x1="200" y1="210" x2="230" y2="210" />
+                                <g class="adv-part" data-part="acProtection">
+                                    <rect class="adv-hitbox" x="230" y="197" width="36" height="26" rx="2" />
+                                    <rect class="adv-hitbox" x="286" y="197" width="28" height="26" rx="2" />
+                                    <path class="adv-hitbox" d="M320 210 q6 -9 12 0 q6 9 12 0" />
+                                    <rect class="adv-hitbox" x="316" y="197" width="34" height="26" rx="4"
+                                        fill="none" />
+                                </g>
+                                <line x1="266" y1="210" x2="286" y2="210" />
+                                <line x1="350" y1="210" x2="380" y2="210" />
+                                <g class="adv-part" data-part="acLoad">
+                                    <circle class="adv-hitbox" cx="404" cy="210" r="22" />
+                                    <line class="motor-blade" id="acMotorBlade" x1="404" y1="188" x2="404" y2="232" />
+                                </g>
+                            </g>
+                            <text x="296" y="211" font-family="JetBrains Mono, monospace" font-size="10"
+                                fill="var(--amber)" stroke="none">K</text>
+                            <text x="396" y="215" font-family="JetBrains Mono, monospace" font-size="13"
+                                fill="var(--amber)" stroke="none">M</text>
+                            <text x="394" y="246" font-family="JetBrains Mono, monospace" font-size="9"
+                                fill="var(--muted)" stroke="none">3~</text>
+                            <text x="233" y="237" font-family="JetBrains Mono, monospace" font-size="9.5"
+                                fill="var(--muted)" stroke="none">20A</text>
+                            <text x="440" y="215" font-family="JetBrains Mono, monospace" font-size="11"
+                                fill="var(--ink-dim)" stroke="none" data-i18n="panel_group_ac">Klimaanlegg (kompressor,
+                                3~)</text>
+
+                            <!-- Row 4: Sockets (fault-simulation target) -->
+                            <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                                <line x1="200" y1="280" x2="230" y2="280" />
+                                <g class="adv-part" data-part="socketProtection">
+                                    <rect class="adv-hitbox" x="230" y="267" width="36" height="26" rx="2" />
+                                    <rect class="adv-hitbox" id="rcdRect-socket" x="286" y="267" width="40" height="26"
+                                        rx="2" stroke="var(--cyan)" />
+                                </g>
+                                <line x1="266" y1="280" x2="286" y2="280" />
+                                <line id="loadLine-socket" x1="326" y1="280" x2="368" y2="280" />
+                                <g class="adv-part" data-part="socketLoad">
+                                    <circle class="adv-hitbox" id="loadIcon-socket" cx="392" cy="280" r="17" />
+                                    <line id="socketPin1" x1="386" y1="271" x2="386" y2="281" />
+                                    <line id="socketPin2" x1="398" y1="271" x2="398" y2="281" />
+                                </g>
+                            </g>
+                            <text x="233" y="307" font-family="JetBrains Mono, monospace" font-size="9.5"
+                                fill="var(--muted)" stroke="none">16A</text>
+                            <text x="290" y="307" font-family="JetBrains Mono, monospace" font-size="9.5"
+                                fill="var(--muted)" stroke="none">30mA</text>
+                            <text x="420" y="285" font-family="JetBrains Mono, monospace" font-size="11"
+                                fill="var(--ink-dim)" stroke="none" data-i18n="panel_group_socket">Stikkontakter</text>
+
+                            <!-- Row 5: Emergency lighting -->
+                            <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                                <line x1="200" y1="350" x2="230" y2="350" />
+                                <g class="adv-part" data-part="emergProtection">
+                                    <rect class="adv-hitbox" x="230" y="337" width="36" height="26" rx="2" />
+                                    <rect class="adv-hitbox" x="286" y="337" width="40" height="26" rx="2"
+                                        stroke="var(--cyan)" />
+                                </g>
+                                <line x1="266" y1="350" x2="286" y2="350" />
+                                <line id="loadLine-emerg" x1="326" y1="350" x2="368" y2="350" />
+                                <g class="adv-part" data-part="emergLoad">
+                                    <circle class="adv-hitbox" id="loadIcon-emerg" cx="390" cy="350" r="16" />
+                                    <line x1="379" y1="339" x2="401" y2="361" />
+                                    <line x1="401" y1="339" x2="379" y2="361" />
+                                    <line x1="412" y1="340" x2="412" y2="360" />
+                                    <line x1="418" y1="345" x2="418" y2="355" />
+                                    <line x1="424" y1="340" x2="424" y2="360" />
+                                </g>
+                            </g>
+                            <text x="233" y="377" font-family="JetBrains Mono, monospace" font-size="9.5"
+                                fill="var(--muted)" stroke="none">6A</text>
+                            <text x="290" y="377" font-family="JetBrains Mono, monospace" font-size="9.5"
+                                fill="var(--muted)" stroke="none">30mA</text>
+                            <text x="436" y="355" font-family="JetBrains Mono, monospace" font-size="11"
+                                fill="var(--ink-dim)" stroke="none" data-i18n="panel_group_emerg">Nødlys /
+                                rømningslys</text>
+                        </svg>
+                    </div>
+
+                    <div class="adv-controls">
+                        <button class="switch-toggle on" id="panelMainToggle"><span class="dotstate"></span><span
+                                id="panelMainLabel" data-i18n="panel_btn_main_on">🔌 Hovedbryter: PÅ</span></button>
+                        <button class="switch-toggle" id="panelFaultToggle"><span class="dotstate"></span><span
+                                id="panelFaultLabel" data-i18n="panel_btn_fault_off">⚡ Simuler jordfeil på
+                                stikkontaktkurs</span></button>
+                    </div>
+                    <div class="adv-status">
+                        <div class="status-pill live" id="pillMain"><span class="dotstate"></span><span
+                                data-i18n="panel_pill_main_on">Hovedbryter: PÅ</span></div>
+                        <div class="status-pill" id="pillSocket"><span class="dotstate"></span><span
+                                data-i18n="panel_pill_socket_ok">Stikkontaktkurs: OK</span></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="tut-note" id="panel-default">
+                        <div class="tn-head" data-i18n="panel_hint_head">Tips</div>
+                        <div data-i18n="panel_hint_body">Klikk på strømmåler, hovedbryter, hovedskinne, eller en hvilken
+                            som helst kurs (beskyttelse eller last) for forklaring.</div>
+                    </div>
+                    <ol class="steps">
+                        <li data-i18n="panel_step1">Hovedbryteren kutter strømmen til hele tavla og alle kursene
+                            samtidig — brukes ved arbeid på selve tavla.</li>
+                        <li data-i18n="panel_step2">Hver kurs har sin egen automatsikring (MCB) tilpasset lasten, f.eks.
+                            10A til belysning og 16A til stikkontakter.</li>
+                        <li data-i18n="panel_step3">De fleste kursene har i tillegg egen jordfeilbryter (RCD, 30mA) —
+                            den kutter KUN den ene kursen ved jordfeil, resten av butikken fortsetter å virke.</li>
+                        <li data-i18n="panel_step4">Klimaanlegget bruker gjerne kontaktor og termisk overlastvern —
+                            akkurat som i motorstyringen du så tidligere — i stedet for å stole på RCD alene, siden
+                            kompressormotoren kan gi naturlige lekkstrømmer.</li>
+                        <li data-i18n="panel_step5">Prøv å simulere en jordfeil på stikkontaktkursen: kun den kursen
+                            faller ut, mens lys, kjøl/frys og klimaanlegg fortsetter som normalt.</li>
+                        <li data-i18n="panel_step6">Slå av hovedbryteren, og se at ALT går ut samtidig — dette viser
+                            hierarkiet: hovedvern beskytter hele anlegget, mens kurs-vern kun beskytter sin egen del.
+                        </li>
+                    </ol>
+                    <div class="tut-note" style="margin-top:12px;border-left-color:var(--amber);">
+                        <div class="tn-head" style="color:var(--amber);" data-i18n="panel_disclaimer_head">Merk</div>
+                        <div data-i18n="panel_disclaimer">Merk: nøyaktig valg av sikringsstørrelse, jordfeilbryter-type
+                            og hvilke kurser som krever RCD, følger til enhver tid gjeldende NEK 400 og prosjektets
+                            el-tegninger — dette er en forenklet læringsmodell, ikke en fasit for et konkret anlegg.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="tag" data-i18n="quiz_tag">03 · Test deg selv</div>
+                <h2 data-i18n="quiz_title">Symbolquiz</h2>
+                <p data-i18n="quiz_lead">Se symbolet — velg riktig navn på valgt språk.</p>
+            </div>
+            <div class="quizbox">
+                <div class="quiz-score" id="quizScore">0 / 0</div>
+                <div class="quiz-svg-holder" id="quizSvg"></div>
+                <div class="quiz-options" id="quizOptions"></div>
+                <div class="quiz-feedback" id="quizFeedback"></div>
+                <div style="margin-top:18px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+                    <button class="btn" id="quizNext" data-i18n="quiz_next">Neste symbol →</button>
+                    <button class="btn" id="quizReset" data-i18n="quiz_reset">↺ Nullstill poengsum</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="multimeter">
+        <div class="wrap">
+            <div class="section-head">
+                <div class="tag" data-i18n="mm_tag">04 · Multimeter</div>
+                <h2 data-i18n="mm_title">Multimeter-simulator</h2>
+                <p data-i18n="mm_lead">Velg målemodus, velg rød og svart probe på to punkter i kretsen, og les av
+                    verdien. Prøv med bryteren av og på.</p>
+            </div>
+            <div class="mm-layout">
+                <div class="mm-circuit">
+                    <svg viewBox="0 0 380 160" xmlns="http://www.w3.org/2000/svg">
+                        <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+                            <line x1="20" y1="30" x2="20" y2="130" />
+                            <line x1="20" y1="30" x2="60" y2="30" />
+                            <line x1="60" y1="20" x2="60" y2="40" />
+                            <line x1="70" y1="24" x2="70" y2="36" />
+                            <line x1="80" y1="20" x2="80" y2="40" />
+                            <line x1="90" y1="24" x2="90" y2="36" />
+                            <line x1="90" y1="30" x2="130" y2="30" />
+                            <circle cx="130" cy="30" r="3" fill="var(--ink)" />
+                            <line id="mmSwitchArm" x1="130" y1="28" x2="170" y2="12" />
+                            <circle cx="176" cy="30" r="3" fill="var(--ink)" />
+                            <line x1="176" y1="30" x2="230" y2="30" />
+                            <rect x="230" y="17" width="56" height="26" rx="2" />
+                            <line x1="286" y1="30" x2="340" y2="30" />
+                            <line x1="340" y1="30" x2="340" y2="70" />
+                            <circle cx="340" cy="100" r="26" />
+                            <line x1="322" y1="82" x2="358" y2="118" />
+                            <line x1="358" y1="82" x2="322" y2="118" />
+                            <line x1="340" y1="126" x2="340" y2="130" />
+                            <line x1="20" y1="130" x2="340" y2="130" />
+                        </g>
+                        <g font-family="JetBrains Mono, monospace" font-size="10" fill="var(--muted)">
+                            <text x="8" y="150">A</text>
+                            <text x="122" y="150">B</text>
+                            <text x="222" y="150">C</text>
+                            <text x="332" y="150">D</text>
+                        </g>
+                        <g class="probe-point" data-point="A">
+                            <circle cx="20" cy="130" r="7" fill="var(--panel)" stroke="var(--ink)" stroke-width="2" />
+                        </g>
+                        <g class="probe-point" data-point="B">
+                            <circle cx="130" cy="30" r="7" fill="var(--panel)" stroke="var(--ink)" stroke-width="2" />
+                        </g>
+                        <g class="probe-point" data-point="C">
+                            <circle cx="230" cy="30" r="7" fill="var(--panel)" stroke="var(--ink)" stroke-width="2" />
+                        </g>
+                        <g class="probe-point" data-point="D">
+                            <circle cx="340" cy="70" r="7" fill="var(--panel)" stroke="var(--ink)" stroke-width="2" />
+                        </g>
+                    </svg>
+                    <div class="probe-legend">
+                        <span><span class="dot" style="background:var(--red);"></span><span data-i18n="mm_red">Rød probe
+                                (V/Ω/+)</span></span>
+                        <span><span class="dot" style="background:var(--ink);"></span><span data-i18n="mm_black">Svart
+                                probe (COM/–)</span></span>
+                    </div>
+                    <div style="margin-top:14px;">
+                        <button class="switch-toggle" id="mmSwitchToggle"><span class="dotstate"></span><span
+                                id="mmSwitchLabel" data-i18n="mm_switch_off">Bryter: AV</span></button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="meter-device">
+                        <div class="meter-screen">
+                            <div class="unit" id="mmUnit">MODE</div>
+                            <div class="value" id="mmValue">– – –</div>
+                            <div class="mm-bar">
+                                <div class="mm-bar-fill" id="mmBarFill"></div>
+                            </div>
+                        </div>
+                        <div class="mode-dial">
+                            <button class="mode-btn active" data-mode="v">DCV</button>
+                            <button class="mode-btn" data-mode="ohm">Ω</button>
+                            <button class="mode-btn" data-mode="cont">•)))</button>
+                            <button class="mode-btn" data-mode="a">mA</button>
+                        </div>
+                        <div style="font-family:var(--font-mono);font-size:12px;color:var(--muted);" id="mmProbeState">
+                            <span data-i18n="mm_probe_prompt">Velg røde og svarte probe-punkt (A–D) i skjemaet.</span>
+                        </div>
+                        <div class="mm-warning hide" id="mmWarning"></div>
+                    </div>
+                    <div class="mm-explain">
+                        <div class="tut-note">
+                            <div class="tn-head" id="mmModeHead" data-i18n="mm_mode_v_head">DCV — likespenning</div>
+                            <div id="mmModeBody" data-i18n="mm_mode_v_body">Mål spenningsforskjellen mellom to punkter.
+                                Sett rød probe nærmest plusspolen, svart nærmest jord/minus. Multimeteret kobles
+                                parallelt med komponenten.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="wrap" data-i18n="footer_text">Kretsskolen — laget for egen repetisjon av elektriske skjema, symboler
+            og multimeterbruk.</div>
+    </footer>
+
+    <script>
+        /* ---------- i18n ---------- */
+        const translations = {
+            nav_symbols: { no: "Symboler", en: "Symbols", ua: "Символи" },
+            nav_tutorial: { no: "Lese skjema", en: "Reading schematics", ua: "Читання схем" },
+            nav_quiz: { no: "Quiz", en: "Quiz", ua: "Тест" },
+            nav_multimeter: { no: "Multimeter", en: "Multimeter", ua: "Мультиметр" },
+            hero_eyebrow: { no: "Elektro · trespråklig treningsverktøy", en: "Electrical · trilingual training tool", ua: "Електротехніка · тримовний тренажер" },
+            hero_title: { no: 'Les skjema. Forstå <span>komponenter</span>. Bruk multimeter.', en: 'Read schematics. Understand <span>components</span>. Use a multimeter.', ua: 'Читай схеми. Розумій <span>компоненти</span>. Користуйся мультиметром.' },
+            hero_lead: {
+                no: "Interaktiv side for å repetere og lære elektriske symboler, øve på å lese koblingsskjema, og trene på multimeter — med betegnelser på norsk, engelsk og ukrainsk side om side.",
+                en: "An interactive page to review and learn electrical symbols, practice reading wiring diagrams, and train with a multimeter — with terms in Norwegian, English and Ukrainian side by side.",
+                ua: "Інтерактивна сторінка для повторення й вивчення електричних символів, читання схем та роботи з мультиметром — з термінами норвезькою, англійською та українською поруч."
+            },
+            hero_cta1: { no: "Se symbolbibliotek", en: "View symbol library", ua: "Переглянути бібліотеку символів" },
+            hero_cta2: { no: "Prøv multimeter", en: "Try the multimeter", ua: "Спробувати мультиметр" },
+            sym_tag: { no: "01 · Bibliotek", en: "01 · Library", ua: "01 · Бібліотека" },
+            sym_title: { no: "Symbolbibliotek", en: "Symbol library", ua: "Бібліотека символів" },
+            sym_lead: {
+                no: "Vanlige elektriske symboler med navn på norsk, engelsk og ukrainsk. Søk eller bla gjennom.",
+                en: "Common electrical symbols with names in Norwegian, English and Ukrainian. Search or browse.",
+                ua: "Поширені електричні символи з назвами норвезькою, англійською та українською. Шукайте або гортайте."
+            },
+            sym_search_ph: { no: "Søk: motstand, resistor, реле...", en: "Search: resistor, switch, реле...", ua: "Пошук: резистор, вимикач, relay..." },
+            tut_tag: { no: "02 · Trening", en: "02 · Practice", ua: "02 · Практика" },
+            tut_title: { no: "Slik leser du et koblingsskjema", en: "How to read a wiring diagram", ua: "Як читати електричну схему" },
+            tut_lead: {
+                no: "Klikk på en komponent i skjemaet for å se forklaring. Følg strømmen fra pluss til minus.",
+                en: "Click a component in the diagram to see an explanation. Follow the current from plus to minus.",
+                ua: "Клацніть на компонент схеми, щоб побачити пояснення. Слідкуйте за струмом від плюса до мінуса."
+            },
+            tut_hint_head: { no: "Tips", en: "Tip", ua: "Порада" },
+            tut_hint_body: {
+                no: "Klikk på batteri, bryter, sikring, motstand, lampe eller jord i skjemaet til venstre.",
+                en: "Click the battery, switch, fuse, resistor, lamp or ground in the diagram on the left.",
+                ua: "Клацніть на батарею, вимикач, запобіжник, резистор, лампу або землю на схемі зліва."
+            },
+            tut_step1: {
+                no: "Finn spenningskilden (batteri/nett) — dette er start- og sluttpunktet for strømkretsen.",
+                en: "Find the voltage source (battery/mains) — this is the start and end point of the circuit.",
+                ua: "Знайдіть джерело напруги (батарея/мережа) — це початкова й кінцева точка кола."
+            },
+            tut_step2: {
+                no: "Følg linjen (lederen) til neste komponent — en bryter avbryter eller slutter kretsen.",
+                en: "Follow the line (conductor) to the next component — a switch opens or closes the circuit.",
+                ua: "Слідуйте лінією (провідником) до наступного компонента — вимикач розмикає або замикає коло."
+            },
+            tut_step3: {
+                no: "Se etter beskyttelseskomponenter som sikring eller vern — de er tegnet i serie med lasten.",
+                en: "Look for protective components like a fuse or breaker — they are drawn in series with the load.",
+                ua: "Шукайте захисні елементи — запобіжник або автомат — вони намальовані послідовно з навантаженням."
+            },
+            tut_step4: {
+                no: "Identifiser lasten (lampe, motor, motstand) — der energien omsettes til lys, bevegelse eller varme.",
+                en: "Identify the load (lamp, motor, resistor) — where energy converts to light, motion or heat.",
+                ua: "Визначте навантаження (лампа, двигун, резистор) — де енергія перетворюється на світло, рух чи тепло."
+            },
+            tut_step5: {
+                no: "Følg kretsen tilbake til jord/minus — kretsen må alltid være sluttet (lukket) for at strøm skal flyte.",
+                en: "Follow the circuit back to ground/minus — the loop must be closed for current to flow.",
+                ua: "Простежте коло назад до землі/мінуса — коло має бути замкненим, щоб протікав струм."
+            },
+            quiz_tag: { no: "06 · Test deg selv", en: "06 · Test yourself", ua: "06 · Перевір себе" },
+            quiz_title: { no: "Symbolquiz", en: "Symbol quiz", ua: "Тест на символи" },
+            quiz_lead: { no: "Se symbolet — velg riktig navn på valgt språk.", en: "Look at the symbol — pick the correct name in the selected language.", ua: "Подивіться на символ — оберіть правильну назву обраною мовою." },
+            quiz_next: { no: "Neste symbol →", en: "Next symbol →", ua: "Наступний символ →" },
+            quiz_reset: { no: "↺ Nullstill poengsum", en: "↺ Reset score", ua: "↺ Скинути рахунок" },
+            mm_tag: { no: "07 · Multimeter", en: "07 · Multimeter", ua: "07 · Мультиметр" },
+            mm_title: { no: "Multimeter-simulator", en: "Multimeter simulator", ua: "Симулятор мультиметра" },
+            mm_lead: {
+                no: "Velg målemodus, velg rød og svart probe på to punkter i kretsen, og les av verdien. Prøv med bryteren av og på.",
+                en: "Choose a measuring mode, place the red and black probes on two points in the circuit, and read the value. Try it with the switch off and on.",
+                ua: "Оберіть режим вимірювання, поставте червоний і чорний щупи на дві точки кола та зчитайте значення. Спробуйте з вимикачем у положенні «вимк.» і «увімк.»."
+            },
+            mm_red: { no: "Rød probe (V/Ω/+)", en: "Red probe (V/Ω/+)", ua: "Червоний щуп (V/Ω/+)" },
+            mm_black: { no: "Svart probe (COM/–)", en: "Black probe (COM/–)", ua: "Чорний щуп (COM/–)" },
+            mm_switch_off: { no: "Bryter: AV", en: "Switch: OFF", ua: "Вимикач: ВИМК" },
+            mm_switch_on: { no: "Bryter: PÅ", en: "Switch: ON", ua: "Вимикач: УВІМК" },
+            mm_probe_prompt: { no: "Velg røde og svarte probe-punkt (A–D) i skjemaet.", en: "Select red and black probe points (A–D) in the diagram.", ua: "Оберіть точки для червоного й чорного щупа (A–D) на схемі." },
+            mm_mode_v_head: { no: "DCV — likespenning", en: "DCV — DC voltage", ua: "DCV — постійна напруга" },
+            mm_mode_v_body: {
+                no: "Mål spenningsforskjellen mellom to punkter. Sett rød probe nærmest plusspolen, svart nærmest jord/minus. Multimeteret kobles parallelt med komponenten.",
+                en: "Measures the voltage difference between two points. Put the red probe closer to plus, black closer to ground/minus. The meter is connected in parallel with the component.",
+                ua: "Вимірює різницю потенціалів між двома точками. Червоний щуп ближче до плюса, чорний — до землі/мінуса. Прилад підключають паралельно компоненту."
+            },
+            mm_mode_ohm_head: { no: "Ω — motstand", en: "Ω — resistance", ua: "Ω — опір" },
+            mm_mode_ohm_body: {
+                no: "Mål motstand KUN på en krets uten spenning (slå av strømmen først!). Multimeteret sender en liten testrøm og regner ut motstanden.",
+                en: "Measures resistance — ONLY on a de-energised circuit (turn off power first!). The meter sends a small test current and calculates resistance.",
+                ua: "Вимірює опір — ЛИШЕ на знеструмленому колі (спершу вимкніть живлення!). Прилад подає малий тестовий струм і обчислює опір."
+            },
+            mm_mode_cont_head: { no: "•))) — kontinuitet", en: "•))) — continuity", ua: "•))) — цілісність кола" },
+            mm_mode_cont_body: {
+                no: "Rask test for om en leder er hel (0 Ω, piip) eller brutt (uendelig, stille). Brukes for å finne kabelbrudd og dårlige forbindelser. Krev spenningsfri krets.",
+                en: "A quick test for whether a conductor is intact (0 Ω, beeps) or broken (infinite, silent). Used to find cable breaks and bad connections. Requires a de-energised circuit.",
+                ua: "Швидка перевірка, чи провідник цілий (0 Ом, звуковий сигнал) чи розірваний (нескінченність, тиша). Використовують для пошуку обривів. Коло має бути знеструмленим."
+            },
+            footer_text: {
+                no: "Kretsskolen — laget for egen repetisjon av elektriske skjema, symboler og multimeterbruk.",
+                en: "Kretsskolen — built for personal review of electrical schematics, symbols and multimeter use.",
+                ua: "Kretsskolen — створено для власного повторення електричних схем, символів і роботи з мультиметром."
+            },
+
+            nav_advanced: { no: "Avansert krets", en: "Advanced circuit", ua: "Складна схема" },
+            adv_tag: { no: "03 · Avansert", en: "03 · Advanced", ua: "03 · Складніше" },
+            adv_title: { no: "Motorstyring med selvhold og overlastvern", en: "Motor control with self-hold and overload protection", ua: "Керування двигуном із самоутриманням і захистом від перевантаження" },
+            adv_lead: {
+                no: "Et klassisk industrielt styrekretsskjema: Start/Stopp-knapper, en kontaktor (K1) med flere hjelpekontakter, og et termisk overlastvern. Klikk på delene for forklaring, og trykk Start/Stopp for å simulere kretsen live.",
+                en: "A classic industrial control-circuit diagram: start/stop buttons, a contactor (K1) with several auxiliary contacts, and a thermal overload relay. Click the parts for explanations, and press Start/Stop to simulate the circuit live.",
+                ua: "Класична промислова схема керування: кнопки Пуск/Стоп, контактор (K1) з кількома допоміжними контактами та тепловий захист від перевантаження. Клацайте на елементи для пояснень, натискайте Пуск/Стоп для живої симуляції."
+            },
+            adv_power_label: { no: "Hovedstrøm (kraftkrets) — tykke linjer", en: "Power circuit — thick lines", ua: "Силове коло — товсті лінії" },
+            adv_control_label: { no: "Styrestrøm (kontrollkrets) — tynne linjer", en: "Control circuit — thin lines", ua: "Коло керування — тонкі лінії" },
+            adv_h1_label: { no: "H1 · i drift", en: "H1 · running", ua: "H1 · робота" },
+            adv_h2_label: { no: "H2 · i ro", en: "H2 · idle", ua: "H2 · спокій" },
+            adv_btn_start: { no: "▶ Start", en: "▶ Start", ua: "▶ Пуск" },
+            adv_btn_stop: { no: "■ Stopp", en: "■ Stop", ua: "■ Стоп" },
+            adv_btn_trip: { no: "⚠ Simuler overbelastning", en: "⚠ Simulate overload", ua: "⚠ Симулювати перевантаження" },
+            adv_btn_reset: { no: "↺ Tilbakestill vern", en: "↺ Reset protection", ua: "↺ Скинути захист" },
+            adv_hint_head: { no: "Tips", en: "Tip", ua: "Порада" },
+            adv_hint_body: {
+                no: "Klikk på Start-knapp, spole K1, hjelpekontakter, overlastvern eller motor i skjemaet for forklaring av hver del.",
+                en: "Click the Start button, coil K1, auxiliary contacts, overload relay or motor in the diagram for an explanation of each part.",
+                ua: "Клацніть на кнопку Пуск, котушку K1, допоміжні контакти, тепловий захист або двигун на схемі, щоб побачити пояснення кожної частини."
+            },
+            adv_step1: {
+                no: "Du trykker Start (NO-knapp) — kontakten lukkes momentant og strøm går gjennom spolen K1.",
+                en: "You press Start (an NO button) — the contact closes momentarily and current flows through coil K1.",
+                ua: "Ви натискаєте Пуск (кнопка НВ) — контакт замикається на мить, і струм тече через котушку K1."
+            },
+            adv_step2: {
+                no: "K1 trekker til: hovedkontakten i kraftkretsen lukkes, og motoren starter.",
+                en: "K1 picks up: the main contact in the power circuit closes, and the motor starts.",
+                ua: "K1 спрацьовує: головний контакт у силовому колі замикається, і двигун запускається."
+            },
+            adv_step3: {
+                no: "Samtidig lukkes K1 sin hjelpekontakt (selvhold) parallelt med Start-knappen.",
+                en: "At the same time, K1's auxiliary contact (self-hold) closes in parallel with the Start button.",
+                ua: "Одночасно замикається допоміжний контакт K1 (самоутримання) паралельно з кнопкою Пуск."
+            },
+            adv_step4: {
+                no: "Du slipper Start — kretsen holder seg selv sluttet via hjelpekontakten. Dette kalles selvhold.",
+                en: "You release Start — the circuit keeps itself closed through the auxiliary contact. This is called self-holding (sealing).",
+                ua: "Ви відпускаєте Пуск — коло само утримує себе замкненим через допоміжний контакт. Це називається самоутриманням."
+            },
+            adv_step5: {
+                no: "Trykker du Stopp (NC-knapp), brytes kretsen og K1 faller ut — motoren stopper og selvholdet forsvinner.",
+                en: "If you press Stop (an NC button), the circuit breaks and K1 drops out — the motor stops and the self-hold is lost.",
+                ua: "Якщо ви натиснете Стоп (кнопка НЗ), коло розривається, K1 відпускає — двигун зупиняється, самоутримання зникає."
+            },
+            adv_step6: {
+                no: "Ved overbelastning løser det termiske vernet ut og åpner sin NC-hjelpekontakt i styrekretsen — dette stopper motoren uansett hva Start/Stopp-knappene gjør, og må tilbakestilles manuelt.",
+                en: "On overload, the thermal relay trips and opens its NC auxiliary contact in the control circuit — this stops the motor regardless of the Start/Stop buttons, and must be reset manually.",
+                ua: "При перевантаженні тепловий захист спрацьовує і розмикає свій НЗ допоміжний контакт у колі керування — це зупиняє двигун незалежно від кнопок Пуск/Стоп, і потребує ручного скидання."
+            },
+            adv_pill_k1_off: { no: "K1: av", en: "K1: off", ua: "K1: вимк" },
+            adv_pill_k1_on: { no: "K1: på (selvhold)", en: "K1: on (self-held)", ua: "K1: увімк (самоутрим.)" },
+            adv_pill_motor_off: { no: "Motor: stoppet", en: "Motor: stopped", ua: "Двигун: зупинено" },
+            adv_pill_motor_on: { no: "Motor: i drift", en: "Motor: running", ua: "Двигун: працює" },
+            adv_pill_overload_ok: { no: "Vern: OK", en: "Overload: OK", ua: "Захист: ОК" },
+            adv_pill_overload_tripped: { no: "Vern: UTLØST", en: "Overload: TRIPPED", ua: "Захист: СПРАЦЮВАВ" },
+
+            mm_mode_a_head: { no: "A (mA) — strøm", en: "A (mA) — current", ua: "A (мА) — струм" },
+            mm_mode_a_body: {
+                no: "Måler strømmen SOM FLYTER i kretsen. Amperemeteret kobles alltid i serie (bryt kretsen og sett måleren inn i bruddet) — ALDRI parallelt som ved spenningsmåling. Feil tilkobling gir kortslutning og kan ødelegge sikringen i multimeteret.",
+                en: "Measures the current flowing in the circuit. An ammeter is always connected in series (break the circuit and insert the meter into the gap) — NEVER in parallel like a voltage measurement. Wrong connection causes a short circuit and can blow the meter's internal fuse.",
+                ua: "Вимірює струм, що тече в колі. Амперметр завжди підключають послідовно (розірвіть коло і вставте прилад у розрив) — НІКОЛИ паралельно, як при вимірюванні напруги. Неправильне підключення спричиняє коротке замикання і може спалити запобіжник приладу."
+            },
+            mm_warn_energized: {
+                no: "⚠ Advarsel: kretsen er spenningssatt. Slå av bryteren før du måler motstand eller kontinuitet.",
+                en: "⚠ Warning: the circuit is energised. Turn off the switch before measuring resistance or continuity.",
+                ua: "⚠ Увага: коло під напругою. Вимкніть вимикач перед вимірюванням опору чи цілісності кола."
+            },
+            mm_warn_seriesonly: {
+                no: "⚠ Velg to punkter som ligger rett etter hverandre i kretsen (f.eks. B og C) — et amperemeter må stå i serie.",
+                en: "⚠ Choose two points that are directly adjacent in the circuit (e.g. B and C) — an ammeter must be in series.",
+                ua: "⚠ Оберіть дві сусідні точки кола (наприклад, B і C) — амперметр має бути увімкнений послідовно."
+            },
+
+            nav_rail: { no: "Jernbanesignal", en: "Railway signal", ua: "Залізничний сигнал" },
+            rail_tag: { no: "04 · Jernbane", en: "04 · Railway", ua: "04 · Залізниця" },
+            rail_title: { no: "Sporfelt og signalrelé — prinsippet om feilsikkerhet", en: "Track circuit and signal relay — the fail-safe principle", ua: "Рейкове коло та сигнальне реле — принцип відмовостійкості" },
+            rail_lead: {
+                no: "Grunnmuren i alle jernbane-sikringsanlegg: et sporfelt registrerer om sporet er fritt eller opptatt, og styrer signalet via et relé som ALLTID faller til «stopp» ved enhver feil. Klikk på delene, og prøv å sette et tog på sporfeltet eller simulere en ledningsfeil.",
+                en: "The foundation of all railway interlocking: a track circuit detects whether a section is clear or occupied, and drives the signal through a relay that ALWAYS drops to \"stop\" on any fault. Click the parts, and try placing a train on the track circuit or simulating a wire fault.",
+                ua: "Основа будь-якої залізничної СЦБ: рейкове коло визначає, вільна чи зайнята ділянка, і керує сигналом через реле, яке ЗАВЖДИ переходить у стан «стій» за будь-якої несправності. Клацайте на елементи, спробуйте виставити потяг на коло або симулювати обрив дроту."
+            },
+            rail_track_label: { no: "Sporfelt (skinnegang)", en: "Track circuit (rails)", ua: "Рейкове коло (рейки)" },
+            rail_signal_label: { no: "Signal", en: "Signal", ua: "Сигнал" },
+            rail_btn_train_off: { no: "🚆 Sett tog på sporfeltet", en: "🚆 Place train on track", ua: "🚆 Поставити потяг на колію" },
+            rail_btn_train_on: { no: "🚆 Fjern tog fra sporfeltet", en: "🚆 Remove train from track", ua: "🚆 Прибрати потяг з колії" },
+            rail_btn_cut_off: { no: "✂ Simuler ledningsbrudd", en: "✂ Simulate wire break", ua: "✂ Симулювати обрив дроту" },
+            rail_btn_cut_on: { no: "✂ Reparer sporleder", en: "✂ Repair track wire", ua: "✂ Відновити провід" },
+            rail_pill_track_clear: { no: "Sporfelt: fritt", en: "Track: clear", ua: "Колія: вільна" },
+            rail_pill_track_occ: { no: "Sporfelt: opptatt", en: "Track: occupied", ua: "Колія: зайнята" },
+            rail_pill_relay_up: { no: "Relé: tiltrukket", en: "Relay: picked up", ua: "Реле: спрацювало" },
+            rail_pill_relay_dn: { no: "Relé: falt", en: "Relay: dropped", ua: "Реле: відпало" },
+            rail_pill_signal_go: { no: "Signal: KJØR", en: "Signal: PROCEED", ua: "Сигнал: РУХ ДОЗВОЛЕНО" },
+            rail_pill_signal_stop: { no: "Signal: STOPP", en: "Signal: STOP", ua: "Сигнал: СТІЙ" },
+            rail_hint_head: { no: "Tips", en: "Tip", ua: "Порада" },
+            rail_hint_body: {
+                no: "Klikk på sporbatteri, skinner, sporrelé eller signallampene for forklaring. Prøv så knappene under for å se feilsikkerheten i praksis.",
+                en: "Click the track battery, rails, track relay or signal lamps for an explanation. Then try the buttons below to see fail-safety in practice.",
+                ua: "Клацніть на батарею колії, рейки, реле колії або сигнальні лампи для пояснення. Потім спробуйте кнопки нижче, щоб побачити відмовостійкість на практиці."
+            },
+            rail_step1: {
+                no: "Sporbatteriet sender en liten, ufarlig strøm gjennom skinnegangen når sporet er fritt for tog.",
+                en: "The track battery sends a small, harmless current through the rails when the section is clear of trains.",
+                ua: "Батарея колії подає малий, безпечний струм через рейки, коли ділянка вільна від потягів."
+            },
+            rail_step2: {
+                no: "Strømmen når fram til sporrelé i den andre enden — spolen trekker til (energiseres).",
+                en: "The current reaches the track relay at the far end — the coil picks up (energises).",
+                ua: "Струм доходить до реле колії на іншому кінці — котушка спрацьовує (запитується)."
+            },
+            rail_step3: {
+                no: "Releet lukker sin frontkontakt, som mater «Kjør»-lampen — toget kan kjøre videre inn på strekningen.",
+                en: "The relay closes its front contact, feeding the \"Proceed\" lamp — a train may enter the section.",
+                ua: "Реле замикає фронтовий контакт, що живить лампу «Рух дозволено» — потяг може заїжджати на ділянку."
+            },
+            rail_step4: {
+                no: "Når et tog kjører inn på sporfeltet, kortslutter hjulakslingen skinnene — strømmen tar denne korteste veien i stedet for å gå via relespolen.",
+                en: "When a train enters the track circuit, its wheelset short-circuits the rails — the current takes this shorter path instead of flowing through the relay coil.",
+                ua: "Коли потяг заїжджає на рейкове коло, колісна пара закорочує рейки — струм тече цим коротшим шляхом замість котушки реле."
+            },
+            rail_step5: {
+                no: "Sporrelé mister strømtilførselen og faller — det samme skjer ved brutt leder, dødt batteri eller en feil i selve relespolen.",
+                en: "The track relay loses its current and drops — exactly the same happens with a broken wire, a dead battery, or a fault in the coil itself.",
+                ua: "Реле колії втрачає живлення і відпадає — так само трапляється при обриві дроту, розрядженій батареї чи несправності самої котушки."
+            },
+            rail_step6: {
+                no: "Det falne releet går til sin hvilekontakt, som mater «Stopp»-lampen. Signalet viser alltid stopp med mindre ALT er i orden — dette kalles feilsikkert (fail-safe) design, selve grunnprinsippet i jernbanesignal.",
+                en: "The dropped relay falls back to its back contact, feeding the \"Stop\" lamp. The signal always shows stop unless EVERYTHING is in order — this is called fail-safe design, the core principle of railway signalling.",
+                ua: "Відпале реле повертається до тилового контакту, що живить лампу «Стій». Сигнал завжди показує «стій», якщо НЕ ВСЕ гаразд — це і є принцип відмовостійкості (fail-safe), основа залізничної сигналізації."
+            },
+
+            nav_panel: { no: "Hovedtavle butikk", en: "Store main panel", ua: "Головний щит магазину" },
+            panel_tag: { no: "05 · Elinstallasjon", en: "05 · Electrical installation", ua: "05 · Електроустановка" },
+            panel_title: {
+                no: "Hovedtavle i en butikk — fordeling til lys, kjøl/frys og klimaanlegg",
+                en: "Main panel in a store — distribution to lighting, refrigeration and air conditioning",
+                ua: "Головний щит магазину — розподіл на освітлення, холодильники та кондиціонування"
+            },
+            panel_lead: {
+                no: "Slik henger en typisk butikktavle sammen: strøm inn fra nettet, gjennom hovedbryter og hovedskinne, ut til hver enkelt kurs med egen automatsikring og (som oftest) egen jordfeilbryter. Klikk på delene for forklaring, og prøv knappene for å se hvordan feil isoleres til én kurs.",
+                en: "How a typical store panel fits together: power comes in from the grid, through the main breaker and main busbar, then out to each circuit with its own MCB and (usually) its own RCD. Click the parts for an explanation, and try the buttons to see how a fault is isolated to a single circuit.",
+                ua: "Так влаштований типовий щит магазину: живлення з мережі, через головний вимикач і головну шину, далі на кожну групу зі своїм автоматом і (зазвичай) власним ПЗВ. Клацайте на елементи для пояснень і спробуйте кнопки, щоб побачити, як несправність ізолюється лише в одній групі."
+            },
+            panel_disclaimer: {
+                no: "Merk: nøyaktig valg av sikringsstørrelse, jordfeilbryter-type og hvilke kurser som krever RCD, følger til enhver tid gjeldende NEK 400 og prosjektets el-tegninger — dette er en forenklet læringsmodell, ikke en fasit for et konkret anlegg.",
+                en: "Note: the exact choice of breaker size, RCD type, and which circuits require an RCD follows the current NEK 400 standard and the project's electrical drawings — this is a simplified learning model, not a specification for a real installation.",
+                ua: "Примітка: точний вибір номіналу автомата, типу ПЗВ і того, які кола потребують ПЗВ, визначається чинним стандартом NEK 400 та проєктною документацією — це спрощена навчальна модель, а не готове рішення для реальної установки."
+            },
+            panel_btn_main_on: { no: "🔌 Hovedbryter: PÅ", en: "🔌 Main breaker: ON", ua: "🔌 Головний вимикач: УВІМК" },
+            panel_btn_main_off: { no: "🔌 Hovedbryter: AV", en: "🔌 Main breaker: OFF", ua: "🔌 Головний вимикач: ВИМК" },
+            panel_btn_fault_off: { no: "⚡ Simuler jordfeil på stikkontaktkurs", en: "⚡ Simulate ground fault on socket circuit", ua: "⚡ Симулювати замикання на землю (розетки)" },
+            panel_btn_fault_on: { no: "↺ Tilbakestill jordfeilbryter", en: "↺ Reset the tripped RCD", ua: "↺ Скинути ПЗВ" },
+            panel_pill_main_on: { no: "Hovedbryter: PÅ", en: "Main breaker: ON", ua: "Головний вимикач: УВІМК" },
+            panel_pill_main_off: { no: "Hovedbryter: AV", en: "Main breaker: OFF", ua: "Головний вимикач: ВИМК" },
+            panel_pill_socket_ok: { no: "Stikkontaktkurs: OK", en: "Socket circuit: OK", ua: "Група розеток: ОК" },
+            panel_pill_socket_tripped: { no: "Stikkontaktkurs: UTLØST", en: "Socket circuit: TRIPPED", ua: "Група розеток: СПРАЦЮВАЛА" },
+            panel_hint_head: { no: "Tips", en: "Tip", ua: "Порада" },
+            panel_disclaimer_head: { no: "Merk", en: "Note", ua: "Примітка" },
+            panel_hint_body: {
+                no: "Klikk på strømmåler, hovedbryter, hovedskinne, eller en hvilken som helst kurs (beskyttelse eller last) for forklaring.",
+                en: "Click the energy meter, main breaker, main busbar, or any circuit (protection or load) for an explanation.",
+                ua: "Клацніть на лічильник, головний вимикач, головну шину або будь-яку групу (захист чи навантаження) для пояснення."
+            },
+            panel_step1: {
+                no: "Hovedbryteren kutter strømmen til hele tavla og alle kursene samtidig — brukes ved arbeid på selve tavla.",
+                en: "The main breaker cuts power to the entire panel and all circuits at once — used when working on the panel itself.",
+                ua: "Головний вимикач одночасно знеструмлює весь щит і всі групи — використовується під час робіт на самому щиті."
+            },
+            panel_step2: {
+                no: "Hver kurs har sin egen automatsikring (MCB) tilpasset lasten, f.eks. 10A til belysning og 16A til stikkontakter.",
+                en: "Each circuit has its own miniature circuit breaker (MCB) sized for its load, e.g. 10A for lighting and 16A for sockets.",
+                ua: "Кожна група має власний автоматичний вимикач (MCB), підібраний під навантаження, напр. 10А для освітлення й 16А для розеток."
+            },
+            panel_step3: {
+                no: "De fleste kursene har i tillegg egen jordfeilbryter (RCD, 30mA) — den kutter KUN den ene kursen ved jordfeil, resten av butikken fortsetter å virke.",
+                en: "Most circuits also have their own RCD (30mA) — it trips ONLY that one circuit on a ground fault, so the rest of the store keeps running.",
+                ua: "Більшість груп також мають власний ПЗВ (30мА) — він вимикає ЛИШЕ цю групу при замиканні на землю, решта магазину продовжує працювати."
+            },
+            panel_step4: {
+                no: "Klimaanlegget bruker gjerne kontaktor og termisk overlastvern — akkurat som i motorstyringen du så tidligere — i stedet for å stole på RCD alene, siden kompressormotoren kan gi naturlige lekkstrømmer.",
+                en: "The AC unit typically uses a contactor and thermal overload — just like the motor control you saw earlier — rather than relying on the RCD alone, since the compressor motor can produce natural leakage currents.",
+                ua: "Кондиціонер зазвичай має контактор і тепловий захист — як і в схемі керування двигуном раніше — а не покладається лише на ПЗВ, оскільки двигун компресора може давати природні струми витоку."
+            },
+            panel_step5: {
+                no: "Prøv å simulere en jordfeil på stikkontaktkursen: kun den kursen faller ut, mens lys, kjøl/frys og klimaanlegg fortsetter som normalt.",
+                en: "Try simulating a ground fault on the socket circuit: only that circuit trips, while lighting, refrigeration and air conditioning keep running normally.",
+                ua: "Спробуйте симулювати замикання на землю в групі розеток: спрацює лише ця група, а освітлення, холодильники й кондиціонер працюватимуть далі як зазвичай."
+            },
+            panel_step6: {
+                no: "Slå av hovedbryteren, og se at ALT går ut samtidig — dette viser hierarkiet: hovedvern beskytter hele anlegget, mens kurs-vern kun beskytter sin egen del.",
+                en: "Switch off the main breaker and watch EVERYTHING go dark at once — this shows the hierarchy: the main protection covers the whole installation, while circuit protection only covers its own branch.",
+                ua: "Вимкніть головний вимикач і подивіться, як усе гасне одночасно — це показує ієрархію: головний захист охоплює всю установку, а захист групи — лише свою частину."
+            },
+            panel_group_light: { no: "Belysning butikklokale", en: "Shop lighting", ua: "Освітлення торгового залу" },
+            panel_group_bus: { no: "Hovedskinne", en: "Main busbar", ua: "Головна шина" },
+            panel_group_fridge: { no: "Kjøl- og fryseskap", en: "Fridges and freezers", ua: "Холодильні та морозильні шафи" },
+            panel_group_ac: { no: "Klimaanlegg (kompressor, 3~)", en: "Air conditioning (compressor, 3~)", ua: "Кондиціонер (компресор, 3~)" },
+            panel_group_socket: { no: "Stikkontakter", en: "Socket outlets", ua: "Розетки" },
+            panel_group_emerg: { no: "Nødlys / rømningslys", en: "Emergency / escape lighting", ua: "Аварійне освітлення / освітлення евакуації" }
+        };
+
+        let currentLang = 'no';
+
+        function applyLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[key]) el.innerHTML = translations[key][lang];
+            });
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const key = el.getAttribute('data-i18n-ph');
+                if (translations[key]) el.setAttribute('placeholder', translations[key][lang]);
+            });
+            document.querySelectorAll('.langbtn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+            renderSymbols(document.getElementById('symSearch').value);
+            renderQuizOptions(); // refresh option labels in new language without changing question
+            updateMeterModeText();
+            updateMeter();
+            if (typeof renderAdvState === 'function') renderAdvState();
+            if (typeof renderRailState === 'function') renderRailState();
+            if (typeof renderPanelState === 'function') renderPanelState();
+        }
+        document.getElementById('langbar').addEventListener('click', e => {
+            const btn = e.target.closest('.langbtn');
+            if (!btn) return;
+            applyLang(btn.dataset.lang);
+        });
+
+        /* ---------- Symbol library ---------- */
+        const symbols = [
+            {
+                code: "R", no: "Motstand", en: "Resistor", ua: "Резистор",
+                desc: { no: "Begrenser strømmen i kretsen.", en: "Limits current in the circuit.", ua: "Обмежує струм у колі." },
+                svg: `<line x1="0" y1="35" x2="30" y2="35"/><rect x="30" y="22" width="60" height="26" rx="2"/><line x1="90" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "C", no: "Kondensator", en: "Capacitor", ua: "Конденсатор",
+                desc: { no: "Lagrer elektrisk energi i et felt.", en: "Stores electrical energy in a field.", ua: "Зберігає електричну енергію в полі." },
+                svg: `<line x1="0" y1="35" x2="52" y2="35"/><line x1="52" y1="12" x2="52" y2="58"/><line x1="64" y1="12" x2="64" y2="58"/><line x1="64" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "S", no: "Bryter", en: "Switch", ua: "Вимикач",
+                desc: { no: "Åpner eller lukker kretsen manuelt.", en: "Opens or closes the circuit manually.", ua: "Вручну розмикає або замикає коло." },
+                svg: `<line x1="0" y1="35" x2="38" y2="35"/><circle cx="38" cy="35" r="3.5" fill="var(--ink)"/><line x1="38" y1="33" x2="85" y2="14"/><circle cx="90" cy="35" r="3.5" fill="var(--ink)"/><line x1="90" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "F", no: "Sikring", en: "Fuse", ua: "Запобіжник",
+                desc: { no: "Bryter kretsen automatisk ved overstrøm (engangs).", en: "Breaks the circuit automatically on overcurrent (one-time).", ua: "Автоматично розриває коло при перевантаженні (одноразово)." },
+                svg: `<line x1="0" y1="35" x2="30" y2="35"/><rect x="30" y="23" width="60" height="24" rx="3"/><line x1="30" y1="35" x2="90" y2="35" stroke-dasharray="4 3"/><line x1="90" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "GND", no: "Jord", en: "Ground / Earth", ua: "Заземлення",
+                desc: { no: "Referansepotensial / beskyttelsesjord.", en: "Reference potential / protective earth.", ua: "Опорний потенціал / захисне заземлення." },
+                svg: `<line x1="60" y1="8" x2="60" y2="34"/><line x1="38" y1="34" x2="82" y2="34"/><line x1="45" y1="44" x2="75" y2="44"/><line x1="52" y1="54" x2="68" y2="54"/>`
+            },
+            {
+                code: "D", no: "Diode", en: "Diode", ua: "Діод",
+                desc: { no: "Leder strøm kun én vei.", en: "Conducts current in only one direction.", ua: "Пропускає струм лише в один бік." },
+                svg: `<line x1="0" y1="35" x2="45" y2="35"/><polygon points="45,18 45,52 82,35" fill="var(--ink)"/><line x1="82" y1="18" x2="82" y2="52"/><line x1="82" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "T", no: "Transformator", en: "Transformer", ua: "Трансформатор",
+                desc: { no: "Overfører energi mellom to kretser, endrer spenning.", en: "Transfers energy between two circuits, changes voltage.", ua: "Передає енергію між двома колами, змінює напругу." },
+                svg: `<path d="M0 35 H45 M45 15 A8 8 0 0 1 45 31 M45 31 A8 8 0 0 1 45 47 M45 47 A8 8 0 0 1 45 63" transform="translate(0,-8)"/><line x1="60" y1="8" x2="60" y2="62"/><line x1="66" y1="8" x2="66" y2="62"/><path d="M120 35 H75 M75 15 A8 8 0 0 0 75 31 M75 31 A8 8 0 0 0 75 47 M75 47 A8 8 0 0 0 75 63" transform="translate(0,-8)"/>`
+            },
+            {
+                code: "K", no: "Relé", en: "Relay", ua: "Реле",
+                desc: { no: "Elektromagnetisk styrt bryter.", en: "Electromagnetically operated switch.", ua: "Електромагнітно керований вимикач." },
+                svg: `<rect x="8" y="15" width="34" height="40" rx="2"/><line x1="42" y1="35" x2="55" y2="35" stroke-dasharray="3 3"/><circle cx="70" cy="35" r="3" fill="var(--ink)"/><line x1="70" y1="33" x2="100" y2="18"/><circle cx="104" cy="35" r="3" fill="var(--ink)"/>`
+            },
+            {
+                code: "M", no: "Motor", en: "Motor", ua: "Двигун",
+                desc: { no: "Omdanner elektrisk energi til bevegelse.", en: "Converts electrical energy into motion.", ua: "Перетворює електричну енергію на рух." },
+                svg: `<line x1="0" y1="35" x2="35" y2="35"/><circle cx="60" cy="35" r="26"/><text x="60" y="42" font-size="22" text-anchor="middle" fill="var(--ink)" stroke="none" font-family="JetBrains Mono">M</text><line x1="86" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "BAT", no: "Batteri", en: "Battery", ua: "Батарея",
+                desc: { no: "Kjemisk energikilde, gir likespenning.", en: "Chemical energy source, provides DC voltage.", ua: "Хімічне джерело енергії, дає постійну напругу." },
+                svg: `<line x1="0" y1="35" x2="45" y2="35"/><line x1="45" y1="12" x2="45" y2="58"/><line x1="55" y1="22" x2="55" y2="48"/><line x1="65" y1="12" x2="65" y2="58"/><line x1="75" y1="22" x2="75" y2="48"/><line x1="75" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "L", no: "Lampe", en: "Lamp", ua: "Лампа",
+                desc: { no: "Omdanner elektrisk energi til lys.", en: "Converts electrical energy into light.", ua: "Перетворює електричну енергію на світло." },
+                svg: `<line x1="0" y1="35" x2="32" y2="35"/><circle cx="60" cy="35" r="26"/><line x1="41" y1="16" x2="79" y2="54"/><line x1="79" y1="16" x2="41" y2="54"/><line x1="88" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "KM", no: "Kontaktor", en: "Contactor", ua: "Контактор",
+                desc: { no: "Kraftig relé for å bryte høyere strøm/spenning.", en: "Heavy-duty relay for switching higher current/voltage.", ua: "Потужне реле для комутації більшого струму/напруги." },
+                svg: `<rect x="6" y="12" width="30" height="46" rx="2"/><line x1="36" y1="25" x2="50" y2="25" stroke-dasharray="3 3"/><line x1="36" y1="45" x2="50" y2="45" stroke-dasharray="3 3"/><circle cx="60" cy="25" r="3" fill="var(--ink)"/><line x1="60" y1="23" x2="88" y2="10"/><circle cx="92" cy="25" r="3" fill="var(--ink)"/><circle cx="60" cy="45" r="3" fill="var(--ink)"/><line x1="60" y1="43" x2="88" y2="30"/><circle cx="92" cy="45" r="3" fill="var(--ink)"/>`
+            },
+            {
+                code: "Q", no: "Vern / effektbryter", en: "Circuit breaker", ua: "Автоматичний вимикач",
+                desc: { no: "Bryter automatisk ved feilstrøm, kan tilbakestilles.", en: "Trips automatically on fault current, can be reset.", ua: "Автоматично розмикається при аварійному струмі, можна повернути в робочий стан." },
+                svg: `<line x1="0" y1="35" x2="30" y2="35"/><rect x="30" y="15" width="60" height="40" rx="2"/><circle cx="45" cy="35" r="3" fill="var(--ink)"/><line x1="45" y1="33" x2="75" y2="20"/><circle cx="78" cy="35" r="3" fill="var(--ink)"/><line x1="90" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "H", no: "Spole / induktor", en: "Inductor / coil", ua: "Котушка / індуктор",
+                desc: { no: "Motstår endringer i strøm via magnetfelt.", en: "Resists changes in current via a magnetic field.", ua: "Протидіє зміні струму завдяки магнітному полю." },
+                svg: `<line x1="0" y1="35" x2="20" y2="35"/><path d="M20 35 A8 12 0 0 1 40 35 A8 12 0 0 1 60 35 A8 12 0 0 1 80 35 A8 12 0 0 1 100 35"/><line x1="100" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "PE", no: "Vernleder (PE)", en: "Protective earth conductor", ua: "Захисний провідник (PE)",
+                desc: { no: "Beskyttelsesjord for berøringsvern ved feil.", en: "Protective earth for touch-safety in case of a fault.", ua: "Захисне заземлення для безпеки при пошкодженні." },
+                svg: `<line x1="60" y1="6" x2="60" y2="32"/><line x1="40" y1="32" x2="80" y2="32"/><line x1="46" y1="42" x2="74" y2="42"/><line x1="52" y1="52" x2="68" y2="52"/><line x1="30" y1="20" x2="46" y2="42"/>`
+            },
+            {
+                code: "SB-NO", no: "Trykknapp (slutte, NO)", en: "Pushbutton (make, NO)", ua: "Кнопка (замикаюча, НВ)",
+                desc: { no: "Normalt åpen — slutter kretsen kun mens den holdes inne (Start-type).", en: "Normally open — closes the circuit only while pressed (Start-type).", ua: "Нормально розімкнена — замикає коло лише під час натискання (типу «Пуск»)." },
+                svg: `<line x1="0" y1="35" x2="45" y2="35"/><line x1="45" y1="20" x2="45" y2="32"/><line x1="45" y1="38" x2="45" y2="50"/><line x1="40" y1="15" x2="55" y2="30"/><line x1="75" y1="20" x2="75" y2="32"/><line x1="75" y1="38" x2="75" y2="50"/><line x1="75" y1="35" x2="120" y2="35"/>`
+            },
+            {
+                code: "SB-NC", no: "Trykknapp (bryte, NC)", en: "Pushbutton (break, NC)", ua: "Кнопка (розмикаюча, НЗ)",
+                desc: { no: "Normalt lukket — bryter kretsen kun mens den holdes inne (Stopp-type).", en: "Normally closed — opens the circuit only while pressed (Stop-type).", ua: "Нормально замкнена — розмикає коло лише під час натискання (типу «Стоп»)." },
+                svg: `<line x1="0" y1="35" x2="45" y2="35"/><line x1="45" y1="20" x2="45" y2="32"/><line x1="45" y1="38" x2="45" y2="50"/><line x1="39" y1="48" x2="56" y2="18"/><line x1="75" y1="20" x2="75" y2="32"/><line x1="75" y1="38" x2="75" y2="50"/><line x1="75" y1="35" x2="120" y2="35"/>`
+            }
+        ];
+
+        function symSvg(s) {
+            return `<svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2.5" stroke-linecap="round">${s.svg}</svg>`;
+        }
+
+        function renderSymbols(filter) {
+            const grid = document.getElementById('symGrid');
+            const f = (filter || '').toLowerCase().trim();
+            grid.innerHTML = '';
+            symbols.filter(s => {
+                if (!f) return true;
+                return s.no.toLowerCase().includes(f) || s.en.toLowerCase().includes(f) || s.ua.toLowerCase().includes(f) || s.code.toLowerCase().includes(f);
+            }).forEach(s => {
+                const card = document.createElement('div');
+                card.className = 'symcard';
+                card.innerHTML = `
+      <div class="sym-code">${s.code}</div>
+      ${symSvg(s)}
+      <div class="sym-name">${s[currentLang]}</div>
+      <div class="sym-desc">${s.desc[currentLang]}</div>
+      <div class="trilang-row">
+        <span><b>NO</b> ${s.no}</span>
+        <span><b>EN</b> ${s.en}</span>
+        <span><b>UA</b> ${s.ua}</span>
+      </div>
+    `;
+                grid.appendChild(card);
+            });
+        }
+        document.getElementById('symSearch').addEventListener('input', e => renderSymbols(e.target.value));
+
+        /* ---------- Tutorial notes ---------- */
+        const tutInfo = {
+            battery: {
+                no: ["Batteri", "Kilden til likespenning i kretsen. Strømmen 'starter' fra plusspolen (lengre strek)."],
+                en: ["Battery", "The DC voltage source of the circuit. Current 'starts' from the plus terminal (longer line)."],
+                ua: ["Батарея", "Джерело постійної напруги в колі. Струм умовно 'починається' з плюса (довша риска)."]
+            },
+            switch: {
+                no: ["Bryter", "Åpen bryter = brutt krets, ingen strøm flyter. Lukket = strøm kan flyte videre."],
+                en: ["Switch", "Open switch = broken circuit, no current flows. Closed = current can continue."],
+                ua: ["Вимикач", "Розімкнений — коло розірване, струм не тече. Замкнений — струм може текти далі."]
+            },
+            fuse: {
+                no: ["Sikring", "Beskytter mot for høy strøm. Smelter og bryter kretsen ved overbelastning."],
+                en: ["Fuse", "Protects against excess current. Melts and breaks the circuit under overload."],
+                ua: ["Запобіжник", "Захищає від надмірного струму. Перегорає й розриває коло при перевантаженні."]
+            },
+            resistor: {
+                no: ["Motstand", "Begrenser strømmen til lampen, beskytter komponenten mot for høy strøm."],
+                en: ["Resistor", "Limits the current to the lamp, protecting it from excess current."],
+                ua: ["Резистор", "Обмежує струм до лампи, захищаючи її від надмірного струму."]
+            },
+            lamp: {
+                no: ["Lampe", "Lasten i kretsen — her omsettes elektrisk energi til lys (og litt varme)."],
+                en: ["Lamp", "The load in the circuit — electrical energy is converted to light (and some heat)."],
+                ua: ["Лампа", "Навантаження в колі — електрична енергія перетворюється на світло (і трохи тепла)."]
+            },
+            ground: {
+                no: ["Jord", "Returledningen / referansepunktet. Kretsen sluttes her tilbake til minus."],
+                en: ["Ground", "The return conductor / reference point. The circuit closes back here to minus."],
+                ua: ["Земля", "Зворотний провідник / точка відліку. Коло замикається сюди назад до мінуса."]
+            }
+        };
+        document.querySelectorAll('.tut-part').forEach(part => {
+            part.addEventListener('click', () => {
+                const key = part.getAttribute('data-part');
+                const info = tutInfo[key][currentLang];
+                document.getElementById('tut-default').innerHTML = `<div class="tn-head">${info[0]}</div><div>${info[1]}</div>`;
+            });
+        });
+
+        /* ---------- Advanced circuit: part explanations ---------- */
+        const advInfo = {
+            mainFuse: {
+                no: ["Sikring F1", "Beskytter hovedledningen mot overstrøm/kortslutning før motoren."],
+                en: ["Fuse F1", "Protects the main supply line against overcurrent/short circuit ahead of the motor."],
+                ua: ["Запобіжник F1", "Захищає живильну лінію від надструму/короткого замикання перед двигуном."]
+            },
+            mainContact: {
+                no: ["K1 hovedkontakt", "Kraftig kontakt i kontaktoren. Lukkes kun når spolen K1 er strømsatt — sender full motorstrøm."],
+                en: ["K1 main contact", "The heavy-duty contact inside the contactor. Closes only when coil K1 is energised — carries the full motor current."],
+                ua: ["Головний контакт K1", "Потужний контакт усередині контактора. Замикається лише коли котушка K1 під напругою — пропускає повний струм двигуна."]
+            },
+            mainOverload: {
+                no: ["Termisk overlastvern", "Varmeelement som måler motorstrømmen. Ved for høy strøm over tid bøyer en bimetallskive seg og løser ut vernet."],
+                en: ["Thermal overload relay", "A heating element that senses motor current. If current stays too high for too long, a bimetal strip bends and trips the relay."],
+                ua: ["Тепловий захист від перевантаження", "Нагрівальний елемент, що вимірює струм двигуна. При тривалому надструмі біметалева пластина вигинається і спрацьовує захист."]
+            },
+            motor: {
+                no: ["Motor (3~)", "Den elektriske lasten. I virkeligheten koblet til 3 faser (L1,L2,L3) — her forenklet til én linje for oversikt."],
+                en: ["Motor (3~)", "The electrical load. In reality connected to 3 phases (L1, L2, L3) — simplified here to one line for clarity."],
+                ua: ["Двигун (3~)", "Електричне навантаження. Насправді підключений до 3 фаз (L1, L2, L3) — тут спрощено до однієї лінії для наочності."]
+            },
+            stopBtn: {
+                no: ["Stopp-knapp (NC)", "Normalt lukket (sluttet). Når du trykker på den, ÅPNER den kretsen og bryter strømmen til K1."],
+                en: ["Stop button (NC)", "Normally closed. When you press it, it OPENS the circuit and cuts power to K1."],
+                ua: ["Кнопка Стоп (НЗ)", "Нормально замкнена. Коли ви її натискаєте, вона РОЗМИКАЄ коло і знімає живлення з K1."]
+            },
+            overloadAux: {
+                no: ["Overlastvernets hjelpekontakt (NC)", "Normalt lukket. Åpner automatisk når det termiske vernet løser ut — bryter styrestrømmen uansett Start/Stopp."],
+                en: ["Overload relay auxiliary contact (NC)", "Normally closed. Opens automatically when the thermal relay trips — cuts control power regardless of Start/Stop."],
+                ua: ["Допоміжний контакт теплового захисту (НЗ)", "Нормально замкнений. Автоматично розмикається при спрацюванні теплового захисту — знімає живлення керування незалежно від Пуск/Стоп."]
+            },
+            startBtn: {
+                no: ["Start-knapp (NO)", "Normalt åpen. Trykk for å slutte kretsen momentant og strømsette spolen K1."],
+                en: ["Start button (NO)", "Normally open. Press to momentarily close the circuit and energise coil K1."],
+                ua: ["Кнопка Пуск (НВ)", "Нормально розімкнена. Натисніть, щоб на мить замкнути коло та подати напругу на котушку K1."]
+            },
+            k1AuxHold: {
+                no: ["K1 hjelpekontakt — selvhold", "Lukkes samtidig med hovedkontakten. Ligger parallelt med Start-knappen og holder kretsen sluttet etter at du slipper den."],
+                en: ["K1 auxiliary contact — self-hold", "Closes at the same time as the main contact. Wired in parallel with Start, it keeps the circuit closed after you release the button."],
+                ua: ["Допоміжний контакт K1 — самоутримання", "Замикається одночасно з головним контактом. Підключений паралельно кнопці Пуск і утримує коло замкненим після відпускання кнопки."]
+            },
+            k1Coil: {
+                no: ["Spole K1", "Elektromagneten i kontaktoren. Når den er strømsatt, trekker den til og lukker alle K1-kontaktene samtidig (hoved + hjelpekontakter)."],
+                en: ["Coil K1", "The contactor's electromagnet. When energised, it pulls in and closes all K1 contacts at once (main + auxiliary)."],
+                ua: ["Котушка K1", "Електромагніт контактора. Під напругою він притягує якір і одночасно замикає всі контакти K1 (головний + допоміжні)."]
+            },
+            k1AuxH1: {
+                no: ["K1 hjelpekontakt (NO) → H1", "Lukkes når K1 er tiltrukket — tenner lampe H1 som viser at motoren er i drift."],
+                en: ["K1 auxiliary contact (NO) → H1", "Closes when K1 is picked up — lights lamp H1, showing the motor is running."],
+                ua: ["Допоміжний контакт K1 (НВ) → H1", "Замикається, коли K1 спрацював — вмикає лампу H1, що показує роботу двигуна."]
+            },
+            lampH1: {
+                no: ["Lampe H1 — i drift", "Lyser når motoren går. Grønn i mange industripaneler."],
+                en: ["Lamp H1 — running", "Lights up while the motor is running. Often green on industrial panels."],
+                ua: ["Лампа H1 — робота", "Світиться під час роботи двигуна. Часто зелена на промислових панелях."]
+            },
+            k1AuxH2: {
+                no: ["K1 hjelpekontakt (NC) → H2", "Normalt lukket, åpner når K1 trekker til — slukker H2 så snart motoren starter."],
+                en: ["K1 auxiliary contact (NC) → H2", "Normally closed, opens when K1 picks up — turns off H2 as soon as the motor starts."],
+                ua: ["Допоміжний контакт K1 (НЗ) → H2", "Нормально замкнений, розмикається коли K1 спрацьовує — вимикає H2, щойно двигун запускається."]
+            },
+            lampH2: {
+                no: ["Lampe H2 — i ro", "Lyser når motoren står stille (klar til start). Ofte hvit/gul."],
+                en: ["Lamp H2 — idle", "Lights up while the motor is stopped (ready to start). Often white/yellow."],
+                ua: ["Лампа H2 — спокій", "Світиться, коли двигун зупинений (готовий до пуску). Часто біла/жовта."]
+            }
+        };
+        document.querySelectorAll('#advanced .adv-part').forEach(part => {
+            part.addEventListener('click', () => {
+                const key = part.getAttribute('data-part');
+                const info = advInfo[key][currentLang];
+                document.getElementById('adv-default').innerHTML = `<div class="tn-head">${info[0]}</div><div>${info[1]}</div>`;
+            });
+        });
+
+        /* ---------- Advanced circuit: live simulation ---------- */
+        let k1Energized = false;
+        let overloadTripped = false;
+
+        function setBridge(id, visible) {
+            const el = document.getElementById('bridge-' + id);
+            if (el) el.style.visibility = visible ? 'visible' : 'hidden';
+        }
+        function flash(id, ms) {
+            setBridge(id, true);
+            setTimeout(() => setBridge(id, id === 'stopBtn' ? true : false), ms);
+        }
+
+        function renderAdvState() {
+            // contacts
+            setBridge('overloadAux', !overloadTripped);
+            setBridge('k1AuxHold', k1Energized);
+            setBridge('k1AuxH1', k1Energized);
+            setBridge('k1AuxH2', !k1Energized);
+            setBridge('mainContact', k1Energized);
+
+            // coil color
+            const coilRect = document.querySelector('#k1Coil') // no-op placeholder
+            document.querySelectorAll('[data-part="k1Coil"] rect').forEach(r => {
+                r.setAttribute('stroke', k1Energized ? 'var(--green)' : 'var(--ink)');
+            });
+
+            // lamps
+            document.getElementById('lampH1circle').setAttribute('stroke', k1Energized ? 'var(--green)' : 'var(--panel-line)');
+            document.getElementById('lampH1circle').setAttribute('fill', k1Energized ? 'rgba(61,255,160,0.18)' : 'none');
+            document.getElementById('lampH2circle').setAttribute('stroke', (!k1Energized) ? 'var(--amber)' : 'var(--panel-line)');
+            document.getElementById('lampH2circle').setAttribute('fill', (!k1Energized) ? 'rgba(255,178,56,0.16)' : 'none');
+
+            // motor
+            const motorRunning = k1Energized && !overloadTripped;
+            const blade = document.getElementById('motorBlade');
+            blade.classList.toggle('spin', motorRunning);
+            document.querySelectorAll('[data-part="motor"] circle').forEach(c => {
+                c.setAttribute('stroke', motorRunning ? 'var(--green)' : 'var(--amber)');
+            });
+
+            // status pills
+            const pillK1 = document.getElementById('pillK1');
+            pillK1.classList.toggle('live', k1Energized);
+            pillK1.querySelector('span:last-child').textContent = translations[k1Energized ? 'adv_pill_k1_on' : 'adv_pill_k1_off'][currentLang];
+
+            const pillMotor = document.getElementById('pillMotor');
+            pillMotor.classList.toggle('live', motorRunning);
+            pillMotor.querySelector('span:last-child').textContent = translations[motorRunning ? 'adv_pill_motor_on' : 'adv_pill_motor_off'][currentLang];
+
+            const pillOverload = document.getElementById('pillOverload');
+            pillOverload.classList.toggle('fault', overloadTripped);
+            pillOverload.querySelector('span:last-child').textContent = translations[overloadTripped ? 'adv_pill_overload_tripped' : 'adv_pill_overload_ok'][currentLang];
+        }
+
+        document.getElementById('advStart').addEventListener('click', () => {
+            flash('startBtn', 250);
+            if (!overloadTripped) { k1Energized = true; }
+            renderAdvState();
+        });
+        document.getElementById('advStop').addEventListener('click', () => {
+            setBridge('stopBtn', false);
+            setTimeout(() => setBridge('stopBtn', true), 250);
+            k1Energized = false;
+            renderAdvState();
+        });
+        document.getElementById('advTrip').addEventListener('click', () => {
+            overloadTripped = true;
+            k1Energized = false;
+            renderAdvState();
+        });
+        document.getElementById('advReset').addEventListener('click', () => {
+            overloadTripped = false;
+            renderAdvState();
+        });
+        renderAdvState();
+
+        /* ---------- Railway track circuit: part explanations ---------- */
+        const railInfo = {
+            railBattery: {
+                no: ["Sporbatteri", "Gir en lav, ufarlig likespenning som mates inn på skinnegangen — selve energikilden for sporfeltet."],
+                en: ["Track battery", "Supplies a low, harmless DC voltage fed into the rails — the energy source for the track circuit."],
+                ua: ["Батарея колії", "Подає низьку, безпечну постійну напругу в рейки — джерело енергії для рейкового кола."]
+            },
+            feedResistor: {
+                no: ["Matemotstand", "Begrenser strømmen som sendes inn på skinnegangen til et trygt, definert nivå."],
+                en: ["Feed resistor", "Limits the current fed into the rails to a safe, defined level."],
+                ua: ["Живильний резистор", "Обмежує струм, що подається в рейки, до безпечного визначеного рівня."]
+            },
+            railTop: {
+                no: ["Skinne (matesiden)", "Den ene skinnestrengen leder strømmen fra batteriet til relégruppen i andre enden."],
+                en: ["Rail (feed side)", "One rail conducts current from the battery to the relay at the far end."],
+                ua: ["Рейка (живильна сторона)", "Одна рейка проводить струм від батареї до реле на іншому кінці."]
+            },
+            railBottom: {
+                no: ["Skinne (returleder)", "Den andre skinnestrengen fører strømmen tilbake — sammen danner skinnene en lukket krets når sporet er fritt."],
+                en: ["Rail (return path)", "The other rail carries the current back — together the two rails form a closed loop when the section is clear."],
+                ua: ["Рейка (зворотний провід)", "Друга рейка веде струм назад — разом рейки утворюють замкнене коло, коли ділянка вільна."]
+            },
+            trackRelay: {
+                no: ["Sporrelé (SR)", "Overvåker skinnegangen. Trekker til når sporet er fritt (strøm flyter), faller når sporet er opptatt eller det oppstår en feil."],
+                en: ["Track relay (SR)", "Monitors the rails. Picks up when the section is clear (current flows), drops when the track is occupied or a fault occurs."],
+                ua: ["Реле колії (SR)", "Контролює рейки. Спрацьовує, коли ділянка вільна (тече струм), відпадає, коли колія зайнята або сталася несправність."]
+            },
+            trainWheelset: {
+                no: ["Hjulaksling (kortslutning)", "Når toget står på skinnene, kortslutter de metalliske hjulene og akslingen skinnegangen — dette er selve prinsippet bak togdeteksjon."],
+                en: ["Wheelset (short-circuit)", "When the train sits on the rails, its metal wheels and axle short the two rails together — this is the core principle behind train detection."],
+                ua: ["Колісна пара (коротке замикання)", "Коли потяг стоїть на рейках, металеві колеса й вісь замикають рейки між собою — це основний принцип виявлення потяга."]
+            },
+            signalStop: {
+                no: ["Signallampe STOPP", "Lyser når sporrelé har falt — enten fordi sporet er opptatt, eller fordi noe er feil. Dette er standardtilstanden (fail-safe)."],
+                en: ["STOP signal lamp", "Lights when the track relay has dropped — either because the track is occupied, or because something is wrong. This is the default, safe state."],
+                ua: ["Сигнальна лампа СТІЙ", "Світиться, коли реле колії відпало — через зайняту колію або несправність. Це стан за замовчуванням (безпечний)."]
+            },
+            signalGo: {
+                no: ["Signallampe KJØR", "Lyser KUN når sporrelé er tiltrukket, altså når hele kretsen er intakt og sporet påviselig er fritt."],
+                en: ["PROCEED signal lamp", "Lights ONLY when the track relay is picked up — meaning the entire circuit is intact and the track is provably clear."],
+                ua: ["Сигнальна лампа РУХ ДОЗВОЛЕНО", "Світиться ЛИШЕ коли реле колії спрацювало — тобто все коло ціле, і колія доведено вільна."]
+            }
+        };
+        document.querySelectorAll('#railway .adv-part').forEach(part => {
+            part.addEventListener('click', () => {
+                const key = part.getAttribute('data-part');
+                if (!railInfo[key]) return;
+                const info = railInfo[key][currentLang];
+                document.getElementById('rail-default').innerHTML = `<div class="tn-head">${info[0]}</div><div>${info[1]}</div>`;
+            });
+        });
+
+        let trainOnTrack = false;
+        let wireCut = false;
+
+        function renderRailState() {
+            const relayUp = !trainOnTrack && !wireCut;
+
+            document.getElementById('trainIcon').style.visibility = trainOnTrack ? 'visible' : 'hidden';
+            document.getElementById('railCutMarker').style.visibility = wireCut ? 'visible' : 'hidden';
+            document.getElementById('railTopWire1').setAttribute('stroke', (trainOnTrack || wireCut) ? 'var(--muted)' : 'var(--ink)');
+            document.getElementById('railTopWire2').setAttribute('stroke', relayUp ? 'var(--ink)' : 'var(--muted)');
+
+            document.querySelectorAll('[data-part="trackRelay"] rect').forEach(r => {
+                r.setAttribute('stroke', relayUp ? 'var(--green)' : 'var(--red)');
+            });
+
+            const stopC = document.getElementById('lampStopCircle');
+            const goC = document.getElementById('lampGoCircle');
+            stopC.setAttribute('fill', relayUp ? 'none' : 'rgba(255,107,107,0.35)');
+            stopC.setAttribute('stroke', relayUp ? 'var(--panel-line)' : 'var(--red)');
+            goC.setAttribute('fill', relayUp ? 'rgba(61,255,160,0.3)' : 'none');
+            goC.setAttribute('stroke', relayUp ? 'var(--green)' : 'var(--panel-line)');
+
+            const pillTrack = document.getElementById('pillTrack');
+            pillTrack.classList.toggle('fault', trainOnTrack);
+            pillTrack.querySelector('span:last-child').textContent = translations[trainOnTrack ? 'rail_pill_track_occ' : 'rail_pill_track_clear'][currentLang];
+
+            const pillRelay = document.getElementById('pillRelay');
+            pillRelay.classList.toggle('live', relayUp);
+            pillRelay.classList.toggle('fault', !relayUp);
+            pillRelay.querySelector('span:last-child').textContent = translations[relayUp ? 'rail_pill_relay_up' : 'rail_pill_relay_dn'][currentLang];
+
+            const pillSignal = document.getElementById('pillSignal');
+            pillSignal.classList.toggle('live', relayUp);
+            pillSignal.classList.toggle('fault', !relayUp);
+            pillSignal.querySelector('span:last-child').textContent = translations[relayUp ? 'rail_pill_signal_go' : 'rail_pill_signal_stop'][currentLang];
+
+            document.getElementById('railTrainLabel').textContent = translations[trainOnTrack ? 'rail_btn_train_on' : 'rail_btn_train_off'][currentLang];
+            document.getElementById('railCutLabel').textContent = translations[wireCut ? 'rail_btn_cut_on' : 'rail_btn_cut_off'][currentLang];
+            document.getElementById('railTrainToggle').classList.toggle('on', trainOnTrack);
+            document.getElementById('railCutToggle').classList.toggle('on', wireCut);
+        }
+        document.getElementById('railTrainToggle').addEventListener('click', () => {
+            trainOnTrack = !trainOnTrack;
+            renderRailState();
+        });
+        document.getElementById('railCutToggle').addEventListener('click', () => {
+            wireCut = !wireCut;
+            renderRailState();
+        });
+        renderRailState();
+
+        /* ---------- Store panel: part explanations ---------- */
+        const panelInfo = {
+            incomingGrid: {
+                no: ["Innmating fra nettet", "Trefase 400V TN-forsyning fra strømnettet inn til butikkens tavle."],
+                en: ["Incoming grid supply", "Three-phase 400V TN supply from the grid into the store's panel."],
+                ua: ["Живлення з мережі", "Трифазне живлення 400В TN з мережі до щита магазину."]
+            },
+            kwhMeter: {
+                no: ["Strømmåler (kWh)", "Måler totalt strømforbruk for butikken — grunnlag for nettleie og strømregning."],
+                en: ["Energy meter (kWh)", "Measures total power consumption for the store — the basis for grid fees and the power bill."],
+                ua: ["Лічильник (кВт·год)", "Вимірює загальне споживання магазину — основа для рахунків за електроенергію."]
+            },
+            mainBreaker: {
+                no: ["Hovedbryter", "Bryter/skiller hele tavla fra nettet. Brukes ved arbeid på tavla eller ved akutt behov for å kutte alt."],
+                en: ["Main breaker", "Disconnects the entire panel from the grid. Used when working on the panel, or to cut everything in an emergency."],
+                ua: ["Головний вимикач", "Від'єднує весь щит від мережі. Використовується під час робіт на щиті або в екстреному випадку."]
+            },
+            mainBus: {
+                no: ["Hovedskinne", "Samleskinne (L1, L2, L3, N, PE) som fordeler strømmen videre ut til alle kursene i tavla."],
+                en: ["Main busbar", "Busbar (L1, L2, L3, N, PE) that distributes power out to every circuit in the panel."],
+                ua: ["Головна шина", "Збірна шина (L1, L2, L3, N, PE), що розподіляє живлення на всі групи щита."]
+            },
+            lightProtection: {
+                no: ["Sikring + jordfeilbryter, belysning", "10A automatsikring beskytter kabelen mot overbelastning; 30mA RCD kutter kursen raskt ved jordfeil i en lampe eller ledning."],
+                en: ["Breaker + RCD, lighting", "A 10A MCB protects the cable from overload; a 30mA RCD trips the circuit quickly on a ground fault in a lamp or cable."],
+                ua: ["Автомат + ПЗВ, освітлення", "10А автомат захищає кабель від перевантаження; 30мА ПЗВ швидко вимикає групу при замиканні на землю в лампі чи проводці."]
+            },
+            lightLoad: {
+                no: ["Belysning butikklokale", "Den elektriske lasten — armaturer i taket og over hyllene. Slukker helt hvis kursen faller ut."],
+                en: ["Shop lighting", "The electrical load — ceiling and shelf luminaires. Goes completely dark if this circuit trips."],
+                ua: ["Освітлення торгового залу", "Електричне навантаження — світильники на стелі й над полицями. Повністю гасне, якщо група вимкнеться."]
+            },
+            fridgeProtection: {
+                no: ["Sikring + jordfeilbryter, kjøl/frys", "16A sikring og egen RCD. Ofte type A (reagerer også på pulserende likestrømsfeil fra kompressorens elektronikk)."],
+                en: ["Breaker + RCD, refrigeration", "16A breaker and its own RCD. Often type A (also senses pulsed DC fault currents from the compressor's electronics)."],
+                ua: ["Автомат + ПЗВ, холодильне обладнання", "16А автомат і власний ПЗВ. Часто типу A (реагує й на пульсуючі постійнострумові витоки від електроніки компресора)."]
+            },
+            fridgeLoad: {
+                no: ["Kjøl- og fryseskap", "Kritisk last for en butikk — et strømbrudd her kan ødelegge varer. Vurderes ofte med alarm ved utfall."],
+                en: ["Fridges and freezers", "A critical load for a store — an outage here can spoil goods. Often fitted with a failure alarm."],
+                ua: ["Холодильні та морозильні шафи", "Критичне навантаження для магазину — відключення може зіпсувати товар. Часто оснащують аварійною сигналізацією."]
+            },
+            acProtection: {
+                no: ["Sikring, kontaktor og termisk vern, klimaanlegg", "20A automatsikring, en kontaktor som slår kompressoren av/på, og et termisk overlastvern som beskytter motoren — samme prinsipp som i motorstyringen tidligere."],
+                en: ["Breaker, contactor and thermal overload, AC unit", "A 20A breaker, a contactor that switches the compressor on/off, and a thermal overload protecting the motor — the same principle as the motor control seen earlier."],
+                ua: ["Автомат, контактор і тепловий захист, кондиціонер", "20А автомат, контактор, що вмикає/вимикає компресор, і тепловий захист двигуна — той самий принцип, що й у схемі керування двигуном раніше."]
+            },
+            acLoad: {
+                no: ["Klimaanlegg (kompressor, 3~)", "Trefase motorlast. Ofte uten egen RCD siden frekvensomformer/lange kabler kan gi lekkstrømmer som utløser unødvendig."],
+                en: ["Air conditioning (compressor, 3~)", "A three-phase motor load. Often without its own RCD, since a VFD or long cables can create leakage currents that trip it unnecessarily."],
+                ua: ["Кондиціонер (компресор, 3~)", "Трифазне двигунне навантаження. Часто без власного ПЗВ, бо перетворювач частоти чи довгі кабелі можуть давати струми витоку, що спричиняють хибні спрацювання."]
+            },
+            socketProtection: {
+                no: ["Sikring + jordfeilbryter, stikkontakter", "16A sikring og 30mA RCD — påkrevd for de fleste alminnelige stikkontaktkurser, siden det ofte kobles til bærbart/håndholdt utstyr her."],
+                en: ["Breaker + RCD, socket outlets", "A 16A breaker and 30mA RCD — required for most general socket-outlet circuits, since portable/hand-held equipment is often plugged in here."],
+                ua: ["Автомат + ПЗВ, розетки", "16А автомат і 30мА ПЗВ — потрібні для більшості груп розеток загального призначення, бо сюди часто підключають переносне обладнання."]
+            },
+            socketLoad: {
+                no: ["Stikkontakter", "Forsyner alt fra kasseapparat til støvsuger og ladere. Høy risiko for jordfeil pga. variert og skiftende utstyr."],
+                en: ["Socket outlets", "Supplies everything from the till to vacuum cleaners and chargers. Higher risk of ground faults due to varied, changing equipment."],
+                ua: ["Розетки", "Живлять усе — від каси до пилососа й зарядних пристроїв. Вищий ризик замикання на землю через різноманітне обладнання."]
+            },
+            emergProtection: {
+                no: ["Sikring + jordfeilbryter, nødlys", "6A sikring og RCD. I mange bygg fôres nødlys/rømningslys også fra eget batteri slik at det virker selv om selve tavla mister strøm."],
+                en: ["Breaker + RCD, emergency lighting", "A 6A breaker and RCD. In many buildings, emergency/escape lighting also has its own battery backup so it still works even if the panel itself loses power."],
+                ua: ["Автомат + ПЗВ, аварійне освітлення", "6А автомат і ПЗВ. У багатьох будівлях аварійне освітлення також має власний акумулятор, щоб працювати навіть при знеструмленні щита."]
+            },
+            emergLoad: {
+                no: ["Nødlys / rømningslys", "Viser vei ut ved strømbrudd eller brann — et sikkerhetskrav, ikke bare komfort."],
+                en: ["Emergency / escape lighting", "Shows the way out during a power cut or fire — a safety requirement, not just a comfort feature."],
+                ua: ["Аварійне освітлення / освітлення евакуації", "Показує шлях назовні під час відключення чи пожежі — вимога безпеки, а не просто зручність."]
+            }
+        };
+        document.querySelectorAll('#panel .adv-part').forEach(part => {
+            part.addEventListener('click', () => {
+                const key = part.getAttribute('data-part');
+                if (!panelInfo[key]) return;
+                const info = panelInfo[key][currentLang];
+                document.getElementById('panel-default').innerHTML = `<div class="tn-head">${info[0]}</div><div>${info[1]}</div>`;
+            });
+        });
+
+        /* ---------- Store panel: main breaker + RCD selectivity simulation ---------- */
+        let panelMainOn = true;
+        let socketFaultTripped = false;
+
+        function dimGroup(idSuffix, on) {
+            const load = document.getElementById('loadIcon-' + idSuffix);
+            const line = document.getElementById('loadLine-' + idSuffix);
+            if (load) { load.setAttribute('stroke', on ? 'var(--ink)' : 'var(--panel-line)'); }
+            if (line) { line.setAttribute('stroke', on ? 'var(--ink)' : 'var(--panel-line)'); }
+        }
+
+        function renderPanelState() {
+            setBridge('mainBreaker', panelMainOn);
+
+            const socketOn = panelMainOn && !socketFaultTripped;
+            const othersOn = panelMainOn;
+
+            dimGroup('light', othersOn);
+            dimGroup('fridge', othersOn);
+            dimGroup('socket', socketOn);
+            dimGroup('emerg', othersOn);
+
+            document.querySelectorAll('#loadIconX1-light, #loadIconX2-light').forEach(l => l.setAttribute('stroke', othersOn ? 'var(--ink)' : 'var(--panel-line)'));
+            document.getElementById('socketPin1').setAttribute('stroke', socketOn ? 'var(--ink)' : 'var(--panel-line)');
+            document.getElementById('socketPin2').setAttribute('stroke', socketOn ? 'var(--ink)' : 'var(--panel-line)');
+            document.getElementById('rcdRect-socket').setAttribute('stroke', socketFaultTripped ? 'var(--red)' : 'var(--cyan)');
+
+            const acOn = panelMainOn; // AC has no individual RCD in this model, only main breaker affects it
+            document.querySelectorAll('[data-part="acLoad"] circle').forEach(c => c.setAttribute('stroke', acOn ? 'var(--amber)' : 'var(--panel-line)'));
+            document.getElementById('acMotorBlade').classList.toggle('spin', acOn);
+            document.getElementById('acMotorBlade').setAttribute('stroke', acOn ? 'var(--amber)' : 'var(--panel-line)');
+
+            const pillMain = document.getElementById('pillMain');
+            pillMain.classList.toggle('live', panelMainOn);
+            pillMain.classList.toggle('fault', !panelMainOn);
+            pillMain.querySelector('span:last-child').textContent = translations[panelMainOn ? 'panel_pill_main_on' : 'panel_pill_main_off'][currentLang];
+
+            const pillSocket = document.getElementById('pillSocket');
+            pillSocket.classList.toggle('live', socketOn);
+            pillSocket.classList.toggle('fault', socketFaultTripped);
+            pillSocket.querySelector('span:last-child').textContent = translations[socketFaultTripped ? 'panel_pill_socket_tripped' : 'panel_pill_socket_ok'][currentLang];
+
+            document.getElementById('panelMainLabel').textContent = translations[panelMainOn ? 'panel_btn_main_on' : 'panel_btn_main_off'][currentLang];
+            document.getElementById('panelFaultLabel').textContent = translations[socketFaultTripped ? 'panel_btn_fault_on' : 'panel_btn_fault_off'][currentLang];
+            document.getElementById('panelMainToggle').classList.toggle('on', panelMainOn);
+            document.getElementById('panelFaultToggle').classList.toggle('on', socketFaultTripped);
+        }
+        document.getElementById('panelMainToggle').addEventListener('click', () => {
+            panelMainOn = !panelMainOn;
+            renderPanelState();
+        });
+        document.getElementById('panelFaultToggle').addEventListener('click', () => {
+            socketFaultTripped = !socketFaultTripped;
+            renderPanelState();
+        });
+        renderPanelState();
+
+        /* ---------- Quiz ---------- */
+        let quizCorrect = 0, quizTotal = 0, quizCurrent = null;
+        function pickQuizSymbol() {
+            quizCurrent = symbols[Math.floor(Math.random() * symbols.length)];
+            document.getElementById('quizSvg').innerHTML = symSvg(quizCurrent);
+            renderQuizOptions();
+            document.getElementById('quizFeedback').textContent = '';
+        }
+        function renderQuizOptions() {
+            if (!quizCurrent) return;
+            const optsBox = document.getElementById('quizOptions');
+            optsBox.innerHTML = '';
+            let pool = symbols.filter(s => s.code !== quizCurrent.code);
+            pool = pool.sort(() => Math.random() - 0.5).slice(0, 3);
+            pool.push(quizCurrent);
+            pool = pool.sort(() => Math.random() - 0.5);
+            pool.forEach(s => {
+                const b = document.createElement('button');
+                b.className = 'qopt';
+                b.textContent = s[currentLang];
+                b.addEventListener('click', () => {
+                    document.querySelectorAll('.qopt').forEach(x => x.disabled = true);
+                    quizTotal++;
+                    const fb = document.getElementById('quizFeedback');
+                    if (s.code === quizCurrent.code) {
+                        b.classList.add('correct');
+                        quizCorrect++;
+                        fb.textContent = { no: "Riktig!", en: "Correct!", ua: "Правильно!" }[currentLang];
+                    } else {
+                        b.classList.add('wrong');
+                        fb.textContent = { no: "Feil — riktig svar: ", en: "Wrong — correct answer: ", ua: "Неправильно — правильна відповідь: " }[currentLang] + quizCurrent[currentLang];
+                        document.querySelectorAll('.qopt').forEach(x => { if (x.textContent === quizCurrent[currentLang]) x.classList.add('correct'); });
+                    }
+                    document.getElementById('quizScore').textContent = `${quizCorrect} / ${quizTotal}`;
+                });
+                optsBox.appendChild(b);
+            });
+        }
+        document.getElementById('quizNext').addEventListener('click', pickQuizSymbol);
+        document.getElementById('quizReset').addEventListener('click', () => {
+            quizCorrect = 0; quizTotal = 0;
+            document.getElementById('quizScore').textContent = '0 / 0';
+            pickQuizSymbol();
+        });
+        pickQuizSymbol();
+
+        /* ---------- Multimeter simulator ---------- */
+        /* Circuit: A(batt+, 12V) -- switch -- B -- resistor(100ohm) -- C -- lamp(60ohm) -- D(back to batt-, 0V) */
+        const circuitNodes = { A: 12, B: 12, C: null, D: 0 }; // C value depends on switch (voltage divider), computed dynamically
+        let switchOn = false;
+        let mode = 'v';
+        let redPoint = null, blackPoint = null;
+
+        function nodeVoltage(node) {
+            // battery 12V, resistor 100, lamp(as resistor) 60 -> if switch on, current flows, else A/B floats at battery, C/D pulled to 0 or floating
+            const Vs = 12, Rres = 100, Rlamp = 60;
+            if (node === 'A') return 12;
+            if (!switchOn) {
+                // circuit open at switch: B floats at source side potential = 12 (no current, no drop)... but after open switch, B side undefined/floating -> treat as 12 (still connected to A) actually switch breaks between B and node after; per our schematic switch is between A-ish and B node itself is AFTER switch.
+                if (node === 'B') return null; // open circuit, floating (no reliable reading) -> multimeter would show OL or drift
+                if (node === 'C') return null;
+                if (node === 'D') return 0;
+            } else {
+                const Itot = Vs / (Rres + Rlamp);
+                if (node === 'B') return 12;
+                if (node === 'C') return Itot * Rlamp; // voltage remaining across lamp
+                if (node === 'D') return 0;
+            }
+        }
+        function resistanceBetween(p1, p2) {
+            const Rres = 100, Rlamp = 60;
+            const order = ['A', 'B', 'C', 'D'];
+            const i1 = order.indexOf(p1), i2 = order.indexOf(p2);
+            const lo = Math.min(i1, i2), hi = Math.max(i1, i2);
+            // resistance of the passive network between points (assuming battery replaced by wire is NOT realistic -
+            // for teaching purposes we just report component resistances between adjacent labeled points)
+            if (lo === 0 && hi === 1) return switchOn ? 0 : Infinity; // across switch
+            if (lo === 1 && hi === 2) return Rres; // across resistor
+            if (lo === 2 && hi === 3) return Rlamp; // across lamp
+            if (lo === 0 && hi === 2) return switchOn ? Rres : Infinity;
+            if (lo === 1 && hi === 3) return Rres + Rlamp;
+            if (lo === 0 && hi === 3) return switchOn ? (Rres + Rlamp) : Infinity;
+            return null;
+        }
+
+        function updateMeterModeText() {
+            const head = document.getElementById('mmModeHead');
+            const body = document.getElementById('mmModeBody');
+            const map = { v: 'mm_mode_v', ohm: 'mm_mode_ohm', cont: 'mm_mode_cont', a: 'mm_mode_a' };
+            const key = map[mode];
+            head.textContent = translations[key + '_head'][currentLang];
+            body.textContent = translations[key + '_body'][currentLang];
+        }
+
+        function formatOhm(r) {
+            if (r === Infinity) return 'OL';
+            if (r >= 1000) return (r / 1000).toFixed(2) + ' k';
+            return r.toFixed(0);
+        }
+
+        let audioCtx = null;
+        function playBeep() {
+            try {
+                audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'square';
+                osc.frequency.value = 2000;
+                gain.gain.value = 0.05;
+                osc.connect(gain).connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.14);
+            } catch (e) { /* audio not available, fail silently */ }
+        }
+
+        function setWarning(text, level) {
+            const w = document.getElementById('mmWarning');
+            if (!text) { w.classList.add('hide'); w.textContent = ''; return; }
+            w.classList.remove('hide');
+            w.className = 'mm-warning ' + level;
+            w.textContent = text;
+        }
+
+        function setBar(pct) {
+            document.getElementById('mmBarFill').style.width = Math.max(0, Math.min(100, pct)) + '%';
+        }
+
+        let lastContinuityBeep = false;
+
+        function updateMeter() {
+            const unitEl = document.getElementById('mmUnit');
+            const valEl = document.getElementById('mmValue');
+            const stateEl = document.getElementById('mmProbeState');
+            setWarning(null);
+            setBar(0);
+
+            if (!redPoint || !blackPoint || redPoint === blackPoint) {
+                unitEl.textContent = { v: 'V DC', ohm: 'Ω', cont: '•)))', a: 'mA DC' }[mode];
+                valEl.textContent = '– – –';
+                stateEl.innerHTML = translations.mm_probe_prompt[currentLang];
+                return;
+            }
+            stateEl.textContent = `${translations.mm_red[currentLang]}: ${redPoint}  |  ${translations.mm_black[currentLang]}: ${blackPoint}`;
+
+            const order = ['A', 'B', 'C', 'D'];
+            const adjacent = Math.abs(order.indexOf(redPoint) - order.indexOf(blackPoint)) === 1;
+
+            if (mode === 'v') {
+                unitEl.textContent = 'V DC';
+                const vr = nodeVoltage(redPoint), vb = nodeVoltage(blackPoint);
+                if (vr === null || vb === null) { valEl.textContent = '0.00'; setBar(0); }
+                else { const diff = vr - vb; valEl.textContent = diff.toFixed(2); setBar(Math.abs(diff) / 12 * 100); }
+            } else if (mode === 'ohm') {
+                unitEl.textContent = 'Ω';
+                if (switchOn) {
+                    valEl.textContent = 'OL';
+                    setWarning(translations.mm_warn_energized[currentLang], 'amber');
+                } else {
+                    const r = resistanceBetween(redPoint, blackPoint);
+                    valEl.textContent = formatOhm(r);
+                    setBar(r === Infinity ? 100 : Math.min(100, r / 2));
+                }
+            } else if (mode === 'cont') {
+                unitEl.textContent = '•)))';
+                if (switchOn) {
+                    valEl.textContent = '– – –';
+                    setWarning(translations.mm_warn_energized[currentLang], 'amber');
+                } else {
+                    const r = resistanceBetween(redPoint, blackPoint);
+                    const beeping = (r !== Infinity && r < 10);
+                    valEl.textContent = beeping ? '0.0 Ω ♪' : 'OL';
+                    setBar(beeping ? 100 : 0);
+                    if (beeping && !lastContinuityBeep) playBeep();
+                    lastContinuityBeep = beeping;
+                }
+            } else if (mode === 'a') {
+                unitEl.textContent = 'mA DC';
+                if (!adjacent) {
+                    valEl.textContent = 'ERR';
+                    setWarning(translations.mm_warn_seriesonly[currentLang], 'danger');
+                } else {
+                    const Itot = switchOn ? (12 / (100 + 60)) * 1000 : 0;
+                    valEl.textContent = Itot.toFixed(1);
+                    setBar(Itot / 100 * 100);
+                }
+            }
+        }
+
+        document.querySelectorAll('.probe-point').forEach(p => {
+            p.addEventListener('click', () => {
+                const point = p.getAttribute('data-point');
+                // left-click cycles: none -> red -> black(if not same) ; simplistic: alt assignment based on which is unset
+                if (redPoint === point) { redPoint = null; }
+                else if (blackPoint === point) { blackPoint = null; }
+                else if (!redPoint) { redPoint = point; }
+                else if (!blackPoint) { blackPoint = point; }
+                else { redPoint = point; blackPoint = null; }
+
+                document.querySelectorAll('.probe-point').forEach(pp => {
+                    pp.classList.remove('sel-red', 'sel-black');
+                    const pt = pp.getAttribute('data-point');
+                    if (pt === redPoint) pp.classList.add('sel-red');
+                    if (pt === blackPoint) pp.classList.add('sel-black');
+                });
+                updateMeter();
+            });
+        });
+
+        document.querySelectorAll('.mode-btn').forEach(b => {
+            b.addEventListener('click', () => {
+                document.querySelectorAll('.mode-btn').forEach(x => x.classList.remove('active'));
+                b.classList.add('active');
+                mode = b.getAttribute('data-mode');
+                updateMeterModeText();
+                updateMeter();
+            });
+        });
+
+        const swToggle = document.getElementById('mmSwitchToggle');
+        swToggle.addEventListener('click', () => {
+            switchOn = !switchOn;
+            swToggle.classList.toggle('on', switchOn);
+            document.getElementById('mmSwitchLabel').textContent = switchOn ? translations.mm_switch_on[currentLang] : translations.mm_switch_off[currentLang];
+            document.getElementById('mmSwitchArm').setAttribute('x2', switchOn ? '176' : '170');
+            document.getElementById('mmSwitchArm').setAttribute('y2', switchOn ? '30' : '12');
+            updateMeter();
+        });
+
+        /* init */
+        renderSymbols('');
+        applyLang('no');
+        updateMeter();
+    </script>
+</body>
+
+</html>
